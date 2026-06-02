@@ -147,6 +147,11 @@ def main():
                            "pct": round(float(r.gain / tot * 100), 1)}
                           for _, r in imp2.iterrows()])
 
+    # ---- back-test detail for native (theme-aware) trust charts ----
+    bt_path = os.path.join(REPORTS, "backtest_web.json")
+    if os.path.exists(bt_path):
+        w("backtest.json", json.load(open(bt_path)))
+
     # ---- learned seasonality by archetype x month ----
     hm = hist.merge(listings[["listing_id", "archetype"]], on="listing_id")
     hm["month"] = hm["date"].dt.month

@@ -29,24 +29,23 @@ export function smooth(arr, w = 7) {
   });
 }
 
-// interpolate occupancy -> warm teal heat colour
-export function heatColor(v, lo = 0.45, hi = 0.85) {
+const hexToRgb = (h) => {
+  const n = parseInt(h.replace("#", ""), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+
+// interpolate occupancy -> heat colour across theme-provided hex stops
+export function heatColor(v, stops, lo = 0.45, hi = 0.85) {
+  const rgbs = stops.map(hexToRgb);
   const t = Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
-  // sand (#f0e7d4) -> teal (#0e7c80) -> deep (#0a4244)
-  const stops = [
-    [240, 231, 212],
-    [124, 192, 191],
-    [14, 124, 128],
-    [10, 66, 68],
-  ];
-  const seg = t * (stops.length - 1);
-  const i = Math.min(stops.length - 2, Math.floor(seg));
+  const seg = t * (rgbs.length - 1);
+  const i = Math.min(rgbs.length - 2, Math.floor(seg));
   const f = seg - i;
-  const c = stops[i].map((a, k) => Math.round(a + (stops[i + 1][k] - a) * f));
-  return `rgb(${c[0]},${c[1]},${c[2]})`;
+  const c = rgbs[i].map((a, k) => Math.round(a + (rgbs[i + 1][k] - a) * f));
+  return { rgb: `rgb(${c[0]},${c[1]},${c[2]})`, lum: 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2] };
 }
 
-export const heatText = (v) => (v > 0.66 ? "#fff" : "#3a2f1c");
+export const heatText = (lum) => (lum > 150 ? "#1a1a1a" : "#ffffff");
 
 // chunk daily arrays into weeks of 7 and average
 export function weekly(dates, arr) {

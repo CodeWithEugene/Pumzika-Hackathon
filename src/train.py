@@ -229,6 +229,36 @@ def main():
     make_figures(last_fold_pred, imp)
     print("Saved reports/figures/*.png")
 
+    # ---- machine-readable back-test data for the (theme-aware) web app --
+    export_backtest_json(last_fold_pred)
+    print("Saved reports/backtest_web.json")
+
+
+def export_backtest_json(te):
+    te = te.copy()
+    # calibration curve
+    bins = np.linspace(0, 1, 11)
+    te["bin"] = pd.cut(te["pred"], bins, include_lowest=True)
+    cal = te.groupby("bin").agg(p=("pred", "mean"),
+                                o=("booked", "mean")).dropna()
+    calibration = [{"p": round(float(r.p), 3), "o": round(float(r.o), 3)}
+                   for _, r in cal.iterrows()]
+    # forecast vs actual, weekly, a few representative markets
+    te["week"] = te["date"].dt.to_period("W").apply(lambda p: p.start_time)
+    mw = te.groupby(["market", "week"]).agg(
+        actual=("booked", "mean"), pred=("pred", "mean"),
+        seasonal=("b_seasonal", "mean")).reset_index()
+    fva = {}
+    for m in ["Maasai Mara", "Zanzibar", "Nairobi", "Serengeti"]:
+        s = mw[mw.market == m].sort_values("week")
+        fva[m] = [{"week": w.strftime("%Y-%m-%d"),
+                   "actual": round(float(a), 3), "pred": round(float(p), 3),
+                   "seasonal": round(float(se), 3)}
+                  for w, a, p, se in zip(s.week, s.actual, s.pred, s.seasonal)]
+    with open(os.path.join(REPORTS, "backtest_web.json"), "w") as f:
+        json.dump({"calibration": calibration, "fva": fva}, f,
+                  separators=(",", ":"))
+
 
 # ---------------------------------------------------------------------------
 def make_figures(te, imp):
