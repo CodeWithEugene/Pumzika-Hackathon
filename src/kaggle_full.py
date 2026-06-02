@@ -2,14 +2,15 @@
 kaggle_full.py
 ==============
 Full pipeline for the Kaggle Hotel Booking Demand dataset.
-Per-hotel ensemble (LGB+XGB+CatBoost) on logit-transformed target, extended
-features, quantile intervals.  Uses only features computable for future dates
-(no lag features), so the same model powers back-test and forward forecast.
+Per-hotel ensemble (LGB+XGB+CatBoost) on logit-transformed target with
+weighted blend, extended features, LGB hyperparam search, quantile intervals.
+Uses only features computable for future dates (no lag features), so the
+same model powers back-test and forward forecast.
 
 Run after:  python src/fetch_kaggle_hotel.py
 """
 
-import os, json, warnings
+import os, json, warnings, itertools
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
@@ -28,38 +29,44 @@ FWD_HORIZON = 214
 NUM_ROUNDS = 1500
 ES_ROUNDS = 80
 
-LGB_MEAN = dict(
+LGB_BASE = dict(
     objective="regression", metric="mae", verbosity=-1,
-    learning_rate=0.03, num_leaves=63, min_child_samples=20,
-    feature_fraction=0.85, bagging_fraction=0.85, bagging_freq=1,
+    min_child_samples=20, feature_fraction=0.85,
+    bagging_fraction=0.85, bagging_freq=1,
     lambda_l1=0.5, lambda_l2=0.5, max_depth=-1, seed=42,
 )
-LGB_LOWER = dict(LGB_MEAN, objective="quantile", alpha=0.1, metric="quantile")
-LGB_UPPER = dict(LGB_MEAN, objective="quantile", alpha=0.9, metric="quantile")
-XGB_MEAN = dict(
+LGB_LOWER = dict(objective="quantile", alpha=0.1, metric="quantile", verbosity=-1,
+                  num_leaves=31, learning_rate=0.03, seed=42)
+LGB_UPPER = dict(objective="quantile", alpha=0.9, metric="quantile", verbosity=-1,
+                  num_leaves=31, learning_rate=0.03, seed=42)
+XGB_BASE = dict(
     objective="reg:absoluteerror", eval_metric="mae",
     learning_rate=0.03, max_depth=7, subsample=0.85, colsample_bytree=0.85,
     reg_alpha=0.5, reg_lambda=0.5, seed=42, verbosity=0,
 )
-CB_MEAN = dict(
+CB_BASE = dict(
     loss_function="MAE", learning_rate=0.03, depth=7,
     l2_leaf_reg=5, subsample=0.85, random_seed=42, verbose=False,
 )
 
 FEATURES = [
-    "year", "month", "day", "dayofweek", "dayofyear", "weekofyear", "quarter",
-    "is_weekend",
+    "year", "day", "dayofyear", "weekofyear", "quarter",
     "doy_sin", "doy_cos", "dow_sin", "dow_cos",
-    "month_sin", "month_cos",
+    "month_cos",
     "week_sin", "week_cos",
     "quarter_sin", "quarter_cos",
     "day_sin", "day_cos",
     "avg_adr", "avg_lead_time", "avg_adults",
     "seg_Direct", "seg_Corporate",
-    "hotel_avg_occ", "hotel_month_occ",
+    "hotel_avg_occ", "hotel_month_occ", "hotel_dow_occ",
     "adr_sq", "adr_log", "lead_time_log",
-    "adr_x_weekend", "adr_x_month_sin",
     "week_of_month", "is_month_start", "is_month_end",
+    "is_peak", "hotel_month_cos_x_avg",
+]
+
+LGB_GRID = [
+    dict(learning_rate=lr, num_leaves=nl)
+    for lr, nl in itertools.product([0.02, 0.04], [31, 63, 127])
 ]
 
 
@@ -73,7 +80,6 @@ def inv_logit(x):
 
 
 def add_features(df_):
-    df_["month_sin"] = np.sin(2 * np.pi * df_["month"] / 12)
     df_["month_cos"] = np.cos(2 * np.pi * df_["month"] / 12)
     df_["week_sin"] = np.sin(2 * np.pi * df_["weekofyear"] / 52)
     df_["week_cos"] = np.cos(2 * np.pi * df_["weekofyear"] / 52)
@@ -87,10 +93,10 @@ def add_features(df_):
     df_["adr_sq"] = df_["avg_adr"] ** 2 / 10000
     df_["adr_log"] = np.log(df_["avg_adr"] + 1)
     df_["lead_time_log"] = np.log(df_["avg_lead_time"] + 1)
-    if "is_weekend" in df_.columns:
-        df_["adr_x_weekend"] = df_["avg_adr"] * df_["is_weekend"] / 100
-    if "month_sin" in df_.columns:
-        df_["adr_x_month_sin"] = df_["avg_adr"] * df_["month_sin"] / 100
+    if "month" in df_.columns:
+        df_["is_peak"] = (df_["month"] >= 6) & (df_["month"] <= 8)
+    if "month_cos" in df_.columns and "hotel_avg_occ" in df_.columns:
+        df_["hotel_month_cos_x_avg"] = df_["month_cos"] * df_["hotel_avg_occ"]
     return df_
 
 
@@ -103,11 +109,16 @@ def load():
 def add_hotel_levels(train_df, test_df, target="occupancy_rate"):
     avg = train_df.groupby("hotel")[target].mean()
     hm = train_df.groupby(["hotel", "month"])[target].mean()
+    hdow = train_df.groupby(["hotel", "dayofweek"])[target].mean()
     test_df = test_df.copy()
     test_df["hotel_avg_occ"] = test_df["hotel"].map(avg).fillna(train_df[target].mean())
-    keys = list(zip(test_df["hotel"], test_df["month"]))
+    keys_m = list(zip(test_df["hotel"], test_df["month"]))
     test_df["hotel_month_occ"] = pd.Series(
-        [hm.get(k, np.nan) for k in keys], index=test_df.index
+        [hm.get(k, np.nan) for k in keys_m], index=test_df.index
+    ).fillna(test_df["hotel_avg_occ"])
+    keys_dow = list(zip(test_df["hotel"], test_df["dayofweek"]))
+    test_df["hotel_dow_occ"] = pd.Series(
+        [hdow.get(k, np.nan) for k in keys_dow], index=test_df.index
     ).fillna(test_df["hotel_avg_occ"])
     return test_df
 
@@ -146,37 +157,74 @@ def daily_metrics(y, p):
     }
 
 
-def train_hotel_ensemble(X_tr, y_tr, X_val, y_val):
-    """Per-hotel ensemble: LGB + XGB + CatBoost, logit target, returns predict fn."""
+def tune_lgb(X_tr, y_tr, X_val, y_val, grid=LGB_GRID):
+    """Quick grid search for LGB mean params. Returns best params dict."""
+    y_tr_l = logit(y_tr.values)
+    y_val_l = logit(y_val.values)
+    best = None
+    best_score = float("inf")
+    for extra in grid:
+        params = dict(LGB_BASE, **extra)
+        m = lgb.train(params, lgb.Dataset(X_tr, label=y_tr_l),
+                       num_boost_round=NUM_ROUNDS,
+                       valid_sets=[lgb.Dataset(X_val, label=y_val_l)],
+                       callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
+        score = list(m.best_score["valid_0"].values())[0]
+        if score < best_score:
+            best_score = score
+            best = extra
+    return best
+
+
+def train_hotel_ensemble(X_tr, y_tr, X_val, y_val, lgb_params=None):
+    """Per-hotel ensemble: LGB + XGB + CatBoost, logit target, weighted blend."""
     y_tr_l = logit(y_tr.values)
     y_val_l = logit(y_val.values)
 
-    lgb_m = lgb.train(LGB_MEAN, lgb.Dataset(X_tr, label=y_tr_l),
+    lgb_p = dict(LGB_BASE, **(lgb_params or dict(learning_rate=0.03, num_leaves=63)))
+    lgb_m = lgb.train(lgb_p, lgb.Dataset(X_tr, label=y_tr_l),
                        num_boost_round=NUM_ROUNDS,
                        valid_sets=[lgb.Dataset(X_val, label=y_val_l)],
                        callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
 
-    xgb_m = xgb.train(XGB_MEAN, xgb.DMatrix(X_tr, label=y_tr_l), num_boost_round=NUM_ROUNDS,
+    xgb_m = xgb.train(XGB_BASE, xgb.DMatrix(X_tr, label=y_tr_l), num_boost_round=NUM_ROUNDS,
                        evals=[(xgb.DMatrix(X_val, label=y_val_l), "valid")],
                        early_stopping_rounds=ES_ROUNDS, verbose_eval=False)
 
-    cb_m = cb.CatBoost(CB_MEAN)
+    cb_m = cb.CatBoost(CB_BASE)
     cb_m.fit(X_tr, y_tr_l, eval_set=(X_val, y_val_l),
              early_stopping_rounds=ES_ROUNDS, verbose=False, plot=False)
 
+    p_lgb_v = inv_logit(lgb_m.predict(X_val, num_iteration=lgb_m.best_iteration))
+    p_xgb_v = inv_logit(xgb_m.predict(xgb.DMatrix(X_val), iteration_range=(0, xgb_m.best_iteration)))
+    p_cb_v = inv_logit(cb_m.predict(X_val))
+    y_v = y_val.values
+
+    best_w = None
+    best_err = float("inf")
+    for w1 in np.linspace(0, 1, 6):
+        for w2 in np.linspace(0, 1 - w1, 6):
+            w3 = 1 - w1 - w2
+            if w3 < 0:
+                continue
+            err = np.mean(np.abs(w1 * p_lgb_v + w2 * p_xgb_v + w3 * p_cb_v - y_v))
+            if err < best_err:
+                best_err = err
+                best_w = (w1, w2, w3)
+
     def predict(X):
         if isinstance(X, np.ndarray):
-            X = pd.DataFrame(X, columns=FEATURES)
-        p = inv_logit(lgb_m.predict(X, num_iteration=lgb_m.best_iteration))
-        p += inv_logit(xgb_m.predict(xgb.DMatrix(X), iteration_range=(0, xgb_m.best_iteration)))
-        p += inv_logit(cb_m.predict(X))
-        return p / 3.0
+            X = pd.DataFrame(X, columns=FEATURES).astype(float)
+        w1, w2, w3 = best_w
+        p = w1 * inv_logit(lgb_m.predict(X, num_iteration=lgb_m.best_iteration))
+        p += w2 * inv_logit(xgb_m.predict(xgb.DMatrix(X), iteration_range=(0, xgb_m.best_iteration)))
+        p += w3 * inv_logit(cb_m.predict(X))
+        return p
 
     return predict
 
 
 def train_hotel_quantile(X_tr, y_tr, X_val, y_val, params):
-    """Per-hotel quantile LightGBM on raw target, returns predict fn."""
     m = lgb.train(params, lgb.Dataset(X_tr, label=y_tr.values),
                    num_boost_round=int(NUM_ROUNDS * 0.5),
                    valid_sets=[lgb.Dataset(X_val, label=y_val.values)],
@@ -204,6 +252,30 @@ def main():
         "b_global": "Global-average",
     }
 
+    # ---- Tune LGB hyperparams on the largest training window (fold 3) ----
+    tune_end = max_date - pd.Timedelta(days=fold_offsets[-1])
+    tune_start = tune_end - pd.Timedelta(days=HORIZON - 1)
+    tune_train = df[df["date"] < tune_start].copy()
+    tune_train = add_hotel_levels(tune_train, tune_train)
+    tune_train = add_features(tune_train)
+    tu_sorted = tune_train.sort_values("date")
+    tu_split = int(len(tu_sorted) * 0.8)
+    tu_tr = tu_sorted.iloc[:tu_split]
+    tu_val = tu_sorted.iloc[tu_split:]
+    best_lgb = {}
+    for h in hotels:
+        mask_tr = tu_tr["hotel"] == h
+        mask_val = tu_val["hotel"] == h
+        if mask_tr.sum() < 30:
+            best_lgb[h] = dict(learning_rate=0.03, num_leaves=63)
+            continue
+        X_tr = tu_tr.loc[mask_tr, FEATURES].fillna(0)
+        y_tr = tu_tr.loc[mask_tr, "occupancy_rate"]
+        X_val = tu_val.loc[mask_val, FEATURES].fillna(0)
+        y_val = tu_val.loc[mask_val, "occupancy_rate"]
+        print(f"  Tuning LGB for {h}...")
+        best_lgb[h] = tune_lgb(X_tr, y_tr, X_val, y_val)
+
     fold_records = []
 
     for k, off in enumerate(fold_offsets):
@@ -220,7 +292,6 @@ def main():
         test_df = add_features(test_df)
         test_df = make_baselines(train_df, test_df)
 
-        # chronological train/val split for early stopping
         tr_sorted = train_df.sort_values("date")
         split_at = int(len(tr_sorted) * 0.8)
         tr_fit = tr_sorted.iloc[:split_at]
@@ -244,17 +315,14 @@ def main():
             y_val = val_fit.loc[mask_val, "occupancy_rate"]
             X_te = test_df.loc[mask_te, FEATURES].fillna(0)
 
-            # Mean ensemble
-            mean_fn = train_hotel_ensemble(X_tr, y_tr, X_val, y_val)
+            mean_fn = train_hotel_ensemble(X_tr, y_tr, X_val, y_val, lgb_params=best_lgb[h])
             test_df.loc[mask_te, "pred"] = mean_fn(X_te.values)
 
-            # Quantile intervals (raw target)
             lower_fn = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_LOWER)
             upper_fn = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_UPPER)
             test_df.loc[mask_te, "lower"] = lower_fn(X_te.values).clip(min=0)
             test_df.loc[mask_te, "upper"] = upper_fn(X_te.values).clip(max=1.0)
 
-        # Fix flipped intervals
         mask_flip = test_df["lower"] > test_df["pred"]
         test_df.loc[mask_flip, "lower"] = test_df.loc[mask_flip, "pred"] - 0.02
         test_df.loc[mask_flip, "lower"] = test_df["lower"].clip(lower=0)
@@ -313,7 +381,7 @@ def main():
     model_mae = summary["Ensemble"]["hotel_week_MAE"]
     improvement = (base_mae - model_mae) / base_mae * 100
 
-    print(f"\n  === Ensemble (per-hotel LGB+XGB+CB, logit, extended features) ===")
+    print(f"\n  === Ensemble (per-hotel LGB+XGB+CB, logit, weighted, tuned) ===")
     print(f"  wk-MAE: Ensemble {model_mae:.4f} vs seasonal-naive {base_mae:.4f}  "
           f"=> {improvement:+.1f}%")
 
@@ -351,7 +419,7 @@ def main():
         X_val = val_p.loc[mask_val, FEATURES].fillna(0)
         y_val = val_p.loc[mask_val, "occupancy_rate"]
         print(f"  Training production models for {h}...")
-        prod_mean[h] = train_hotel_ensemble(X_tr, y_tr, X_val, y_val)
+        prod_mean[h] = train_hotel_ensemble(X_tr, y_tr, X_val, y_val, lgb_params=best_lgb[h])
         prod_lower[h] = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_LOWER)
         prod_upper[h] = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_UPPER)
 
@@ -368,7 +436,6 @@ def main():
     grid["dayofyear"] = grid["date"].dt.dayofyear
     grid["weekofyear"] = grid["date"].dt.isocalendar().week.astype(int)
     grid["quarter"] = grid["date"].dt.quarter
-    grid["is_weekend"] = (grid["date"].dt.dayofweek >= 4).astype(int)
     grid["doy_sin"] = np.sin(2 * np.pi * grid["dayofyear"] / 365.25)
     grid["doy_cos"] = np.cos(2 * np.pi * grid["dayofyear"] / 365.25)
     grid["dow_sin"] = np.sin(2 * np.pi * grid["dayofweek"] / 7)
@@ -400,7 +467,6 @@ def main():
         grid.loc[mask, "occ_lower"] = prod_lower[h](X_fwd.values).clip(min=0)
         grid.loc[mask, "occ_upper"] = prod_upper[h](X_fwd.values).clip(max=1.0)
 
-    # Fix flipped intervals
     mask_flip = grid["occ_lower"] > grid["occ_forecast"]
     grid.loc[mask_flip, "occ_lower"] = grid.loc[mask_flip, "occ_forecast"] - 0.02
     grid["occ_lower"] = grid["occ_lower"].clip(lower=0)
@@ -432,10 +498,10 @@ def main():
 
     def recommend(r):
         if r.peak_occ >= 0.80:
-            return (f"Raise rates the week of {r.peak_week} (forecast {r.peak_occ:.0%} full).")
+            return f"Raise rates the week of {r.peak_week} (forecast {r.peak_occ:.0%} full)."
         if r.low_occ <= 0.45:
-            return (f"Add a promo around {r.low_week} (soft demand {r.low_occ:.0%}).")
-        return "Demand stable — maintain current strategy."
+            return f"Add a promo around {r.low_week} (soft demand {r.low_occ:.0%})."
+        return "Demand stable \u2014 maintain current strategy."
 
     plan["recommendation"] = plan.apply(recommend, axis=1)
     plan.sort_values("avg_occ_90d", ascending=False).to_csv(
@@ -449,22 +515,18 @@ def main():
         "forecast_end": future_dates[-1].date().isoformat(),
         "n_hotels": int(df["hotel"].nunique()),
         "portfolio_avg_occ_90d": round(float(grid.occ_forecast.mean()), 3),
-        "model": "per-hotel ensemble (LGB+XGB+CB, logit, extended features)",
+        "model": "per-hotel ensemble (LGB+XGB+CB, logit, weighted blend, tuned)",
     }
     with open(os.path.join(REPORTS, "kaggle_run_meta.json"), "w") as f:
         json.dump(meta, f, indent=2)
 
-    # ---- Feature importance from production LGB models ----
-    imp_rows = []
-    for h in hotels:
-        if h in prod_mean and hasattr(prod_mean[h], "__closure__"):
-            pass
-    # Train a shared LGB on full production data for importance extraction
+    # ---- Feature importance ----
     tr_imp = train_prod.sort_values("date")
     tri_split = int(len(tr_imp) * 0.8)
     tri_tr = tr_imp.iloc[:tri_split]
     tri_val = tr_imp.iloc[tri_split:]
-    lgb_imp = lgb.train(LGB_MEAN, lgb.Dataset(tri_tr[FEATURES].fillna(0), label=tri_tr["occupancy_rate"]),
+    lgb_imp = lgb.train(dict(LGB_BASE, learning_rate=0.03, num_leaves=63),
+                         lgb.Dataset(tri_tr[FEATURES].fillna(0), label=tri_tr["occupancy_rate"]),
                          num_boost_round=NUM_ROUNDS,
                          valid_sets=[lgb.Dataset(tri_val[FEATURES].fillna(0), label=tri_val["occupancy_rate"])],
                          callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
@@ -505,7 +567,7 @@ def main():
         y_val_bt = bd_val["occupancy_rate"]
         X_te_bt = te.loc[mask_te_bt, FEATURES].fillna(0)
 
-        mean_fn_bt = train_hotel_ensemble(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt)
+        mean_fn_bt = train_hotel_ensemble(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt, lgb_params=best_lgb[h])
         te.loc[mask_te_bt, "pred"] = mean_fn_bt(X_te_bt.values)
         lower_fn_bt = train_hotel_quantile(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt, LGB_LOWER)
         upper_fn_bt = train_hotel_quantile(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt, LGB_UPPER)
@@ -576,6 +638,9 @@ def main():
         avg_fc = grid[grid.hotel == h].occ_forecast.mean()
         print(f"    {h}: {FWD_HORIZON}-day avg {avg_fc:.1%}")
     print(f"  Saved all outputs to reports/")
+    for h in hotels:
+        print(f"  Best LGB params for {h}: lr={best_lgb[h].get('learning_rate')}, "
+              f"nl={best_lgb[h].get('num_leaves')}")
     print(f"\n  === FINAL ===")
     print(f"  Ensemble wk-MAE: {model_mae:.4f} vs seasonal {base_mae:.4f} = {improvement:+.1f}%")
 

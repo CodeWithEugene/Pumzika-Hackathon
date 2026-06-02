@@ -8,17 +8,17 @@
   "horizon_days": 90,
   "n_folds": 3,
   "headline": {
-    "model_hotel_week_MAE": 0.0879,
+    "model_hotel_week_MAE": 0.0878,
     "seasonal_naive_hotel_week_MAE": 0.1551,
-    "improvement_pct": 43.3,
-    "model_MAE": 0.0906
+    "improvement_pct": 43.4,
+    "model_MAE": 0.0902
   },
   "summary": {
     "Ensemble": {
-      "MAE": 0.0906,
-      "RMSE": 0.1617,
-      "hotel_week_MAE": 0.0879,
-      "hotel_week_RMSE": 0.1647
+      "MAE": 0.0902,
+      "RMSE": 0.1629,
+      "hotel_week_MAE": 0.0878,
+      "hotel_week_RMSE": 0.1643
     },
     "Seasonal-naive (hotel \u00d7 month)": {
       "MAE": 0.1627,
@@ -45,12 +45,12 @@
       "window": "2016-12-18 \u2192 2017-03-17",
       "train_size": 1072,
       "test_size": 180,
-      "interval_coverage": 0.744,
+      "interval_coverage": 0.733,
       "Ensemble": {
-        "MAE": 0.12110647773395769,
-        "RMSE": 0.15058990316172471,
-        "hotel_week_MAE": 0.10042624605808395,
-        "hotel_week_RMSE": 0.12992264969353517
+        "MAE": 0.11998242205372733,
+        "RMSE": 0.1520900509128479,
+        "hotel_week_MAE": 0.09878569113017166,
+        "hotel_week_RMSE": 0.1272872704731792
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.1964630922171369,
@@ -78,10 +78,10 @@
       "test_size": 180,
       "interval_coverage": 0.756,
       "Ensemble": {
-        "MAE": 0.04654284141175437,
-        "RMSE": 0.0635516226541407,
-        "hotel_week_MAE": 0.031778378834348364,
-        "hotel_week_RMSE": 0.04641658236070316
+        "MAE": 0.04704729154501519,
+        "RMSE": 0.06572216228714112,
+        "hotel_week_MAE": 0.033605285329541316,
+        "hotel_week_RMSE": 0.04816354864298036
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.0724370984151,
@@ -107,12 +107,12 @@
       "window": "2017-06-16 \u2192 2017-09-13",
       "train_size": 1432,
       "test_size": 173,
-      "interval_coverage": 0.751,
+      "interval_coverage": 0.792,
       "Ensemble": {
-        "MAE": 0.10410928241402646,
-        "RMSE": 0.2709389699485269,
-        "hotel_week_MAE": 0.13137506508674118,
-        "hotel_week_RMSE": 0.31764174415018814
+        "MAE": 0.1035190653004321,
+        "RMSE": 0.2707641117308562,
+        "hotel_week_MAE": 0.13093865544169822,
+        "hotel_week_RMSE": 0.3173433457242579
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.21914304557880912,

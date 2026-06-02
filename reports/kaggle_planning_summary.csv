@@ -1,3 +1,3 @@
 hotel,avg_occ_90d,peak_week,peak_occ,low_week,low_occ,recommendation
-City Hotel,0.945,2017-08-14,0.984,2017-12-18,0.864,Raise rates the week of 2017-08-14 (forecast 98% full).
-Resort Hotel,0.925,2017-09-25,0.981,2017-12-11,0.803,Raise rates the week of 2017-09-25 (forecast 98% full).
+City Hotel,0.947,2017-08-14,0.976,2017-12-18,0.906,Raise rates the week of 2017-08-14 (forecast 98% full).
+Resort Hotel,0.92,2017-09-25,0.98,2017-12-11,0.788,Raise rates the week of 2017-09-25 (forecast 98% full).
