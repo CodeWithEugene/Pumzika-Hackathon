@@ -70,14 +70,29 @@ const SunIcon = () => <Icon d={<><circle cx="12" cy="12" r="4" /><path d="M12 2v
 const MoonIcon = () => <Icon d={<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />} />;
 const SystemIcon = () => <Icon d={<><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></>} />;
 
+function downloadCSV(markets) {
+  if (!markets) return;
+  const rows = [["date", ...markets.markets.map((m) => m.market)]];
+  markets.dates.forEach((d, i) => {
+    rows.push([d, ...markets.markets.map((m) => String(m.occ?.[i] ?? ""))]);
+  });
+  const csv = rows.map((r) => r.join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "pumzika-forecast.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 async function getJSON(name) {
   const res = await fetch(`./data/${name}`);
   return res.json();
 }
 
 /* ======================================================================= */
-const TAB_SLUGS = ["outlook", "planner", "drivers", "trust"];
-const TABS = ["Market Outlook", "Listing Planner", "Demand Drivers", "Model & Trust"];
+const TAB_SLUGS = ["outlook", "planner", "drivers", "trust", "calendar"];
+const TABS = ["Market Outlook", "Listing Planner", "Demand Drivers", "Model & Trust", "Calendar"];
 
 export default function Page() {
   const theme = useTheme();
@@ -120,7 +135,7 @@ export default function Page() {
 
   return (
     <div className="wrap">
-      <TopBar theme={theme} meta={d.meta} />
+      <TopBar theme={theme} meta={d.meta} onExport={() => downloadCSV(d.markets)} />
       <Hero meta={d.meta} kaggle={d.kaggle} />
 
       <StatBar meta={d.meta} kaggle={d.kaggle} />
@@ -136,6 +151,7 @@ export default function Page() {
         {tab === 1 && <ListingPlanner data={d} T={T} />}
         {tab === 2 && <DemandDrivers importance={d.importance} season={d.season} T={T} />}
         {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} kaggle={d.kaggle} eastAfrica={d.eastAfrica} T={T} />}
+        {tab === 4 && <CalendarView markets={d.markets} T={T} />}
       </div>
 
       <Footer />
@@ -144,7 +160,9 @@ export default function Page() {
 }
 
 /* ---------- chrome ----------------------------------------------------- */
-function TopBar({ theme, meta }) {
+const ExportIcon = () => <Icon d={<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />} width="20" height="20" />;
+
+function TopBar({ theme, meta, onExport }) {
   const opts = [["light", SunIcon], ["dark", MoonIcon], ["system", SystemIcon]];
   const isKaggle = meta?.source === "kaggle";
   return (
@@ -164,6 +182,8 @@ function TopBar({ theme, meta }) {
             <><span className="chip">Tanzania</span><span className="chip">Kenya</span><span className="chip">Uganda</span></>
           )}
         </div>
+        {onExport && <button className="export-btn" onClick={onExport}
+          aria-label="Download CSV"><ExportIcon /></button>}
         <div className="theme-toggle" role="group" aria-label="Theme">
           {opts.map(([m, Ico]) => (
             <button key={m} aria-label={m} aria-pressed={theme.mode === m}
@@ -345,6 +365,7 @@ function MarketOutlook({ markets, T }) {
       </section>
 
       <PricingCrossover markets={markets} T={T} />
+      <WhatIfScenario markets={markets} T={T} />
     </div>
   );
 }
@@ -406,6 +427,149 @@ function PricingCrossover({ markets, T }) {
         })}
       </div>
     </section>
+  );
+}
+
+/* ---------- what-if scenario ------------------------------------------- */
+function WhatIfScenario({ markets, T }) {
+  const all = markets.markets.filter((m) => m.avg_adr);
+  const [demandOff, setDemandOff] = useState(0);
+  const [priceOff, setPriceOff] = useState(0);
+  if (all.length === 0) return null;
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>What-If Scenario</h2>
+        <p>Shift demand or adjust pricing to see the revenue impact.
+          <span className="data-note"> All values per room·night.</span>
+        </p>
+      </div>
+      <div className="scenario-sliders">
+        <div className="slider-grp">
+          <label>Demand <b>{demandOff >= 0 ? "+" : ""}{demandOff}%</b></label>
+          <input type="range" min="-20" max="20" value={demandOff}
+            onChange={(e) => setDemandOff(+e.target.value)} />
+          <div className="slider-labels"><span>-20%</span><span>+20%</span></div>
+        </div>
+        <div className="slider-grp">
+          <label>Price <b>{priceOff >= 0 ? "+" : ""}{priceOff}%</b></label>
+          <input type="range" min="-20" max="20" value={priceOff}
+            onChange={(e) => setPriceOff(+e.target.value)} />
+          <div className="slider-labels"><span>-20%</span><span>+20%</span></div>
+        </div>
+      </div>
+      <div className="scenario-table-wrap">
+        <table className="data">
+          <thead>
+            <tr>
+              <th>Market</th>
+              <th className="num">Occ</th>
+              <th className="num">Adj. Occ</th>
+              <th className="num">Rev</th>
+              <th className="num">Adj. Rev</th>
+              <th className="num">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            {all.map((m) => {
+              const adjOcc = Math.min(1, Math.max(0, m.avg * (1 + demandOff / 100)));
+              const baseRev = m.avg * m.avg_adr;
+              const adjRev = adjOcc * m.avg_adr * (1 + priceOff / 100);
+              const chg = (adjRev - baseRev) / baseRev;
+              return (
+                <tr key={m.market}>
+                  <td>{m.market}</td>
+                  <td className="num">{fmtPct(m.avg)}</td>
+                  <td className="num">{fmtPct(adjOcc)}</td>
+                  <td className="num">${baseRev.toFixed(1)}</td>
+                  <td className="num">${adjRev.toFixed(1)}</td>
+                  <td className={`num ${chg >= 0 ? "pos" : "neg"}`}>
+                    {chg >= 0 ? "+" : ""}{fmtPct(chg)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+/* ===== TAB 5: calendar view =========================================== */
+function CalendarView({ markets, T }) {
+  const all = markets.markets;
+  const [mkt, setMkt] = useState(all[0].market);
+  const market = all.find((m) => m.market === mkt);
+  const DOWS = ["S", "M", "T", "W", "T", "F", "S"];
+
+  const months = useMemo(() => {
+    if (!market) return [];
+    const out = [];
+    let cur = null;
+    markets.dates.forEach((ds, i) => {
+      const d = new Date(ds + "T00:00:00");
+      const key = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+      if (key !== cur) {
+        cur = key;
+        const first = new Date(d.getFullYear(), d.getMonth(), 1);
+        out.push({
+          label: d.toLocaleString("en-US", { month: "long", year: "numeric" }),
+          key, pad: first.getDay(), days: [],
+        });
+      }
+      out[out.length - 1].days.push({
+        date: ds, day: d.getDate(), dow: d.getDay(), occ: market.occ?.[i],
+      });
+    });
+    return out;
+  }, [market, markets]);
+
+  if (!market) return null;
+
+  return (
+    <div className="stack">
+      <section className="panel">
+        <div className="panel-head">
+          <h2>Forecast Calendar</h2>
+          <p>Daily occupancy by month — colour intensity shows demand level.
+            <span className="data-note"> Use for housekeeping &amp; ops planning.</span>
+          </p>
+        </div>
+        <div className="pills" style={{ marginBottom: 18 }}>
+          {all.map((m) => (
+            <button key={m.market} className={`pill ${mkt === m.market ? "on" : ""}`}
+              onClick={() => setMkt(m.market)}>{m.market}</button>
+          ))}
+        </div>
+        <div className="cal-months">
+          {months.map((mo) => (
+            <div key={mo.key} className="cal-month">
+              <div className="cal-title">{mo.label}</div>
+              <div className="cal-dows">
+                {DOWS.map((d) => <div key={d} className="cal-dow">{d}</div>)}
+              </div>
+              <div className="cal-days">
+                {Array.from({ length: mo.pad }).map((_, i) => (
+                  <div key={`p-${i}`} className="cal-cell cal-empty" />
+                ))}
+                {mo.days.map((day) => {
+                  const c = heatColor(day.occ, T.heat);
+                  return (
+                    <div key={day.date} className="cal-cell"
+                      style={{ background: c.rgb, color: heatText(c.lum) }}
+                      title={`${day.date}: ${Math.round(day.occ * 100)}%`}>
+                      <span className="cal-num">{day.day}</span>
+                      <span className="cal-val">{Math.round(day.occ * 100)}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
 

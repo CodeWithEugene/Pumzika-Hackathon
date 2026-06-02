@@ -55,9 +55,14 @@ def export_kaggle():
     """Export web data from Kaggle forecast outputs — becomes primary data."""
     kf = pd.read_csv(os.path.join(REPORTS, "kaggle_forecast_hotel.csv"),
                      parse_dates=["date"])
+    # shift dates forward 9 years (2017 → 2026) for a current-looking demo
+    kf["date"] = kf["date"].apply(lambda d: d.replace(year=d.year + 9))
     plan = pd.read_csv(os.path.join(REPORTS, "kaggle_planning_summary.csv"))
     imp = pd.read_csv(os.path.join(REPORTS, "kaggle_importance.csv"))
     meta = json.load(open(os.path.join(REPORTS, "kaggle_run_meta.json")))
+    # shift meta dates by 9 years
+    meta["origin"] = str(pd.Timestamp(meta["origin"]) + pd.DateOffset(years=9)).split(" ")[0]
+    meta["forecast_end"] = str(pd.Timestamp(meta["forecast_end"]) + pd.DateOffset(years=9)).split(" ")[0]
     metrics = json.load(open(os.path.join(REPORTS, "kaggle_fwd_metrics.json")))
     occ = pd.read_csv(os.path.join(DATA, "kaggle_occupancy.csv"),
                       parse_dates=["date"])
@@ -136,7 +141,10 @@ def export_kaggle():
     occ["week"] = occ["date"].dt.to_period("W").apply(lambda p: p.start_time)
     hw = occ.groupby(["hotel", "week"]).occupancy_rate.mean().reset_index()
     last_weeks = sorted(hw["week"].unique())[-16:]
-    hist_weeks = [pd.Timestamp(x).strftime("%Y-%m-%d") for x in last_weeks]
+    hist_weeks = [
+        (pd.Timestamp(x) + pd.DateOffset(years=9)).strftime("%Y-%m-%d")
+        for x in last_weeks
+    ]
     hp = hw.pivot_table(index="hotel", columns="week", values="occupancy_rate")
     hp = hp.reindex(columns=last_weeks)
     history = {str(h): [None if pd.isna(x) else round(float(x), 3) for x in row]

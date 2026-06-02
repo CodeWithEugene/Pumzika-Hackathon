@@ -119,6 +119,10 @@ p { text-wrap: pretty; }
   box-shadow: var(--shadow);
 }
 .theme-toggle svg { width: 15px; height: 15px; }
+.export-btn { display: grid; place-items: center; width: 34px; height: 34px;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text-muted);
+  border-radius: 9px; cursor: pointer; transition: color 0.15s, background 0.15s; }
+.export-btn:hover { color: var(--text); background: var(--surface); }
 
 /* ---------- hero ---------- */
 .hero { padding: 52px 0 34px; margin: 0 auto;
@@ -372,6 +376,46 @@ table.data tr.model td:last-child { border-radius: 0 var(--radius-sm) var(--radi
 .rev-card tr:last-child td { border-bottom: none; }
 .rev-card .pos { color: var(--accent); font-weight: 600; }
 .rev-card .neg { color: var(--warm); font-weight: 600; }
+
+/* ---------- calendar ---------- */
+.cal-months { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px; }
+.cal-month { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; }
+.cal-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 10px;
+  color: var(--text); }
+.cal-dows { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+.cal-dow { text-align: center; font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint);
+  padding: 2px 0; }
+.cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-cell { aspect-ratio: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; border-radius: 5px;
+  min-width: 0; padding: 2px; }
+.cal-cell.cal-empty { background: transparent; }
+.cal-num { font-size: 0.72rem; font-weight: 600; line-height: 1.1; }
+.cal-val { font-size: 0.68rem; font-weight: 650; line-height: 1.2;
+  margin-top: 1px; }
+@media (max-width: 720px) { .cal-month { padding: 10px; }
+  .cal-num { font-size: 0.65rem; } .cal-val { font-size: 0.60rem; } }
+
+/* ---------- what-if sliders ---------- */
+.scenario-sliders { display: flex; gap: 32px; margin-bottom: 18px;
+  flex-wrap: wrap; }
+.slider-grp { flex: 1; min-width: 200px; }
+.slider-grp label { display: block; font-size: 0.86rem; margin-bottom: 5px;
+  color: var(--text); }
+.slider-grp b { font-family: var(--font-mono); color: var(--accent); }
+.slider-grp input[type="range"] { width: 100%; height: 5px; -webkit-appearance: none;
+  appearance: none; background: var(--surface-2); border-radius: 4px;
+  outline: none; cursor: pointer; }
+.slider-grp input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface); cursor: pointer; }
+.slider-labels { display: flex; justify-content: space-between; font-size: 0.7rem;
+  color: var(--text-faint); margin-top: 2px; }
+.scenario-table-wrap { overflow-x: auto; }
+.scenario-table-wrap table.data { width: auto; min-width: 100%; }
 
 /* ---------- entrance ---------- */
 @keyframes rise { from { opacity: 0; transform: translateY(10px); }

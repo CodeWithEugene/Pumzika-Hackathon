@@ -24,6 +24,7 @@ REPORTS = os.path.join(HERE, "..", "reports")
 OCC_CSV = os.path.join(DATA, "kaggle_occupancy.csv")
 
 HORIZON = 90
+FWD_HORIZON = 214
 LGB_PARAMS = dict(
     objective="regression",
     metric="mae",
@@ -246,9 +247,9 @@ def main():
             params, lgb.Dataset(X_full, label=y_full), num_boost_round=NUM_ROUNDS
         )
 
-    # ---- Forward 90-day forecast ----
-    origin = max_date + pd.Timedelta(days=1)
-    future_dates = pd.date_range(origin, periods=HORIZON, freq="D")
+    # ---- Forward forecast: start ~105 days early so +9yr shift → Jun–Dec 2026 ----
+    origin = (max_date + pd.Timedelta(days=1)) - pd.Timedelta(days=105)
+    future_dates = pd.date_range(origin, periods=FWD_HORIZON, freq="D")
     grid = pd.MultiIndex.from_product(
         [df["hotel"].unique(), future_dates], names=["hotel", "date"]
     ).to_frame(index=False)
@@ -344,7 +345,7 @@ def main():
     # ---- Run meta ----
     meta = {
         "origin": origin.date().isoformat(),
-        "horizon_days": HORIZON,
+        "horizon_days": FWD_HORIZON,
         "forecast_end": future_dates[-1].date().isoformat(),
         "n_hotels": int(df["hotel"].nunique()),
         "portfolio_avg_occ_90d": round(float(grid.occ_forecast.mean()), 3),
