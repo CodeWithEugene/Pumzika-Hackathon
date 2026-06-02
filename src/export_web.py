@@ -88,6 +88,7 @@ def export_kaggle():
     # ---- per-hotel daily forecast (markets.json) ----
     dates = sorted(kf["date"].unique())
     date_str = [pd.Timestamp(d).strftime("%Y-%m-%d") for d in dates]
+    adrs = occ.groupby("hotel").avg_adr.mean()
     markets = []
     for h, g in kf.sort_values("date").groupby("hotel"):
         g = g.set_index("date").reindex(dates)
@@ -95,9 +96,12 @@ def export_kaggle():
             "market": h,
             "avg": round(float(g.occ_forecast.mean()), 3),
             "occ": [round(float(x), 3) for x in g.occ_forecast.values],
+            "lower": [round(float(x), 3) for x in g.occ_lower.values],
+            "upper": [round(float(x), 3) for x in g.occ_upper.values],
+            "avg_adr": round(float(adrs[h]), 2),
         })
     markets.sort(key=lambda m: -m["avg"])
-    w("markets.json", {"dates": date_str, "markets": markets})
+    w("markets.json", {"dates": date_str, "markets": markets, "has_intervals": True})
 
     # ---- per-hotel planning summary (listings.json) ----
     lj = []
@@ -120,6 +124,15 @@ def export_kaggle():
     series = {str(h): [round(float(x), 3) for x in row]
               for h, row in zip(fc.index, fc.values)}
 
+    fc_lower = kf.pivot_table(index="hotel", columns="date", values="occ_lower")
+    fc_lower = fc_lower.reindex(columns=dates)
+    fc_upper = kf.pivot_table(index="hotel", columns="date", values="occ_upper")
+    fc_upper = fc_upper.reindex(columns=dates)
+    series_lower = {str(h): [round(float(x), 3) for x in row]
+                    for h, row in zip(fc_lower.index, fc_lower.values)}
+    series_upper = {str(h): [round(float(x), 3) for x in row]
+                    for h, row in zip(fc_upper.index, fc_upper.values)}
+
     occ["week"] = occ["date"].dt.to_period("W").apply(lambda p: p.start_time)
     hw = occ.groupby(["hotel", "week"]).occupancy_rate.mean().reset_index()
     last_weeks = sorted(hw["week"].unique())[-16:]
@@ -130,6 +143,7 @@ def export_kaggle():
                for h, row in zip(hp.index, hp.values)}
     w("listing_series.json", {
         "forecast_dates": date_str, "forecast": series,
+        "forecast_lower": series_lower, "forecast_upper": series_upper,
         "history_weeks": hist_weeks, "history": history,
     })
 

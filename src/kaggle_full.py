@@ -39,6 +39,11 @@ LGB_PARAMS = dict(
 )
 NUM_ROUNDS = 500
 
+LGB_PARAMS_LOWER = dict(LGB_PARAMS, objective="quantile", alpha=0.1, metric="quantile")
+LGB_PARAMS_UPPER = dict(LGB_PARAMS, objective="quantile", alpha=0.9, metric="quantile")
+QUANTILE_NAMES = ["pred", "lower", "upper"]
+QUANTILE_PARAMS = [LGB_PARAMS, LGB_PARAMS_LOWER, LGB_PARAMS_UPPER]
+
 FEATURES = [
     "year", "month", "day", "dayofweek", "dayofyear", "weekofyear", "quarter",
     "is_weekend", "doy_sin", "doy_cos", "dow_sin", "dow_cos",
@@ -135,18 +140,35 @@ def main():
 
         X_tr = train_df[FEATURES].fillna(0)
         y_tr = train_df["occupancy_rate"]
-        booster = lgb.train(
-            LGB_PARAMS, lgb.Dataset(X_tr, label=y_tr), num_boost_round=NUM_ROUNDS
-        )
+        boosters = {}
+        for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
+            boosters[name] = lgb.train(
+                params, lgb.Dataset(X_tr, label=y_tr), num_boost_round=NUM_ROUNDS
+            )
 
         X_te = test_df[FEATURES].fillna(0)
-        test_df["pred"] = booster.predict(X_te)
+        for name in QUANTILE_NAMES:
+            test_df[name] = boosters[name].predict(X_te)
+        test_df["lower"] = test_df["lower"].clip(lower=0)
+        test_df["upper"] = test_df["upper"].clip(upper=1.0)
+        test_df.loc[test_df["lower"] > test_df["pred"], "lower"] = (
+            test_df["pred"] - 0.02
+        )
+        test_df.loc[test_df["upper"] < test_df["pred"], "upper"] = (
+            test_df["pred"] + 0.02
+        )
+
+        interval_cov = float(
+            ((test_df["lower"] <= test_df["occupancy_rate"])
+             & (test_df["occupancy_rate"] <= test_df["upper"])).mean()
+        )
 
         rec = {
             "fold": k + 1,
             "window": f"{test_start.date()} \u2192 {test_end.date()}",
             "train_size": len(train_df),
             "test_size": len(test_df),
+            "interval_coverage": round(interval_cov, 3),
         }
         dm = daily_metrics(test_df["occupancy_rate"].values, test_df["pred"].values)
         om = occ_metrics(test_df, "pred")
@@ -160,8 +182,8 @@ def main():
         fold_records.append(rec)
 
         imp = pd.DataFrame({
-            "feature": booster.feature_name(),
-            "gain": booster.feature_importance(importance_type="gain"),
+            "feature": boosters["pred"].feature_name(),
+            "gain": boosters["pred"].feature_importance(importance_type="gain"),
             "fold": k + 1,
         }).sort_values("gain", ascending=False)
         importances.append(imp)
@@ -214,13 +236,15 @@ def main():
     imp_agg = imp_all.groupby("feature")["gain"].mean().sort_values(ascending=False)
     imp_top = imp_agg.head(20).to_dict()
 
-    # ---- Train production model on ALL history ----
+    # ---- Train production models on ALL history (mean + quantiles) ----
     full = add_hotel_levels(df, df)
     X_full = full[FEATURES].fillna(0)
     y_full = full["occupancy_rate"]
-    booster = lgb.train(
-        LGB_PARAMS, lgb.Dataset(X_full, label=y_full), num_boost_round=NUM_ROUNDS
-    )
+    prod_boosters = {}
+    for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
+        prod_boosters[name] = lgb.train(
+            params, lgb.Dataset(X_full, label=y_full), num_boost_round=NUM_ROUNDS
+        )
 
     # ---- Forward 90-day forecast ----
     origin = max_date + pd.Timedelta(days=1)
@@ -265,9 +289,15 @@ def main():
     grid = add_hotel_levels(df, grid)
 
     X_fwd = grid[FEATURES].fillna(0)
-    grid["occ_forecast"] = booster.predict(X_fwd)
+    grid["occ_forecast"] = prod_boosters["pred"].predict(X_fwd)
+    grid["occ_lower"] = prod_boosters["lower"].predict(X_fwd).clip(min=0)
+    grid["occ_upper"] = prod_boosters["upper"].predict(X_fwd).clip(max=1.0)
+    mask_flip = grid["occ_lower"] > grid["occ_forecast"]
+    grid.loc[mask_flip, "occ_lower"] = grid.loc[mask_flip, "occ_forecast"] - 0.02
+    mask_flip2 = grid["occ_upper"] < grid["occ_forecast"]
+    grid.loc[mask_flip2, "occ_upper"] = grid.loc[mask_flip2, "occ_forecast"] + 0.02
 
-    fc_hotel = grid[["hotel", "date", "occ_forecast"]].copy()
+    fc_hotel = grid[["hotel", "date", "occ_forecast", "occ_lower", "occ_upper"]].copy()
     fc_hotel.to_csv(
         os.path.join(REPORTS, "kaggle_forecast_hotel.csv"), index=False
     )
@@ -340,14 +370,21 @@ def main():
     X_te_last = te[FEATURES].fillna(0)
 
     full_train = train_te.copy()
-    booster_last = lgb.train(
-        LGB_PARAMS,
-        lgb.Dataset(
-            full_train[FEATURES].fillna(0), label=full_train["occupancy_rate"]
-        ),
-        num_boost_round=NUM_ROUNDS,
-    )
-    te["pred"] = booster_last.predict(X_te_last)
+    last_boosters = {}
+    for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
+        last_boosters[name] = lgb.train(
+            params,
+            lgb.Dataset(
+                full_train[FEATURES].fillna(0), label=full_train["occupancy_rate"]
+            ),
+            num_boost_round=NUM_ROUNDS,
+        )
+    for name in QUANTILE_NAMES:
+        te[name] = last_boosters[name].predict(X_te_last)
+    te["lower"] = te["lower"].clip(lower=0)
+    te["upper"] = te["upper"].clip(upper=1.0)
+    te.loc[te["lower"] > te["pred"], "lower"] = te["pred"] - 0.02
+    te.loc[te["upper"] < te["pred"], "upper"] = te["pred"] + 0.02
     te = make_baselines(full_train, te)
 
     bins = np.linspace(0, 1, 11)
@@ -368,6 +405,8 @@ def main():
         .agg(
             actual=("occupancy_rate", "mean"),
             pred=("pred", "mean"),
+            lower=("lower", "mean"),
+            upper=("upper", "mean"),
             seasonal=("b_seasonal", "mean"),
         )
         .reset_index()
@@ -380,9 +419,13 @@ def main():
                 "week": w.strftime("%Y-%m-%d"),
                 "actual": round(float(a), 3),
                 "pred": round(float(p), 3),
+                "lower": round(float(lw), 3),
+                "upper": round(float(up), 3),
                 "seasonal": round(float(se), 3),
             }
-            for w, a, p, se in zip(s.week, s.actual, s.pred, s.seasonal)
+            for w, a, p, lw, up, se in zip(
+                s.week, s.actual, s.pred, s.lower, s.upper, s.seasonal
+            )
         ]
 
     with open(os.path.join(REPORTS, "kaggle_fwd_backtest.json"), "w") as f:

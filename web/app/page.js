@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import {
   ResponsiveContainer, LineChart, Line, AreaChart, Area, XAxis, YAxis,
   CartesianGrid, Tooltip, ReferenceLine, Legend,
@@ -244,6 +244,12 @@ function MarketOutlook({ markets, T }) {
     chosen.forEach((m) => {
       const arr = smoothOn ? smooth(m.occ, 7) : m.occ;
       row[m.market] = arr[i];
+      if (m.lower && m.upper) {
+        const lo = smoothOn ? smooth(m.lower, 7) : m.lower;
+        const hi = smoothOn ? smooth(m.upper, 7) : m.upper;
+        row[m.market + "_lower"] = lo[i];
+        row[m.market + "_upper"] = hi[i];
+      }
     });
     return row;
   }), [sel, smoothOn, markets]);
@@ -287,11 +293,20 @@ function MarketOutlook({ markets, T }) {
             <Tooltip formatter={(v) => fmtPct(v, 1)} labelFormatter={fmtDateLong}
               cursor={{ stroke: T.grid }} />
             <Legend wrapperStyle={{ fontSize: 13, paddingTop: 10 }} />
-            {chosen.map((m) => (
-              <Line key={m.market} type="monotone" dataKey={m.market}
-                stroke={T.cats[all.indexOf(m) % T.cats.length]} strokeWidth={2.4}
-                dot={false} activeDot={{ r: 4 }} isAnimationActive={false} />
-            ))}
+            {chosen.map((m) => {
+              const col = T.cats[all.indexOf(m) % T.cats.length];
+              return (
+              <React.Fragment key={m.market}>
+                {m.lower && m.upper && <>
+                  <Area type="monotone" dataKey={m.market + "_upper"} fill={col}
+                    fillOpacity={0.12} stroke="none" dot={false} isAnimationActive={false} />
+                  <Area type="monotone" dataKey={m.market + "_lower"} fill={col}
+                    fillOpacity={0.12} stroke="none" dot={false} isAnimationActive={false} />
+                </>}
+                <Line type="monotone" dataKey={m.market} stroke={col} strokeWidth={2.4}
+                  dot={false} activeDot={{ r: 4 }} isAnimationActive={false} />
+              </React.Fragment>
+            );})}
           </LineChart>
         </ResponsiveContainer>
       </section>
@@ -328,7 +343,69 @@ function MarketOutlook({ markets, T }) {
           </table>
         </div>
       </section>
+
+      <PricingCrossover markets={markets} T={T} />
     </div>
+  );
+}
+
+/* ---------- pricing crossover ----------------------------------------- */
+function PricingCrossover({ markets, T }) {
+  const all = markets.markets.filter((m) => m.avg_adr);
+  const ELASTICITY = 0.3;
+  const SCENARIOS = [0, 5, 10, 15, 20];
+  if (all.length === 0) return null;
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>From Forecast → Revenue</h2>
+        <p>Expected revenue per room at different rate uplifts,
+          assuming {ELASTICITY * 100}% demand elasticity.
+          <span className="data-note"> Starting point for Track 01: Dynamic Pricing.</span>
+        </p>
+      </div>
+      <div className="rev-grid">
+        {all.map((m) => {
+          const adr = m.avg_adr;
+          const occ = m.avg;
+          const curRev = adr * occ;
+          return (
+            <div key={m.market} className="rev-card">
+              <h4>{m.market}</h4>
+              <div className="sub">${adr.toFixed(0)} avg rate · {fmtPct(occ)} forecast occ</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Scenario</th><th>Rate</th><th>Occupancy</th>
+                    <th>Rev/night</th><th>Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SCENARIOS.map((u) => {
+                    const mult = 1 + u / 100;
+                    const rate = adr * mult;
+                    const adjOcc = Math.min(1, Math.max(0, occ * (1 - ELASTICITY * u / 100)));
+                    const rev = rate * adjOcc;
+                    const chg = (rev - curRev) / curRev;
+                    return (
+                      <tr key={u}>
+                        <td>{u === 0 ? "Current" : `+${u}% rate`}</td>
+                        <td>${rate.toFixed(0)}</td>
+                        <td>{fmtPct(adjOcc)}</td>
+                        <td>${rev.toFixed(1)}</td>
+                        <td className={chg >= 0 ? "pos" : "neg"}>
+                          {chg >= 0 ? "+" : ""}{fmtPct(chg)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -346,10 +423,19 @@ function ListingPlanner({ data, T }) {
   if (!row) return null;
 
   const fc = smooth(series.forecast[row.listing_id] || [], 7);
+  const fcRawLower = series.forecast_lower?.[row.listing_id] || [];
+  const fcRawUpper = series.forecast_upper?.[row.listing_id] || [];
+  const fcLower = fcRawLower.length ? smooth(fcRawLower, 7) : [];
+  const fcUpper = fcRawUpper.length ? smooth(fcRawUpper, 7) : [];
+  const hasInterval = fcLower.length > 0 && fcUpper.length > 0;
   const hist = series.history[row.listing_id] || [];
   const chartData = [
-    ...series.history_weeks.map((w, i) => ({ t: w, actual: hist[i], forecast: null })),
-    ...series.forecast_dates.map((dt, i) => ({ t: dt, actual: null, forecast: fc[i] })),
+    ...series.history_weeks.map((w, i) => ({ t: w, actual: hist[i], forecast: null, lower: null, upper: null })),
+    ...series.forecast_dates.map((dt, i) => ({
+      t: dt, actual: null, forecast: fc[i],
+      lower: hasInterval ? fcLower[i] : null,
+      upper: hasInterval ? fcUpper[i] : null,
+    })),
   ];
   const busiest = [...listings].sort((a, b) => b.peak_occ - a.peak_occ).slice(0, 7);
   const softest = [...listings].sort((a, b) => a.low_occ - b.low_occ).slice(0, 7);
@@ -419,6 +505,12 @@ function ListingPlanner({ data, T }) {
               <Area type="monotone" dataKey="actual" stroke={T.actual} strokeWidth={2}
                 strokeDasharray="4 3" fill="none" name="Actual (trailing)"
                 connectNulls dot={false} isAnimationActive={false} />
+              {hasInterval && <>
+                <Area type="monotone" dataKey="upper" fill={T.forecast} fillOpacity={0.12}
+                  stroke="none" dot={false} isAnimationActive={false} />
+                <Area type="monotone" dataKey="lower" fill={T.forecast} fillOpacity={0.12}
+                  stroke="none" dot={false} isAnimationActive={false} />
+              </>}
               <Area type="monotone" dataKey="forecast" stroke={T.forecast} strokeWidth={2.6}
                 fill={T.forecast} fillOpacity={0.10} name="Forecast"
                 connectNulls dot={false} isAnimationActive={false} />

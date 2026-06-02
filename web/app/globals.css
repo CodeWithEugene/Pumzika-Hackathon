@@ -353,6 +353,26 @@ table.data tr.model td:last-child { border-radius: 0 var(--radius-sm) var(--radi
   animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---------- pricing crossover ---------- */
+.rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 720px) { .rev-grid { grid-template-columns: 1fr; } }
+.rev-card { background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px; }
+.rev-card h4 { font-size: 0.92rem; margin: 0 0 2px; }
+.rev-card .sub { font-family: var(--font-mono); font-size: 0.80rem;
+  color: var(--text-muted); margin-bottom: 12px; }
+.rev-card table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.rev-card th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--text-faint); font-weight: 600; text-align: right; padding: 4px 6px 6px 6px;
+  border-bottom: 1px solid var(--border); }
+.rev-card th:first-child { text-align: left; }
+.rev-card td { padding: 5px 6px; text-align: right; border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums; }
+.rev-card td:first-child { text-align: left; }
+.rev-card tr:last-child td { border-bottom: none; }
+.rev-card .pos { color: var(--accent); font-weight: 600; }
+.rev-card .neg { color: var(--warm); font-weight: 600; }
+
 /* ---------- entrance ---------- */
 @keyframes rise { from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; } }

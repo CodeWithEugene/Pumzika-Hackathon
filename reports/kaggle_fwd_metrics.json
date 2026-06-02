@@ -45,6 +45,7 @@
       "window": "2016-12-18 \u2192 2017-03-17",
       "train_size": 1072,
       "test_size": 180,
+      "interval_coverage": 0.6,
       "LightGBM": {
         "MAE": 0.11930286703694143,
         "RMSE": 0.1544902605473101,
@@ -75,6 +76,7 @@
       "window": "2017-03-18 \u2192 2017-06-15",
       "train_size": 1252,
       "test_size": 180,
+      "interval_coverage": 0.65,
       "LightGBM": {
         "MAE": 0.059510280101515635,
         "RMSE": 0.07601786587915652,
@@ -105,6 +107,7 @@
       "window": "2017-06-16 \u2192 2017-09-13",
       "train_size": 1432,
       "test_size": 173,
+      "interval_coverage": 0.618,
       "LightGBM": {
         "MAE": 0.11850037869718155,
         "RMSE": 0.26966860083525007,
