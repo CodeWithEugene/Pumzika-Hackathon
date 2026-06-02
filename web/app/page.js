@@ -192,24 +192,24 @@ function StatBar({ meta }) {
   return (
     <div className="statbar">
       <div className="stat lead">
-        <div className="label">Lift vs seasonal-naive</div>
+        <div className="label">Lift Vs Seasonal-Naive</div>
         <div className="value">{meta.headline.improvement_pct}%</div>
-        <div className="sub">lower forecast error, held-out</div>
+        <div className="sub">Lower Forecast Error, Held-Out</div>
       </div>
       <div className="stat">
-        <div className="label">Portfolio occupancy · 90d</div>
+        <div className="label">Portfolio Occupancy · 90d</div>
         <div className="value">{fmtPct(meta.portfolio_avg_occ_90d)}</div>
-        <div className="sub">forecast mean</div>
+        <div className="sub">Forecast Mean</div>
       </div>
       <div className="stat">
-        <div className="label">Forecast error</div>
+        <div className="label">Forecast Error</div>
         <div className="value">{(meta.headline.model_mae * 100).toFixed(1)}<small style={{ fontSize: "1rem", color: "var(--text-muted)" }}> pts</small></div>
-        <div className="sub">market-week MAE</div>
+        <div className="sub">Market-Week MAE</div>
       </div>
       <div className="stat">
         <div className="label">Coverage</div>
         <div className="value">{meta.n_listings.toLocaleString()}</div>
-        <div className="sub">listings · {meta.n_markets} markets</div>
+        <div className="sub">Listings · {meta.n_markets} Markets</div>
       </div>
     </div>
   );
