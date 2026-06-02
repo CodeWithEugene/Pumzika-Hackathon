@@ -105,9 +105,9 @@ export default function Page() {
       getJSON("meta.json"), getJSON("markets.json"), getJSON("listings.json"),
       getJSON("listing_series.json"), getJSON("importance.json"),
       getJSON("season.json"), getJSON("backtest.json"), getJSON("real.json"),
-      getJSON("kaggle.json"),
-    ]).then(([meta, markets, listings, series, importance, season, backtest, real, kaggle]) =>
-      setD({ meta, markets, listings, series, importance, season, backtest, real, kaggle })
+      getJSON("kaggle.json"), getJSON("east_africa.json"),
+    ]).then(([meta, markets, listings, series, importance, season, backtest, real, kaggle, eastAfrica]) =>
+      setD({ meta, markets, listings, series, importance, season, backtest, real, kaggle, eastAfrica })
     ).catch(() => setD({ error: true }));
   }, []);
 
@@ -135,7 +135,7 @@ export default function Page() {
         {tab === 0 && <MarketOutlook markets={d.markets} T={T} />}
         {tab === 1 && <ListingPlanner data={d} T={T} />}
         {tab === 2 && <DemandDrivers importance={d.importance} season={d.season} T={T} />}
-        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} kaggle={d.kaggle} T={T} />}
+        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} kaggle={d.kaggle} eastAfrica={d.eastAfrica} T={T} />}
       </div>
 
       <Footer />
@@ -187,8 +187,8 @@ function Hero({ meta, kaggle }) {
       reacting after the fact. Validated on the official Hotel Booking Demand
       dataset (Antonio, Almeida, Nunes 2019), the model beats the seasonal
       baseline by <strong>{kaggle ? kaggle.headline.improvement_pct : meta.headline.improvement_pct}%</strong>
-      {" "}in held-out rolling back-testing.{kaggle
-        ? " Trained on 119K real booking records from two Portuguese hotels (2015–2017)."
+      {" "}      in held-out rolling back-testing.{kaggle
+        ? " The same pipeline runs on synthetic East African STR data and real Inside Airbnb Cape Town data — because the model is dataset-agnostic."
         : " Demonstrated on full East African STR data and real Airbnb Cape Town data."}
       </p>
     </section>
@@ -707,12 +707,108 @@ function RealValidation({ real, T }) {
   );
 }
 
-function ModelTrust({ meta, backtest, real, T, kaggle }) {
+function EastAfricaValidation({ eastAfrica, T }) {
+  if (!eastAfrica || eastAfrica.error) return null;
+  const bestMw = Math.min(...eastAfrica.baselines.map((b) => b.mae_mw));
+  const bestLm = Math.min(...eastAfrica.baselines.map((b) => b.mae_lm));
+  const bestAuc = Math.max(...eastAfrica.baselines.map((b) => b.auc));
+  const calib = (eastAfrica.detail?.calibration || []).map((r) => ({ p: r.p, o: r.o }));
+  const facts = [
+    [eastAfrica.n_listings.toLocaleString(), "listings"],
+    [eastAfrica.n_markets, "markets (TZ · KE · UG)"],
+    [eastAfrica.n_rows.toLocaleString(), "listing-nights generated"],
+    [eastAfrica.n_folds + " folds", "rolling-origin"],
+  ];
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>Same Pipeline · East African STR Demo</h2>
+        <p>The identical model architecture, re-run on synthetic East African
+          short-term-rental data — <strong>{eastAfrica.n_listings} listings</strong>
+          across <strong>{eastAfrica.n_markets} markets</strong> in Tanzania, Kenya
+          and Uganda. The model beats the seasonal baseline by
+          <strong> {eastAfrica.headline.improvement_pct}%</strong> (market-week MAE).</p>
+      </div>
+      <div className="facts">
+        {facts.map(([v, l]) => (
+          <div className="fact" key={l}><b>{v}</b><span>{l}</span></div>
+        ))}
+      </div>
+
+      <div className="cols two" style={{ marginTop: 16 }}>
+        <table className="data" style={{ alignSelf: "start" }}>
+          <thead>
+            <tr><th>Model</th><th className="num">AUC</th>
+              <th className="num">MAE · market-week</th>
+              <th className="num">MAE · listing-month</th></tr>
+          </thead>
+          <tbody>
+            {eastAfrica.baselines.map((b) => (
+              <tr key={b.model} className={b.is_model ? "model" : ""}>
+                <td>{b.model}{b.is_model ? "  ★" : ""}</td>
+                <td className={`num ${b.auc === bestAuc ? "best" : ""}`}>{b.auc.toFixed(3)}</td>
+                <td className={`num ${b.mae_mw === bestMw ? "best" : ""}`}>{b.mae_mw.toFixed(4)}</td>
+                <td className={`num ${b.mae_lm === bestLm ? "best" : ""}`}>{b.mae_lm.toFixed(4)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {eastAfrica.importance && eastAfrica.importance.length > 0 && (
+          <div>
+            <p className="note" style={{ marginTop: 0, marginBottom: 10 }}>
+              Top demand drivers — track record, seasonality and review quality
+              lead, as any experienced host would expect.</p>
+            <div className="bars" style={{ gap: 0 }}>
+              {eastAfrica.importance.map((x) => (
+                <div className="bar-row" key={x.name} style={{ fontSize: "0.82rem" }}>
+                  <div className="name">{x.name}</div>
+                  <div className="bar-track">
+                    <div className="bar-fill" style={{ width: `${x.pct}%` }} />
+                  </div>
+                  <div className="pct" style={{ fontSize: "0.78rem" }}>{x.pct.toFixed(0)}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {calib.length > 0 && (
+        <div className="cols two" style={{ marginTop: 20 }}>
+          <section className="panel">
+            <div className="panel-head"><h2>Calibration</h2>
+              <p>Predicted vs observed occupancy rate on held-out East African data.</p></div>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={calib} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+                <CartesianGrid stroke={T.grid} />
+                <XAxis dataKey="p" type="number" domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} {...axisProps(T)} />
+                <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
+                <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
+                <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
+                <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+              </LineChart>
+            </ResponsiveContainer>
+          </section>
+        </div>
+      )}
+
+      <p className="note">Data: Synthetic STR marketplace grounded in real East
+        African tourism dynamics (safari, coastal, city archetypes). The pipeline
+        is dataset-agnostic — the same code runs the Kaggle hotel data, this East
+        African demo, and the Inside Airbnb Cape Town data without changes.</p>
+    </section>
+  );
+}
+
+function ModelTrust({ meta, backtest, real, T, kaggle, eastAfrica }) {
   const isKaggle = meta?.source === "kaggle";
 
   return (
     <div className="stack">
       <KaggleValidation kaggle={kaggle} T={T} />
+
+      {isKaggle && <EastAfricaValidation eastAfrica={eastAfrica} T={T} />}
 
       {!isKaggle && <section className="panel">
         <div className="panel-head">

@@ -210,6 +210,52 @@ def export_kaggle():
             kaggle["detail"] = json.load(open(kb_path))
         w("kaggle.json", kaggle)
 
+    # ---- East African synthetic data (same pipeline, different dataset) ----
+    ea_metrics = os.path.join(REPORTS, "metrics.json")
+    ea_backtest = os.path.join(REPORTS, "backtest_web.json")
+    ea_meta = os.path.join(REPORTS, "run_meta.json")
+    ea_imp = os.path.join(REPORTS, "feature_importance.csv")
+    if os.path.exists(ea_metrics):
+        em = json.load(open(ea_metrics))
+        rm = json.load(open(ea_meta)) if os.path.exists(ea_meta) else {}
+        s = em["summary"]
+        order = ["LightGBM", "Seasonal-naive (mkt x month)", "Listing-average",
+                 "Market-average", "Global-average"]
+        imp_df = pd.read_csv(ea_imp) if os.path.exists(ea_imp) else None
+        imp_list = []
+        if imp_df is not None:
+            imp2 = imp_df.copy()
+            imp2["name"] = imp2.feature.map(NICE).fillna(imp2.feature)
+            imp2 = imp2.groupby("name", as_index=False).gain.sum()
+            imp2 = imp2.sort_values("gain", ascending=False).head(8)
+            tot = imp2.gain.sum()
+            imp_list = [{"name": r["name"], "pct": round(float(r.gain / tot * 100), 1)}
+                        for _, r in imp2.iterrows()]
+        east_africa = {
+            "source": "Synthetic East African STR Data",
+            "n_listings": rm.get("n_listings", 500),
+            "n_markets": rm.get("n_markets", 10),
+            "n_rows": rm.get("n_listings", 500) * 365,
+            "occupancy_rate": rm.get("portfolio_avg_occ_90d", 0.657),
+            "horizon_days": em.get("horizon_days", 90),
+            "n_folds": em.get("n_folds", 3),
+            "headline": {
+                "improvement_pct": round(em["headline"]["improvement_pct"], 1),
+                "model_market_week_MAE": round(em["headline"]["model_market_week_MAE"], 4),
+                "model_AUC": round(em["headline"]["model_AUC"], 3),
+            },
+            "baselines": [{
+                "model": k, "auc": round(s[k]["AUC"], 3),
+                "mae_mw": round(s[k]["market_week_MAE"], 4),
+                "mae_lm": round(s[k]["listing_month_MAE"], 4),
+                "is_model": k == "LightGBM",
+            } for k in order if k in s],
+            "importance": imp_list,
+        }
+        if os.path.exists(ea_backtest):
+            east_africa["detail"] = json.load(open(ea_backtest))
+        w("east_africa.json", east_africa)
+
     print("Exported web data from Kaggle pipeline to web/public/data/")
 
 
