@@ -1,0 +1,206 @@
+{
+  "horizon_days": 90,
+  "n_folds": 3,
+  "summary": {
+    "LightGBM": {
+      "AUC": 0.6428041781521177,
+      "LogLoss": 0.627696355304053,
+      "Brier": 0.21889710757478387,
+      "market_week_MAE": 0.03339723300009293,
+      "market_week_RMSE": 0.042315844596238245,
+      "listing_month_MAE": 0.1309489370769187,
+      "listing_month_RMSE": 0.18861558696188005
+    },
+    "Seasonal-naive (mkt x month)": {
+      "AUC": 0.5597915917896827,
+      "LogLoss": 0.6519235677308989,
+      "Brier": 0.2297460362718878,
+      "market_week_MAE": 0.04153587976968031,
+      "market_week_RMSE": 0.05113799931817917,
+      "listing_month_MAE": 0.16572548447174604,
+      "listing_month_RMSE": 0.21706154178293616
+    },
+    "Listing-average": {
+      "AUC": 0.6354309807325333,
+      "LogLoss": 0.6314168181075441,
+      "Brier": 0.22060588312121474,
+      "market_week_MAE": 0.05596280405530829,
+      "market_week_RMSE": 0.06874012291998827,
+      "listing_month_MAE": 0.13610956154871975,
+      "listing_month_RMSE": 0.1918221835040891
+    },
+    "Market-average": {
+      "AUC": 0.541725627776191,
+      "LogLoss": 0.6560537539786289,
+      "Brier": 0.2317107860469836,
+      "market_week_MAE": 0.055962804055308284,
+      "market_week_RMSE": 0.06874012291998827,
+      "listing_month_MAE": 0.16911153765450657,
+      "listing_month_RMSE": 0.22034118866352437
+    },
+    "Global-average": {
+      "AUC": 0.5,
+      "LogLoss": 0.6587222304766628,
+      "Brier": 0.2329698184647703,
+      "market_week_MAE": 0.06252796209079815,
+      "market_week_RMSE": 0.07653018529475271,
+      "listing_month_MAE": 0.1719718327523867,
+      "listing_month_RMSE": 0.22302268086450164
+    }
+  },
+  "headline": {
+    "model_market_week_MAE": 0.03339723300009293,
+    "seasonal_naive_market_week_MAE": 0.04153587976968031,
+    "improvement_pct": 19.59425637476998,
+    "model_AUC": 0.6428041781521177
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "window": "2025-09-05 -> 2025-12-03",
+      "LightGBM": {
+        "AUC": 0.6292246785369149,
+        "LogLoss": 0.629903742272663,
+        "Brier": 0.2198428379894761,
+        "market_week_MAE": 0.034662445428194764,
+        "market_week_RMSE": 0.04353367669549018,
+        "listing_month_MAE": 0.11419019338914538,
+        "listing_month_RMSE": 0.1622304432600171
+      },
+      "Seasonal-naive (mkt x month)": {
+        "AUC": 0.5337973755569204,
+        "LogLoss": 0.6519727743876427,
+        "Brier": 0.2297087980707083,
+        "market_week_MAE": 0.03981212427747509,
+        "market_week_RMSE": 0.05014603897278904,
+        "listing_month_MAE": 0.1492001763816252,
+        "listing_month_RMSE": 0.19303118249089138
+      },
+      "Listing-average": {
+        "AUC": 0.6310853893195156,
+        "LogLoss": 0.6286525582244992,
+        "Brier": 0.21925682607052166,
+        "market_week_MAE": 0.04336616533373151,
+        "market_week_RMSE": 0.05430463820514915,
+        "listing_month_MAE": 0.11416199051222842,
+        "listing_month_RMSE": 0.16116623450823622
+      },
+      "Market-average": {
+        "AUC": 0.5291280307942133,
+        "LogLoss": 0.6524690922948446,
+        "Brier": 0.2299369778716305,
+        "market_week_MAE": 0.04336616533373151,
+        "market_week_RMSE": 0.05430463820514915,
+        "listing_month_MAE": 0.1491597904131864,
+        "listing_month_RMSE": 0.19279820715537513
+      },
+      "Global-average": {
+        "AUC": 0.5,
+        "LogLoss": 0.6536130874624896,
+        "Brier": 0.2304587286711012,
+        "market_week_MAE": 0.04375214304035114,
+        "market_week_RMSE": 0.05337323858768837,
+        "listing_month_MAE": 0.15074355121118008,
+        "listing_month_RMSE": 0.1944374654711847
+      }
+    },
+    {
+      "fold": 2,
+      "window": "2025-12-04 -> 2026-03-03",
+      "LightGBM": {
+        "AUC": 0.6393065231056386,
+        "LogLoss": 0.6169369180057471,
+        "Brier": 0.21393045599861138,
+        "market_week_MAE": 0.03767110978989489,
+        "market_week_RMSE": 0.0454600288322464,
+        "listing_month_MAE": 0.11004948134092572,
+        "listing_month_RMSE": 0.15395753481207972
+      },
+      "Seasonal-naive (mkt x month)": {
+        "AUC": 0.5520247247246313,
+        "LogLoss": 0.6408339966246087,
+        "Brier": 0.22438130242426996,
+        "market_week_MAE": 0.04538777901393541,
+        "market_week_RMSE": 0.05337393475399941,
+        "listing_month_MAE": 0.13883740102829364,
+        "listing_month_RMSE": 0.18304293806206368
+      },
+      "Listing-average": {
+        "AUC": 0.6330319296972038,
+        "LogLoss": 0.6205769488954352,
+        "Brier": 0.21548620817747266,
+        "market_week_MAE": 0.05376713820466548,
+        "market_week_RMSE": 0.06307229866679501,
+        "listing_month_MAE": 0.11414601018675723,
+        "listing_month_RMSE": 0.15630959679812606
+      },
+      "Market-average": {
+        "AUC": 0.5231405080282827,
+        "LogLoss": 0.6443413571213007,
+        "Brier": 0.2259609489846619,
+        "market_week_MAE": 0.05376713820466547,
+        "market_week_RMSE": 0.06307229866679501,
+        "listing_month_MAE": 0.14302896030067955,
+        "listing_month_RMSE": 0.18609785265045947
+      },
+      "Global-average": {
+        "AUC": 0.5,
+        "LogLoss": 0.6458036632121422,
+        "Brier": 0.2266366758563597,
+        "market_week_MAE": 0.055588518573913545,
+        "market_week_RMSE": 0.06716302317276503,
+        "listing_month_MAE": 0.14477926147404105,
+        "listing_month_RMSE": 0.18830318691943534
+      }
+    },
+    {
+      "fold": 3,
+      "window": "2026-03-04 -> 2026-06-01",
+      "LightGBM": {
+        "AUC": 0.6598813328137993,
+        "LogLoss": 0.6362484056337488,
+        "Brier": 0.22291802873626407,
+        "market_week_MAE": 0.02785814378218914,
+        "market_week_RMSE": 0.037953828260978144,
+        "listing_month_MAE": 0.16860713650068498,
+        "listing_month_RMSE": 0.2496587828135433
+      },
+      "Seasonal-naive (mkt x month)": {
+        "AUC": 0.5935526750874964,
+        "LogLoss": 0.662963932180445,
+        "Brier": 0.2351480083206852,
+        "market_week_MAE": 0.03940773601763043,
+        "market_week_RMSE": 0.04989402422774905,
+        "listing_month_MAE": 0.20913887600531925,
+        "listing_month_RMSE": 0.27511050479585336
+      },
+      "Listing-average": {
+        "AUC": 0.6421756231808807,
+        "LogLoss": 0.645020947202698,
+        "Brier": 0.22707461511564989,
+        "market_week_MAE": 0.07075510862752786,
+        "market_week_RMSE": 0.08884343188802063,
+        "listing_month_MAE": 0.18002068394717355,
+        "listing_month_RMSE": 0.25799071920590516
+      },
+      "Market-average": {
+        "AUC": 0.572908344506077,
+        "LogLoss": 0.6713508125197413,
+        "Brier": 0.2392344312846585,
+        "market_week_MAE": 0.07075510862752786,
+        "market_week_RMSE": 0.08884343188802063,
+        "listing_month_MAE": 0.21514586224965365,
+        "listing_month_RMSE": 0.2821275061847385
+      },
+      "Global-average": {
+        "AUC": 0.5,
+        "LogLoss": 0.6767499407553565,
+        "Brier": 0.24181405086685004,
+        "market_week_MAE": 0.08824322465812978,
+        "market_week_RMSE": 0.10905429412380475,
+        "listing_month_MAE": 0.220392685571939,
+        "listing_month_RMSE": 0.28632739020288484
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "origin": "2026-06-02",
+  "horizon_days": 90,
+  "forecast_end": "2026-08-30",
+  "n_listings": 500,
+  "n_markets": 10,
+  "portfolio_avg_occ_90d": 0.657
+}

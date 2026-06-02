@@ -1,0 +1,501 @@
+listing_id,avg_occ_90d,peak_week,peak_occ,low_week,low_occ,market,country,archetype,base_price,review_score,is_superhost,recommendation
+1117,0.871,2026-08-17,0.905,2026-06-01,0.8,Arusha,TZ,safari,76.1,4.27,False,Raise rates for the week of 2026-08-17 (forecast 90% full).
+1131,0.849,2026-08-10,0.888,2026-06-01,0.766,Arusha,TZ,safari,81.22,4.86,True,Raise rates for the week of 2026-08-10 (forecast 89% full).
+1146,0.828,2026-08-24,0.863,2026-06-01,0.757,Arusha,TZ,safari,76.6,4.57,False,Raise rates for the week of 2026-08-24 (forecast 86% full).
+1153,0.823,2026-08-24,0.866,2026-06-08,0.77,Arusha,TZ,safari,52.95,4.34,False,Raise rates for the week of 2026-08-24 (forecast 87% full).
+1122,0.815,2026-08-10,0.853,2026-06-22,0.752,Arusha,TZ,safari,87.67,4.28,False,Raise rates for the week of 2026-08-10 (forecast 85% full).
+1129,0.812,2026-08-24,0.845,2026-06-08,0.746,Arusha,TZ,safari,65.08,4.3,False,Raise rates for the week of 2026-08-24 (forecast 84% full).
+1157,0.796,2026-08-24,0.843,2026-06-01,0.708,Arusha,TZ,safari,58.37,3.78,False,Raise rates for the week of 2026-08-24 (forecast 84% full).
+1148,0.788,2026-08-10,0.811,2026-06-01,0.756,Arusha,TZ,safari,98.75,4.44,False,Raise rates for the week of 2026-08-10 (forecast 81% full).
+1120,0.779,2026-08-24,0.835,2026-06-08,0.704,Arusha,TZ,safari,61.06,4.07,True,Raise rates for the week of 2026-08-24 (forecast 84% full).
+1137,0.775,2026-07-20,0.806,2026-06-08,0.72,Arusha,TZ,safari,77.65,4.64,True,Raise rates for the week of 2026-07-20 (forecast 81% full).
+1149,0.775,2026-07-20,0.811,2026-06-01,0.715,Arusha,TZ,safari,75.45,4.91,True,Raise rates for the week of 2026-07-20 (forecast 81% full).
+1128,0.767,2026-08-24,0.788,2026-06-01,0.749,Arusha,TZ,safari,117.01,4.33,False,"Strong quarter ahead - protect availability, test a price uplift."
+1152,0.762,2026-08-24,0.802,2026-06-01,0.716,Arusha,TZ,safari,88.31,4.64,False,Raise rates for the week of 2026-08-24 (forecast 80% full).
+1123,0.758,2026-08-17,0.801,2026-06-08,0.692,Arusha,TZ,safari,99.95,4.03,False,Raise rates for the week of 2026-08-17 (forecast 80% full).
+1156,0.75,2026-08-24,0.796,2026-06-08,0.681,Arusha,TZ,safari,55.7,4.45,True,"Strong quarter ahead - protect availability, test a price uplift."
+1147,0.747,2026-08-17,0.792,2026-06-01,0.683,Arusha,TZ,safari,80.23,4.91,True,"Strong quarter ahead - protect availability, test a price uplift."
+1145,0.733,2026-08-24,0.777,2026-06-22,0.674,Arusha,TZ,safari,88.49,4.25,False,"Strong quarter ahead - protect availability, test a price uplift."
+1138,0.731,2026-07-27,0.774,2026-06-01,0.632,Arusha,TZ,safari,61.33,4.61,True,"Strong quarter ahead - protect availability, test a price uplift."
+1140,0.724,2026-08-17,0.764,2026-06-08,0.648,Arusha,TZ,safari,100.33,4.19,False,"Strong quarter ahead - protect availability, test a price uplift."
+1154,0.724,2026-07-27,0.766,2026-06-08,0.648,Arusha,TZ,safari,110.36,4.41,False,"Strong quarter ahead - protect availability, test a price uplift."
+1143,0.722,2026-08-10,0.774,2026-06-01,0.654,Arusha,TZ,safari,139.85,4.6,False,"Strong quarter ahead - protect availability, test a price uplift."
+1139,0.713,2026-07-13,0.744,2026-06-01,0.664,Arusha,TZ,safari,66.14,4.68,False,"Strong quarter ahead - protect availability, test a price uplift."
+1144,0.706,2026-08-10,0.75,2026-06-01,0.632,Arusha,TZ,safari,90.74,4.33,False,"Strong quarter ahead - protect availability, test a price uplift."
+1150,0.688,2026-08-24,0.75,2026-06-01,0.599,Arusha,TZ,safari,45.61,4.31,False,"Steady demand - keep rates, watch weekend pickup."
+1126,0.672,2026-08-24,0.717,2026-06-01,0.604,Arusha,TZ,safari,79.82,3.69,True,"Steady demand - keep rates, watch weekend pickup."
+1155,0.671,2026-08-24,0.698,2026-06-29,0.652,Arusha,TZ,safari,93.01,4.09,False,"Steady demand - keep rates, watch weekend pickup."
+1119,0.663,2026-08-17,0.722,2026-06-08,0.577,Arusha,TZ,safari,50.98,4.75,True,"Steady demand - keep rates, watch weekend pickup."
+1135,0.629,2026-08-24,0.696,2026-06-22,0.561,Arusha,TZ,safari,85.04,4.33,False,"Steady demand - keep rates, watch weekend pickup."
+1118,0.581,2026-08-17,0.643,2026-06-08,0.5,Arusha,TZ,safari,97.69,4.03,False,"Steady demand - keep rates, watch weekend pickup."
+1124,0.568,2026-08-10,0.62,2026-06-29,0.505,Arusha,TZ,safari,90.66,4.59,False,"Steady demand - keep rates, watch weekend pickup."
+1142,0.568,2026-08-03,0.656,2026-06-15,0.501,Arusha,TZ,safari,98.49,4.95,True,"Steady demand - keep rates, watch weekend pickup."
+1151,0.562,2026-07-20,0.594,2026-06-08,0.504,Arusha,TZ,safari,45.37,4.61,False,"Steady demand - keep rates, watch weekend pickup."
+1136,0.558,2026-08-24,0.642,2026-06-08,0.448,Arusha,TZ,safari,54.46,4.02,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 45%).
+1132,0.536,2026-08-17,0.604,2026-06-08,0.451,Arusha,TZ,safari,92.48,4.08,False,"Steady demand - keep rates, watch weekend pickup."
+1125,0.535,2026-08-24,0.652,2026-06-08,0.437,Arusha,TZ,safari,70.72,4.55,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1141,0.528,2026-08-24,0.633,2026-06-08,0.448,Arusha,TZ,safari,80.42,4.38,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 45%).
+1127,0.52,2026-08-24,0.686,2026-06-08,0.353,Arusha,TZ,safari,47.71,4.89,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 35%).
+1121,0.518,2026-08-17,0.593,2026-06-08,0.385,Arusha,TZ,safari,75.82,4.25,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 38%).
+1133,0.513,2026-07-27,0.578,2026-06-08,0.372,Arusha,TZ,safari,79.86,4.41,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 37%).
+1134,0.468,2026-08-24,0.551,2026-06-08,0.364,Arusha,TZ,safari,102.03,3.73,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 36%).
+1130,0.394,2026-08-03,0.449,2026-06-01,0.299,Arusha,TZ,safari,59.38,3.98,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 30%).
+1166,0.912,2026-06-22,0.929,2026-08-03,0.893,Dar es Salaam,TZ,city,57.51,4.99,True,Raise rates for the week of 2026-06-22 (forecast 93% full).
+1183,0.872,2026-08-24,0.89,2026-07-20,0.855,Dar es Salaam,TZ,city,85.23,4.09,False,Raise rates for the week of 2026-08-24 (forecast 89% full).
+1207,0.863,2026-08-24,0.877,2026-07-06,0.853,Dar es Salaam,TZ,city,65.49,4.73,True,Raise rates for the week of 2026-08-24 (forecast 88% full).
+1162,0.847,2026-06-01,0.887,2026-06-22,0.805,Dar es Salaam,TZ,city,116.38,4.99,True,Raise rates for the week of 2026-06-01 (forecast 89% full).
+1173,0.844,2026-06-01,0.863,2026-08-24,0.821,Dar es Salaam,TZ,city,59.71,5.0,True,Raise rates for the week of 2026-06-01 (forecast 86% full).
+1170,0.839,2026-08-24,0.858,2026-07-06,0.82,Dar es Salaam,TZ,city,37.79,4.88,True,Raise rates for the week of 2026-08-24 (forecast 86% full).
+1198,0.824,2026-07-20,0.835,2026-06-08,0.816,Dar es Salaam,TZ,city,65.81,4.58,True,Raise rates for the week of 2026-07-20 (forecast 84% full).
+1213,0.819,2026-06-29,0.848,2026-08-17,0.782,Dar es Salaam,TZ,city,60.91,4.03,False,Raise rates for the week of 2026-06-29 (forecast 85% full).
+1184,0.818,2026-06-29,0.845,2026-08-17,0.786,Dar es Salaam,TZ,city,87.83,4.59,True,Raise rates for the week of 2026-06-29 (forecast 84% full).
+1168,0.813,2026-06-01,0.825,2026-06-29,0.792,Dar es Salaam,TZ,city,46.92,4.5,True,Raise rates for the week of 2026-06-01 (forecast 82% full).
+1192,0.81,2026-06-01,0.833,2026-08-03,0.799,Dar es Salaam,TZ,city,103.67,4.32,False,Raise rates for the week of 2026-06-01 (forecast 83% full).
+1161,0.808,2026-07-20,0.827,2026-08-24,0.788,Dar es Salaam,TZ,city,72.03,4.82,True,Raise rates for the week of 2026-07-20 (forecast 83% full).
+1185,0.807,2026-06-01,0.832,2026-08-24,0.795,Dar es Salaam,TZ,city,115.51,4.44,True,Raise rates for the week of 2026-06-01 (forecast 83% full).
+1190,0.802,2026-07-06,0.843,2026-08-17,0.748,Dar es Salaam,TZ,city,93.7,4.29,False,Raise rates for the week of 2026-07-06 (forecast 84% full).
+1180,0.789,2026-08-24,0.806,2026-06-29,0.764,Dar es Salaam,TZ,city,59.71,4.56,False,Raise rates for the week of 2026-08-24 (forecast 81% full).
+1179,0.78,2026-07-06,0.803,2026-08-17,0.751,Dar es Salaam,TZ,city,70.25,4.38,True,Raise rates for the week of 2026-07-06 (forecast 80% full).
+1182,0.774,2026-06-01,0.79,2026-08-17,0.757,Dar es Salaam,TZ,city,50.54,4.23,True,"Strong quarter ahead - protect availability, test a price uplift."
+1210,0.766,2026-06-22,0.802,2026-08-03,0.73,Dar es Salaam,TZ,city,53.0,3.73,False,Raise rates for the week of 2026-06-22 (forecast 80% full).
+1196,0.753,2026-06-01,0.776,2026-06-29,0.726,Dar es Salaam,TZ,city,46.88,4.29,True,"Strong quarter ahead - protect availability, test a price uplift."
+1209,0.75,2026-06-01,0.786,2026-08-17,0.715,Dar es Salaam,TZ,city,63.71,4.23,False,"Strong quarter ahead - protect availability, test a price uplift."
+1172,0.745,2026-08-10,0.783,2026-06-29,0.71,Dar es Salaam,TZ,city,53.18,5.0,True,"Strong quarter ahead - protect availability, test a price uplift."
+1194,0.744,2026-06-01,0.772,2026-08-03,0.734,Dar es Salaam,TZ,city,55.27,3.98,False,"Strong quarter ahead - protect availability, test a price uplift."
+1178,0.733,2026-06-29,0.779,2026-06-08,0.712,Dar es Salaam,TZ,city,85.86,4.45,True,"Strong quarter ahead - protect availability, test a price uplift."
+1175,0.728,2026-07-20,0.744,2026-08-17,0.707,Dar es Salaam,TZ,city,94.07,4.37,False,"Strong quarter ahead - protect availability, test a price uplift."
+1174,0.72,2026-07-27,0.749,2026-07-06,0.694,Dar es Salaam,TZ,city,97.76,4.38,True,"Strong quarter ahead - protect availability, test a price uplift."
+1187,0.716,2026-07-27,0.728,2026-08-24,0.701,Dar es Salaam,TZ,city,51.76,4.26,False,"Strong quarter ahead - protect availability, test a price uplift."
+1228,0.716,2026-06-29,0.747,2026-08-17,0.696,Dar es Salaam,TZ,city,85.71,4.41,False,"Strong quarter ahead - protect availability, test a price uplift."
+1206,0.711,2026-08-24,0.737,2026-06-29,0.681,Dar es Salaam,TZ,city,47.67,4.21,False,"Strong quarter ahead - protect availability, test a price uplift."
+1160,0.709,2026-06-01,0.749,2026-06-29,0.682,Dar es Salaam,TZ,city,53.77,4.66,True,"Strong quarter ahead - protect availability, test a price uplift."
+1203,0.709,2026-07-20,0.739,2026-08-10,0.683,Dar es Salaam,TZ,city,53.45,4.45,False,"Strong quarter ahead - protect availability, test a price uplift."
+1225,0.702,2026-06-22,0.742,2026-08-03,0.67,Dar es Salaam,TZ,city,39.91,3.98,False,"Strong quarter ahead - protect availability, test a price uplift."
+1193,0.7,2026-06-01,0.726,2026-07-13,0.676,Dar es Salaam,TZ,city,73.11,3.88,False,"Strong quarter ahead - protect availability, test a price uplift."
+1197,0.7,2026-08-17,0.718,2026-06-08,0.681,Dar es Salaam,TZ,city,62.73,4.18,False,"Strong quarter ahead - protect availability, test a price uplift."
+1204,0.695,2026-06-01,0.72,2026-07-06,0.676,Dar es Salaam,TZ,city,58.58,4.69,True,"Steady demand - keep rates, watch weekend pickup."
+1201,0.694,2026-06-01,0.72,2026-07-13,0.655,Dar es Salaam,TZ,city,69.79,4.03,True,"Steady demand - keep rates, watch weekend pickup."
+1222,0.685,2026-07-20,0.71,2026-07-06,0.642,Dar es Salaam,TZ,city,46.09,4.33,False,"Steady demand - keep rates, watch weekend pickup."
+1215,0.681,2026-07-20,0.693,2026-07-06,0.657,Dar es Salaam,TZ,city,67.44,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1171,0.675,2026-06-22,0.712,2026-07-13,0.635,Dar es Salaam,TZ,city,49.07,3.9,False,"Steady demand - keep rates, watch weekend pickup."
+1176,0.675,2026-06-01,0.713,2026-08-24,0.651,Dar es Salaam,TZ,city,76.56,4.85,True,"Steady demand - keep rates, watch weekend pickup."
+1167,0.664,2026-06-01,0.693,2026-07-06,0.649,Dar es Salaam,TZ,city,119.75,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1226,0.66,2026-06-22,0.686,2026-08-03,0.644,Dar es Salaam,TZ,city,55.51,4.55,False,"Steady demand - keep rates, watch weekend pickup."
+1223,0.659,2026-07-20,0.678,2026-08-17,0.642,Dar es Salaam,TZ,city,67.49,4.58,False,"Steady demand - keep rates, watch weekend pickup."
+1181,0.648,2026-06-01,0.69,2026-08-17,0.628,Dar es Salaam,TZ,city,57.35,4.0,False,"Steady demand - keep rates, watch weekend pickup."
+1165,0.647,2026-06-01,0.682,2026-07-13,0.613,Dar es Salaam,TZ,city,128.96,4.24,False,"Steady demand - keep rates, watch weekend pickup."
+1219,0.643,2026-06-22,0.66,2026-07-13,0.62,Dar es Salaam,TZ,city,84.4,4.28,False,"Steady demand - keep rates, watch weekend pickup."
+1195,0.638,2026-06-22,0.668,2026-07-13,0.612,Dar es Salaam,TZ,city,70.73,4.39,False,"Steady demand - keep rates, watch weekend pickup."
+1169,0.635,2026-06-01,0.664,2026-07-13,0.612,Dar es Salaam,TZ,city,84.1,4.31,False,"Steady demand - keep rates, watch weekend pickup."
+1211,0.635,2026-07-20,0.652,2026-07-13,0.618,Dar es Salaam,TZ,city,59.43,4.48,False,"Steady demand - keep rates, watch weekend pickup."
+1227,0.634,2026-06-29,0.649,2026-07-13,0.615,Dar es Salaam,TZ,city,128.43,4.49,False,"Steady demand - keep rates, watch weekend pickup."
+1164,0.632,2026-06-29,0.645,2026-07-06,0.617,Dar es Salaam,TZ,city,57.47,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1191,0.631,2026-06-01,0.654,2026-06-08,0.612,Dar es Salaam,TZ,city,101.67,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1218,0.629,2026-06-22,0.657,2026-08-24,0.612,Dar es Salaam,TZ,city,50.41,4.64,True,"Steady demand - keep rates, watch weekend pickup."
+1224,0.616,2026-06-29,0.642,2026-06-08,0.573,Dar es Salaam,TZ,city,106.22,4.43,False,"Steady demand - keep rates, watch weekend pickup."
+1214,0.614,2026-07-06,0.642,2026-08-03,0.585,Dar es Salaam,TZ,city,62.0,4.72,True,"Steady demand - keep rates, watch weekend pickup."
+1177,0.606,2026-08-24,0.646,2026-06-29,0.566,Dar es Salaam,TZ,city,34.81,4.05,False,"Steady demand - keep rates, watch weekend pickup."
+1212,0.604,2026-07-06,0.624,2026-08-03,0.577,Dar es Salaam,TZ,city,67.39,4.05,False,"Steady demand - keep rates, watch weekend pickup."
+1163,0.602,2026-06-29,0.63,2026-08-24,0.576,Dar es Salaam,TZ,city,69.82,3.48,False,"Steady demand - keep rates, watch weekend pickup."
+1189,0.597,2026-07-20,0.621,2026-07-13,0.579,Dar es Salaam,TZ,city,78.14,4.48,False,"Steady demand - keep rates, watch weekend pickup."
+1188,0.585,2026-08-24,0.636,2026-07-06,0.537,Dar es Salaam,TZ,city,32.25,4.78,False,"Steady demand - keep rates, watch weekend pickup."
+1216,0.584,2026-07-20,0.616,2026-07-06,0.557,Dar es Salaam,TZ,city,43.31,4.28,True,"Steady demand - keep rates, watch weekend pickup."
+1158,0.577,2026-07-20,0.605,2026-07-06,0.553,Dar es Salaam,TZ,city,45.97,4.06,False,"Steady demand - keep rates, watch weekend pickup."
+1221,0.568,2026-06-22,0.594,2026-06-08,0.531,Dar es Salaam,TZ,city,54.15,4.73,False,"Steady demand - keep rates, watch weekend pickup."
+1208,0.555,2026-07-20,0.577,2026-07-06,0.519,Dar es Salaam,TZ,city,77.96,3.78,False,"Steady demand - keep rates, watch weekend pickup."
+1205,0.548,2026-06-29,0.593,2026-08-03,0.512,Dar es Salaam,TZ,city,96.03,3.71,False,"Steady demand - keep rates, watch weekend pickup."
+1217,0.547,2026-07-27,0.574,2026-06-08,0.519,Dar es Salaam,TZ,city,40.39,4.49,True,"Steady demand - keep rates, watch weekend pickup."
+1229,0.541,2026-08-24,0.57,2026-07-13,0.504,Dar es Salaam,TZ,city,68.8,4.04,False,"Steady demand - keep rates, watch weekend pickup."
+1199,0.537,2026-07-20,0.593,2026-06-29,0.475,Dar es Salaam,TZ,city,50.01,3.88,False,"Steady demand - keep rates, watch weekend pickup."
+1186,0.503,2026-08-24,0.531,2026-07-13,0.48,Dar es Salaam,TZ,city,40.04,3.99,False,"Steady demand - keep rates, watch weekend pickup."
+1159,0.483,2026-06-01,0.531,2026-08-17,0.457,Dar es Salaam,TZ,city,51.12,4.03,False,"Steady demand - keep rates, watch weekend pickup."
+1220,0.469,2026-08-24,0.512,2026-06-08,0.44,Dar es Salaam,TZ,city,55.31,3.69,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1200,0.465,2026-08-24,0.505,2026-06-08,0.435,Dar es Salaam,TZ,city,66.77,4.13,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1202,0.451,2026-06-22,0.495,2026-07-06,0.395,Dar es Salaam,TZ,city,107.32,3.89,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 40%).
+1355,0.867,2026-08-17,0.892,2026-06-29,0.838,Diani Beach,KE,beach,111.62,4.77,False,Raise rates for the week of 2026-08-17 (forecast 89% full).
+1344,0.832,2026-08-10,0.865,2026-06-22,0.794,Diani Beach,KE,beach,145.49,4.53,False,Raise rates for the week of 2026-08-10 (forecast 86% full).
+1334,0.807,2026-08-10,0.856,2026-06-01,0.751,Diani Beach,KE,beach,145.26,4.92,True,Raise rates for the week of 2026-08-10 (forecast 86% full).
+1347,0.784,2026-08-10,0.828,2026-06-22,0.745,Diani Beach,KE,beach,88.05,4.07,False,Raise rates for the week of 2026-08-10 (forecast 83% full).
+1339,0.783,2026-08-10,0.827,2026-06-08,0.733,Diani Beach,KE,beach,115.11,4.69,True,Raise rates for the week of 2026-08-10 (forecast 83% full).
+1335,0.774,2026-08-10,0.814,2026-06-01,0.735,Diani Beach,KE,beach,103.87,4.81,True,Raise rates for the week of 2026-08-10 (forecast 81% full).
+1327,0.758,2026-08-10,0.801,2026-06-01,0.689,Diani Beach,KE,beach,123.03,4.41,False,Raise rates for the week of 2026-08-10 (forecast 80% full).
+1342,0.753,2026-08-24,0.811,2026-06-01,0.679,Diani Beach,KE,beach,107.39,5.0,True,Raise rates for the week of 2026-08-24 (forecast 81% full).
+1338,0.724,2026-08-17,0.775,2026-06-08,0.658,Diani Beach,KE,beach,138.11,4.4,True,"Strong quarter ahead - protect availability, test a price uplift."
+1330,0.72,2026-08-10,0.778,2026-06-08,0.664,Diani Beach,KE,beach,133.63,4.46,True,"Strong quarter ahead - protect availability, test a price uplift."
+1324,0.718,2026-08-24,0.768,2026-06-08,0.655,Diani Beach,KE,beach,113.17,3.97,False,"Strong quarter ahead - protect availability, test a price uplift."
+1352,0.709,2026-08-17,0.763,2026-06-08,0.658,Diani Beach,KE,beach,130.27,4.53,False,"Strong quarter ahead - protect availability, test a price uplift."
+1333,0.702,2026-08-17,0.764,2026-06-08,0.657,Diani Beach,KE,beach,174.1,4.29,False,"Strong quarter ahead - protect availability, test a price uplift."
+1350,0.699,2026-08-17,0.76,2026-06-08,0.647,Diani Beach,KE,beach,144.03,4.23,True,"Steady demand - keep rates, watch weekend pickup."
+1345,0.678,2026-08-24,0.71,2026-06-08,0.645,Diani Beach,KE,beach,95.1,4.04,False,"Steady demand - keep rates, watch weekend pickup."
+1356,0.672,2026-08-17,0.743,2026-06-01,0.6,Diani Beach,KE,beach,158.86,4.44,True,"Steady demand - keep rates, watch weekend pickup."
+1337,0.67,2026-08-24,0.728,2026-06-01,0.605,Diani Beach,KE,beach,106.8,3.63,False,"Steady demand - keep rates, watch weekend pickup."
+1328,0.662,2026-08-24,0.707,2026-06-01,0.591,Diani Beach,KE,beach,102.99,4.39,False,"Steady demand - keep rates, watch weekend pickup."
+1329,0.657,2026-08-10,0.72,2026-06-01,0.582,Diani Beach,KE,beach,241.14,4.68,False,"Steady demand - keep rates, watch weekend pickup."
+1343,0.622,2026-08-10,0.687,2026-06-01,0.537,Diani Beach,KE,beach,215.58,4.72,False,"Steady demand - keep rates, watch weekend pickup."
+1340,0.616,2026-08-24,0.666,2026-06-01,0.56,Diani Beach,KE,beach,79.09,4.02,False,"Steady demand - keep rates, watch weekend pickup."
+1346,0.606,2026-08-10,0.644,2026-06-22,0.555,Diani Beach,KE,beach,147.23,4.12,False,"Steady demand - keep rates, watch weekend pickup."
+1341,0.599,2026-08-17,0.664,2026-06-22,0.509,Diani Beach,KE,beach,175.55,4.74,False,"Steady demand - keep rates, watch weekend pickup."
+1331,0.595,2026-08-10,0.662,2026-06-22,0.512,Diani Beach,KE,beach,161.96,4.73,False,"Steady demand - keep rates, watch weekend pickup."
+1336,0.561,2026-08-17,0.615,2026-06-15,0.491,Diani Beach,KE,beach,142.94,3.79,False,"Steady demand - keep rates, watch weekend pickup."
+1357,0.559,2026-08-10,0.615,2026-06-15,0.487,Diani Beach,KE,beach,95.38,4.26,True,"Steady demand - keep rates, watch weekend pickup."
+1332,0.543,2026-08-17,0.617,2026-06-08,0.472,Diani Beach,KE,beach,88.46,4.46,False,"Steady demand - keep rates, watch weekend pickup."
+1353,0.543,2026-08-10,0.618,2026-06-01,0.451,Diani Beach,KE,beach,145.5,5.0,True,"Steady demand - keep rates, watch weekend pickup."
+1354,0.541,2026-07-20,0.576,2026-06-01,0.487,Diani Beach,KE,beach,179.27,4.02,False,"Steady demand - keep rates, watch weekend pickup."
+1351,0.523,2026-08-10,0.61,2026-06-22,0.428,Diani Beach,KE,beach,122.09,4.6,False,Add a promo / min-stay discount around 2026-06-22 (soft demand 43%).
+1325,0.517,2026-07-20,0.564,2026-06-08,0.461,Diani Beach,KE,beach,93.11,4.38,False,"Steady demand - keep rates, watch weekend pickup."
+1349,0.485,2026-08-24,0.55,2026-06-08,0.429,Diani Beach,KE,beach,117.85,4.01,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 43%).
+1326,0.483,2026-08-24,0.551,2026-06-08,0.409,Diani Beach,KE,beach,122.73,4.1,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 41%).
+1348,0.478,2026-07-20,0.512,2026-06-08,0.416,Diani Beach,KE,beach,97.44,4.06,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 42%).
+1491,0.891,2026-08-17,0.908,2026-06-29,0.864,Entebbe,UG,city,79.71,4.94,True,Raise rates for the week of 2026-08-17 (forecast 91% full).
+1480,0.829,2026-08-10,0.852,2026-06-29,0.812,Entebbe,UG,city,44.25,4.36,False,Raise rates for the week of 2026-08-10 (forecast 85% full).
+1496,0.817,2026-08-03,0.83,2026-06-01,0.794,Entebbe,UG,city,32.01,4.99,True,Raise rates for the week of 2026-08-03 (forecast 83% full).
+1498,0.815,2026-08-03,0.83,2026-06-29,0.787,Entebbe,UG,city,46.37,4.71,True,Raise rates for the week of 2026-08-03 (forecast 83% full).
+1490,0.8,2026-08-10,0.818,2026-06-29,0.767,Entebbe,UG,city,83.66,4.42,False,Raise rates for the week of 2026-08-10 (forecast 82% full).
+1494,0.789,2026-08-03,0.808,2026-06-01,0.772,Entebbe,UG,city,52.55,4.6,False,Raise rates for the week of 2026-08-03 (forecast 81% full).
+1478,0.75,2026-08-24,0.771,2026-07-13,0.725,Entebbe,UG,city,37.54,4.3,True,"Strong quarter ahead - protect availability, test a price uplift."
+1487,0.701,2026-07-06,0.723,2026-08-24,0.67,Entebbe,UG,city,52.51,3.83,False,"Strong quarter ahead - protect availability, test a price uplift."
+1497,0.69,2026-08-24,0.733,2026-06-29,0.65,Entebbe,UG,city,61.58,4.41,False,"Steady demand - keep rates, watch weekend pickup."
+1489,0.689,2026-08-03,0.708,2026-06-01,0.662,Entebbe,UG,city,70.29,4.59,False,"Steady demand - keep rates, watch weekend pickup."
+1486,0.669,2026-08-10,0.706,2026-06-01,0.624,Entebbe,UG,city,51.02,4.21,True,"Steady demand - keep rates, watch weekend pickup."
+1482,0.654,2026-06-22,0.674,2026-07-06,0.634,Entebbe,UG,city,28.75,4.07,False,"Steady demand - keep rates, watch weekend pickup."
+1488,0.641,2026-08-03,0.668,2026-06-29,0.607,Entebbe,UG,city,69.45,4.09,False,"Steady demand - keep rates, watch weekend pickup."
+1493,0.64,2026-08-24,0.672,2026-07-06,0.602,Entebbe,UG,city,33.19,4.22,True,"Steady demand - keep rates, watch weekend pickup."
+1483,0.635,2026-08-10,0.667,2026-06-01,0.606,Entebbe,UG,city,55.35,4.26,False,"Steady demand - keep rates, watch weekend pickup."
+1481,0.632,2026-08-24,0.671,2026-07-13,0.595,Entebbe,UG,city,42.42,4.27,False,"Steady demand - keep rates, watch weekend pickup."
+1495,0.61,2026-08-10,0.642,2026-06-01,0.571,Entebbe,UG,city,41.18,4.1,False,"Steady demand - keep rates, watch weekend pickup."
+1499,0.606,2026-08-10,0.625,2026-06-22,0.588,Entebbe,UG,city,49.13,4.63,False,"Steady demand - keep rates, watch weekend pickup."
+1485,0.604,2026-07-27,0.636,2026-06-22,0.561,Entebbe,UG,city,38.86,4.24,False,"Steady demand - keep rates, watch weekend pickup."
+1479,0.58,2026-07-20,0.603,2026-06-01,0.515,Entebbe,UG,city,53.25,3.92,False,"Steady demand - keep rates, watch weekend pickup."
+1492,0.535,2026-08-10,0.595,2026-07-06,0.492,Entebbe,UG,city,103.22,4.12,False,"Steady demand - keep rates, watch weekend pickup."
+1484,0.323,2026-08-24,0.369,2026-07-06,0.242,Entebbe,UG,city,38.6,4.4,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 24%).
+1436,0.873,2026-06-22,0.886,2026-08-10,0.85,Kampala,UG,city,117.56,4.83,True,Raise rates for the week of 2026-06-22 (forecast 89% full).
+1464,0.828,2026-08-03,0.853,2026-06-22,0.78,Kampala,UG,city,87.64,4.44,False,Raise rates for the week of 2026-08-03 (forecast 85% full).
+1476,0.774,2026-08-24,0.789,2026-06-01,0.758,Kampala,UG,city,68.07,4.2,False,"Strong quarter ahead - protect availability, test a price uplift."
+1441,0.762,2026-07-13,0.778,2026-06-22,0.749,Kampala,UG,city,39.99,3.54,False,"Strong quarter ahead - protect availability, test a price uplift."
+1454,0.729,2026-08-24,0.754,2026-06-29,0.685,Kampala,UG,city,51.18,4.67,False,"Strong quarter ahead - protect availability, test a price uplift."
+1455,0.724,2026-06-15,0.758,2026-08-03,0.701,Kampala,UG,city,53.36,4.2,False,"Strong quarter ahead - protect availability, test a price uplift."
+1463,0.718,2026-08-24,0.76,2026-06-29,0.676,Kampala,UG,city,52.44,4.7,True,"Strong quarter ahead - protect availability, test a price uplift."
+1440,0.713,2026-06-15,0.726,2026-08-03,0.696,Kampala,UG,city,55.02,4.14,False,"Strong quarter ahead - protect availability, test a price uplift."
+1468,0.708,2026-06-22,0.746,2026-06-01,0.679,Kampala,UG,city,43.35,4.04,False,"Strong quarter ahead - protect availability, test a price uplift."
+1470,0.704,2026-08-24,0.73,2026-07-06,0.667,Kampala,UG,city,81.29,4.26,False,"Strong quarter ahead - protect availability, test a price uplift."
+1438,0.683,2026-08-24,0.702,2026-06-29,0.653,Kampala,UG,city,50.78,4.18,False,"Steady demand - keep rates, watch weekend pickup."
+1444,0.683,2026-08-24,0.7,2026-07-06,0.659,Kampala,UG,city,122.57,4.29,True,"Steady demand - keep rates, watch weekend pickup."
+1457,0.671,2026-06-22,0.683,2026-06-29,0.651,Kampala,UG,city,43.06,4.41,False,"Steady demand - keep rates, watch weekend pickup."
+1471,0.665,2026-07-20,0.691,2026-06-01,0.619,Kampala,UG,city,51.74,4.45,False,"Steady demand - keep rates, watch weekend pickup."
+1447,0.664,2026-08-24,0.706,2026-06-01,0.593,Kampala,UG,city,84.19,4.33,True,"Steady demand - keep rates, watch weekend pickup."
+1472,0.655,2026-06-29,0.685,2026-08-10,0.63,Kampala,UG,city,39.83,4.1,False,"Steady demand - keep rates, watch weekend pickup."
+1473,0.654,2026-07-20,0.683,2026-06-01,0.623,Kampala,UG,city,35.25,4.82,False,"Steady demand - keep rates, watch weekend pickup."
+1446,0.652,2026-06-22,0.692,2026-08-10,0.608,Kampala,UG,city,31.21,4.32,False,"Steady demand - keep rates, watch weekend pickup."
+1443,0.651,2026-07-27,0.666,2026-06-29,0.627,Kampala,UG,city,50.03,4.51,True,"Steady demand - keep rates, watch weekend pickup."
+1456,0.638,2026-07-06,0.653,2026-08-10,0.622,Kampala,UG,city,63.07,4.22,False,"Steady demand - keep rates, watch weekend pickup."
+1437,0.627,2026-08-24,0.663,2026-06-01,0.578,Kampala,UG,city,65.06,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1452,0.623,2026-08-24,0.655,2026-07-06,0.601,Kampala,UG,city,40.68,4.24,False,"Steady demand - keep rates, watch weekend pickup."
+1477,0.601,2026-08-24,0.629,2026-06-29,0.541,Kampala,UG,city,82.24,4.28,False,"Steady demand - keep rates, watch weekend pickup."
+1467,0.594,2026-08-24,0.627,2026-06-29,0.54,Kampala,UG,city,41.02,4.2,False,"Steady demand - keep rates, watch weekend pickup."
+1474,0.589,2026-06-22,0.603,2026-08-03,0.564,Kampala,UG,city,36.41,4.43,True,"Steady demand - keep rates, watch weekend pickup."
+1459,0.588,2026-07-20,0.626,2026-06-01,0.557,Kampala,UG,city,47.32,4.52,True,"Steady demand - keep rates, watch weekend pickup."
+1435,0.586,2026-06-29,0.627,2026-06-01,0.547,Kampala,UG,city,100.42,4.82,True,"Steady demand - keep rates, watch weekend pickup."
+1461,0.579,2026-07-20,0.598,2026-08-17,0.56,Kampala,UG,city,55.35,4.62,False,"Steady demand - keep rates, watch weekend pickup."
+1439,0.569,2026-07-20,0.604,2026-08-03,0.543,Kampala,UG,city,29.25,4.75,True,"Steady demand - keep rates, watch weekend pickup."
+1442,0.569,2026-08-24,0.605,2026-06-01,0.518,Kampala,UG,city,41.41,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1462,0.568,2026-08-10,0.605,2026-06-01,0.526,Kampala,UG,city,69.21,3.97,False,"Steady demand - keep rates, watch weekend pickup."
+1475,0.558,2026-08-10,0.585,2026-06-22,0.507,Kampala,UG,city,32.67,4.45,True,"Steady demand - keep rates, watch weekend pickup."
+1469,0.549,2026-07-20,0.602,2026-06-01,0.488,Kampala,UG,city,42.61,3.78,False,"Steady demand - keep rates, watch weekend pickup."
+1450,0.533,2026-06-29,0.562,2026-06-01,0.491,Kampala,UG,city,70.99,4.45,False,"Steady demand - keep rates, watch weekend pickup."
+1451,0.533,2026-06-22,0.567,2026-06-01,0.484,Kampala,UG,city,45.47,4.14,False,"Steady demand - keep rates, watch weekend pickup."
+1458,0.512,2026-08-17,0.57,2026-07-06,0.455,Kampala,UG,city,72.46,4.42,False,"Steady demand - keep rates, watch weekend pickup."
+1449,0.509,2026-07-13,0.547,2026-06-08,0.48,Kampala,UG,city,37.28,4.41,False,"Steady demand - keep rates, watch weekend pickup."
+1460,0.478,2026-08-24,0.535,2026-06-01,0.415,Kampala,UG,city,64.86,3.93,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1453,0.471,2026-07-20,0.513,2026-06-01,0.424,Kampala,UG,city,45.5,4.1,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1465,0.469,2026-07-20,0.513,2026-06-01,0.417,Kampala,UG,city,30.93,4.67,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1466,0.449,2026-07-20,0.49,2026-06-01,0.387,Kampala,UG,city,58.37,3.64,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 39%).
+1445,0.439,2026-08-17,0.485,2026-06-01,0.37,Kampala,UG,city,76.22,4.01,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 37%).
+1448,0.365,2026-07-20,0.408,2026-07-06,0.305,Kampala,UG,city,50.45,4.51,True,Add a promo / min-stay discount around 2026-07-06 (soft demand 30%).
+1410,0.791,2026-08-10,0.822,2026-07-13,0.753,Maasai Mara,KE,safari,209.19,4.91,True,Raise rates for the week of 2026-08-10 (forecast 82% full).
+1415,0.791,2026-08-10,0.835,2026-06-01,0.755,Maasai Mara,KE,safari,390.54,4.34,True,Raise rates for the week of 2026-08-10 (forecast 84% full).
+1421,0.788,2026-08-10,0.817,2026-06-22,0.763,Maasai Mara,KE,safari,299.86,4.19,False,Raise rates for the week of 2026-08-10 (forecast 82% full).
+1419,0.738,2026-07-20,0.769,2026-06-01,0.654,Maasai Mara,KE,safari,156.73,4.21,True,"Strong quarter ahead - protect availability, test a price uplift."
+1430,0.733,2026-08-10,0.765,2026-06-01,0.677,Maasai Mara,KE,safari,321.73,4.66,False,"Strong quarter ahead - protect availability, test a price uplift."
+1425,0.728,2026-08-10,0.783,2026-06-01,0.634,Maasai Mara,KE,safari,223.85,4.5,True,"Strong quarter ahead - protect availability, test a price uplift."
+1416,0.723,2026-08-10,0.755,2026-06-01,0.659,Maasai Mara,KE,safari,234.18,4.66,False,"Strong quarter ahead - protect availability, test a price uplift."
+1414,0.704,2026-08-10,0.747,2026-06-01,0.594,Maasai Mara,KE,safari,419.24,3.9,False,"Strong quarter ahead - protect availability, test a price uplift."
+1432,0.688,2026-08-10,0.73,2026-06-01,0.627,Maasai Mara,KE,safari,266.53,4.72,True,"Steady demand - keep rates, watch weekend pickup."
+1433,0.673,2026-07-13,0.711,2026-06-01,0.628,Maasai Mara,KE,safari,377.51,4.65,False,"Steady demand - keep rates, watch weekend pickup."
+1411,0.668,2026-06-29,0.702,2026-06-22,0.628,Maasai Mara,KE,safari,215.23,4.54,True,"Steady demand - keep rates, watch weekend pickup."
+1427,0.667,2026-07-13,0.704,2026-06-01,0.602,Maasai Mara,KE,safari,187.46,4.43,True,"Steady demand - keep rates, watch weekend pickup."
+1429,0.659,2026-08-03,0.691,2026-06-22,0.607,Maasai Mara,KE,safari,295.5,4.48,False,"Steady demand - keep rates, watch weekend pickup."
+1417,0.644,2026-08-24,0.686,2026-06-22,0.589,Maasai Mara,KE,safari,181.28,4.59,False,"Steady demand - keep rates, watch weekend pickup."
+1413,0.639,2026-08-10,0.679,2026-06-01,0.579,Maasai Mara,KE,safari,189.54,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1412,0.603,2026-08-24,0.654,2026-06-08,0.532,Maasai Mara,KE,safari,201.75,4.03,False,"Steady demand - keep rates, watch weekend pickup."
+1418,0.59,2026-08-24,0.635,2026-06-01,0.519,Maasai Mara,KE,safari,228.05,4.19,False,"Steady demand - keep rates, watch weekend pickup."
+1422,0.588,2026-08-10,0.654,2026-06-15,0.501,Maasai Mara,KE,safari,311.21,3.84,False,"Steady demand - keep rates, watch weekend pickup."
+1420,0.585,2026-08-03,0.669,2026-06-15,0.524,Maasai Mara,KE,safari,267.18,4.72,True,"Steady demand - keep rates, watch weekend pickup."
+1431,0.565,2026-08-17,0.618,2026-06-15,0.501,Maasai Mara,KE,safari,278.82,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1424,0.555,2026-08-24,0.616,2026-06-01,0.468,Maasai Mara,KE,safari,385.83,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1409,0.53,2026-08-10,0.564,2026-06-08,0.486,Maasai Mara,KE,safari,285.92,4.57,False,"Steady demand - keep rates, watch weekend pickup."
+1423,0.514,2026-08-10,0.569,2026-06-01,0.456,Maasai Mara,KE,safari,369.01,4.42,True,"Steady demand - keep rates, watch weekend pickup."
+1428,0.497,2026-08-17,0.532,2026-06-01,0.445,Maasai Mara,KE,safari,272.79,4.19,True,Add a promo / min-stay discount around 2026-06-01 (soft demand 44%).
+1434,0.44,2026-08-24,0.504,2026-06-01,0.363,Maasai Mara,KE,safari,232.17,4.2,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 36%).
+1426,0.344,2026-08-24,0.404,2026-07-06,0.264,Maasai Mara,KE,safari,222.27,4.45,True,Add a promo / min-stay discount around 2026-07-06 (soft demand 26%).
+1408,0.33,2026-07-20,0.362,2026-07-06,0.262,Maasai Mara,KE,safari,296.8,4.01,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 26%).
+1359,0.864,2026-07-13,0.882,2026-06-01,0.838,Mombasa,KE,beach,76.34,4.8,True,Raise rates for the week of 2026-07-13 (forecast 88% full).
+1393,0.861,2026-07-20,0.886,2026-06-08,0.82,Mombasa,KE,beach,99.97,5.0,True,Raise rates for the week of 2026-07-20 (forecast 89% full).
+1406,0.842,2026-08-10,0.867,2026-06-08,0.81,Mombasa,KE,beach,117.32,4.48,True,Raise rates for the week of 2026-08-10 (forecast 87% full).
+1388,0.797,2026-07-27,0.827,2026-06-08,0.734,Mombasa,KE,beach,82.46,4.77,False,Raise rates for the week of 2026-07-27 (forecast 83% full).
+1364,0.787,2026-08-10,0.827,2026-06-08,0.717,Mombasa,KE,beach,70.09,4.56,False,Raise rates for the week of 2026-08-10 (forecast 83% full).
+1362,0.786,2026-06-29,0.827,2026-06-08,0.73,Mombasa,KE,beach,98.7,4.03,False,Raise rates for the week of 2026-06-29 (forecast 83% full).
+1386,0.775,2026-08-24,0.827,2026-06-01,0.705,Mombasa,KE,beach,70.9,4.85,False,Raise rates for the week of 2026-08-24 (forecast 83% full).
+1391,0.772,2026-06-29,0.808,2026-06-08,0.702,Mombasa,KE,beach,80.78,3.8,False,Raise rates for the week of 2026-06-29 (forecast 81% full).
+1376,0.737,2026-08-10,0.78,2026-06-08,0.66,Mombasa,KE,beach,71.86,4.75,False,"Strong quarter ahead - protect availability, test a price uplift."
+1374,0.736,2026-08-24,0.801,2026-06-08,0.627,Mombasa,KE,beach,69.09,4.46,True,Raise rates for the week of 2026-08-24 (forecast 80% full).
+1360,0.732,2026-07-20,0.779,2026-06-08,0.647,Mombasa,KE,beach,69.93,4.34,False,"Strong quarter ahead - protect availability, test a price uplift."
+1405,0.724,2026-08-10,0.766,2026-06-08,0.637,Mombasa,KE,beach,65.94,4.26,True,"Strong quarter ahead - protect availability, test a price uplift."
+1367,0.711,2026-08-10,0.765,2026-06-22,0.662,Mombasa,KE,beach,65.19,4.06,True,"Strong quarter ahead - protect availability, test a price uplift."
+1396,0.698,2026-08-10,0.753,2026-06-08,0.641,Mombasa,KE,beach,54.63,4.18,True,"Steady demand - keep rates, watch weekend pickup."
+1371,0.691,2026-08-10,0.738,2026-06-01,0.607,Mombasa,KE,beach,52.08,4.58,True,"Steady demand - keep rates, watch weekend pickup."
+1370,0.677,2026-08-24,0.714,2026-06-08,0.606,Mombasa,KE,beach,83.39,4.34,False,"Steady demand - keep rates, watch weekend pickup."
+1373,0.677,2026-07-13,0.72,2026-06-01,0.595,Mombasa,KE,beach,53.55,3.82,False,"Steady demand - keep rates, watch weekend pickup."
+1394,0.674,2026-06-29,0.708,2026-06-08,0.61,Mombasa,KE,beach,94.74,4.06,False,"Steady demand - keep rates, watch weekend pickup."
+1366,0.662,2026-08-10,0.722,2026-06-22,0.588,Mombasa,KE,beach,44.78,4.55,True,"Steady demand - keep rates, watch weekend pickup."
+1377,0.654,2026-08-10,0.702,2026-06-08,0.557,Mombasa,KE,beach,139.15,4.53,True,"Steady demand - keep rates, watch weekend pickup."
+1397,0.63,2026-07-20,0.674,2026-06-08,0.54,Mombasa,KE,beach,78.3,4.13,True,"Steady demand - keep rates, watch weekend pickup."
+1369,0.626,2026-08-24,0.693,2026-06-01,0.548,Mombasa,KE,beach,117.48,4.27,False,"Steady demand - keep rates, watch weekend pickup."
+1368,0.624,2026-06-29,0.664,2026-06-01,0.54,Mombasa,KE,beach,76.51,4.08,False,"Steady demand - keep rates, watch weekend pickup."
+1380,0.6,2026-08-24,0.659,2026-06-01,0.486,Mombasa,KE,beach,56.45,4.56,False,"Steady demand - keep rates, watch weekend pickup."
+1384,0.599,2026-08-10,0.661,2026-06-08,0.515,Mombasa,KE,beach,75.59,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1400,0.595,2026-08-10,0.655,2026-06-01,0.499,Mombasa,KE,beach,79.62,4.3,False,"Steady demand - keep rates, watch weekend pickup."
+1407,0.595,2026-07-20,0.641,2026-06-01,0.498,Mombasa,KE,beach,71.95,4.33,False,"Steady demand - keep rates, watch weekend pickup."
+1361,0.593,2026-08-10,0.644,2026-06-08,0.506,Mombasa,KE,beach,70.7,4.32,False,"Steady demand - keep rates, watch weekend pickup."
+1392,0.588,2026-08-24,0.643,2026-06-08,0.494,Mombasa,KE,beach,100.86,4.26,False,"Steady demand - keep rates, watch weekend pickup."
+1358,0.587,2026-07-20,0.653,2026-06-08,0.484,Mombasa,KE,beach,179.45,4.22,False,"Steady demand - keep rates, watch weekend pickup."
+1403,0.581,2026-08-10,0.638,2026-06-01,0.518,Mombasa,KE,beach,88.65,4.2,False,"Steady demand - keep rates, watch weekend pickup."
+1383,0.577,2026-08-10,0.663,2026-06-01,0.479,Mombasa,KE,beach,89.39,3.89,False,"Steady demand - keep rates, watch weekend pickup."
+1379,0.568,2026-08-10,0.621,2026-06-01,0.475,Mombasa,KE,beach,119.64,4.14,False,"Steady demand - keep rates, watch weekend pickup."
+1382,0.56,2026-06-29,0.604,2026-06-08,0.475,Mombasa,KE,beach,90.71,4.73,True,"Steady demand - keep rates, watch weekend pickup."
+1404,0.557,2026-08-03,0.624,2026-06-08,0.459,Mombasa,KE,beach,76.44,4.29,True,"Steady demand - keep rates, watch weekend pickup."
+1401,0.546,2026-08-10,0.631,2026-06-08,0.452,Mombasa,KE,beach,121.8,4.3,True,"Steady demand - keep rates, watch weekend pickup."
+1365,0.539,2026-08-10,0.602,2026-06-08,0.453,Mombasa,KE,beach,88.96,4.13,False,"Steady demand - keep rates, watch weekend pickup."
+1399,0.537,2026-08-24,0.573,2026-06-08,0.455,Mombasa,KE,beach,86.62,4.13,False,"Steady demand - keep rates, watch weekend pickup."
+1390,0.533,2026-08-10,0.594,2026-06-08,0.444,Mombasa,KE,beach,86.06,4.46,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1398,0.529,2026-08-10,0.57,2026-06-08,0.46,Mombasa,KE,beach,60.41,4.26,False,"Steady demand - keep rates, watch weekend pickup."
+1395,0.526,2026-08-10,0.576,2026-06-08,0.445,Mombasa,KE,beach,90.31,4.59,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1385,0.517,2026-08-10,0.563,2026-06-08,0.456,Mombasa,KE,beach,104.33,4.14,False,"Steady demand - keep rates, watch weekend pickup."
+1363,0.511,2026-08-10,0.574,2026-06-01,0.425,Mombasa,KE,beach,59.79,4.28,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1372,0.511,2026-08-24,0.571,2026-06-01,0.428,Mombasa,KE,beach,130.26,4.18,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 43%).
+1378,0.498,2026-08-10,0.535,2026-06-08,0.432,Mombasa,KE,beach,90.48,4.26,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 43%).
+1381,0.493,2026-08-24,0.585,2026-06-01,0.37,Mombasa,KE,beach,134.13,3.53,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 37%).
+1402,0.449,2026-08-10,0.501,2026-06-08,0.365,Mombasa,KE,beach,61.92,4.02,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 36%).
+1389,0.432,2026-08-10,0.503,2026-06-01,0.345,Mombasa,KE,beach,104.77,4.55,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 34%).
+1375,0.417,2026-08-24,0.466,2026-06-01,0.326,Mombasa,KE,beach,175.2,4.24,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 33%).
+1387,0.406,2026-08-24,0.444,2026-06-08,0.352,Mombasa,KE,beach,63.29,4.48,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 35%).
+1260,0.89,2026-06-15,0.9,2026-07-27,0.875,Nairobi,KE,city,55.6,4.29,False,Raise rates for the week of 2026-06-15 (forecast 90% full).
+1240,0.888,2026-08-24,0.904,2026-08-10,0.863,Nairobi,KE,city,40.47,4.34,False,Raise rates for the week of 2026-08-24 (forecast 90% full).
+1297,0.875,2026-08-17,0.897,2026-06-01,0.845,Nairobi,KE,city,63.25,4.85,True,Raise rates for the week of 2026-08-17 (forecast 90% full).
+1286,0.857,2026-08-24,0.873,2026-07-13,0.843,Nairobi,KE,city,71.15,4.71,True,Raise rates for the week of 2026-08-24 (forecast 87% full).
+1257,0.855,2026-08-24,0.877,2026-07-27,0.836,Nairobi,KE,city,94.65,4.26,False,Raise rates for the week of 2026-08-24 (forecast 88% full).
+1249,0.845,2026-07-20,0.858,2026-06-22,0.825,Nairobi,KE,city,71.07,5.0,True,Raise rates for the week of 2026-07-20 (forecast 86% full).
+1234,0.841,2026-08-24,0.854,2026-06-01,0.829,Nairobi,KE,city,93.86,4.55,True,Raise rates for the week of 2026-08-24 (forecast 85% full).
+1313,0.837,2026-08-10,0.859,2026-06-22,0.809,Nairobi,KE,city,84.88,5.0,True,Raise rates for the week of 2026-08-10 (forecast 86% full).
+1283,0.835,2026-08-24,0.868,2026-08-03,0.816,Nairobi,KE,city,45.66,4.47,True,Raise rates for the week of 2026-08-24 (forecast 87% full).
+1237,0.831,2026-08-24,0.852,2026-06-22,0.805,Nairobi,KE,city,82.96,4.45,True,Raise rates for the week of 2026-08-24 (forecast 85% full).
+1235,0.825,2026-07-06,0.836,2026-06-29,0.812,Nairobi,KE,city,100.49,4.36,True,Raise rates for the week of 2026-07-06 (forecast 84% full).
+1251,0.824,2026-08-10,0.841,2026-06-01,0.803,Nairobi,KE,city,64.04,4.7,False,Raise rates for the week of 2026-08-10 (forecast 84% full).
+1276,0.824,2026-06-01,0.854,2026-06-22,0.782,Nairobi,KE,city,73.34,4.65,True,Raise rates for the week of 2026-06-01 (forecast 85% full).
+1252,0.803,2026-07-27,0.816,2026-07-06,0.78,Nairobi,KE,city,42.29,4.47,False,Raise rates for the week of 2026-07-27 (forecast 82% full).
+1306,0.794,2026-08-24,0.811,2026-06-29,0.782,Nairobi,KE,city,65.32,4.47,True,Raise rates for the week of 2026-08-24 (forecast 81% full).
+1244,0.791,2026-07-06,0.833,2026-08-24,0.719,Nairobi,KE,city,143.97,5.0,True,Raise rates for the week of 2026-07-06 (forecast 83% full).
+1241,0.781,2026-08-24,0.801,2026-07-06,0.766,Nairobi,KE,city,41.15,4.84,True,Raise rates for the week of 2026-08-24 (forecast 80% full).
+1284,0.779,2026-08-24,0.798,2026-06-22,0.768,Nairobi,KE,city,69.18,4.27,True,"Strong quarter ahead - protect availability, test a price uplift."
+1304,0.777,2026-08-17,0.815,2026-06-29,0.73,Nairobi,KE,city,37.78,4.25,True,Raise rates for the week of 2026-08-17 (forecast 82% full).
+1272,0.767,2026-06-29,0.778,2026-07-13,0.749,Nairobi,KE,city,86.56,4.85,False,"Strong quarter ahead - protect availability, test a price uplift."
+1312,0.764,2026-06-29,0.781,2026-06-15,0.739,Nairobi,KE,city,94.11,4.69,True,"Strong quarter ahead - protect availability, test a price uplift."
+1319,0.762,2026-08-24,0.792,2026-06-29,0.729,Nairobi,KE,city,57.97,4.3,False,"Strong quarter ahead - protect availability, test a price uplift."
+1285,0.759,2026-08-10,0.785,2026-06-29,0.721,Nairobi,KE,city,56.34,5.0,True,"Strong quarter ahead - protect availability, test a price uplift."
+1321,0.757,2026-08-24,0.785,2026-07-13,0.727,Nairobi,KE,city,77.03,4.43,False,"Strong quarter ahead - protect availability, test a price uplift."
+1264,0.752,2026-06-22,0.78,2026-07-13,0.723,Nairobi,KE,city,54.74,3.95,False,"Strong quarter ahead - protect availability, test a price uplift."
+1266,0.747,2026-08-10,0.776,2026-06-22,0.725,Nairobi,KE,city,108.6,5.0,True,"Strong quarter ahead - protect availability, test a price uplift."
+1291,0.744,2026-08-03,0.762,2026-06-29,0.717,Nairobi,KE,city,86.92,4.36,False,"Strong quarter ahead - protect availability, test a price uplift."
+1239,0.739,2026-06-29,0.757,2026-07-06,0.722,Nairobi,KE,city,83.56,4.57,True,"Strong quarter ahead - protect availability, test a price uplift."
+1316,0.735,2026-06-29,0.759,2026-07-13,0.705,Nairobi,KE,city,114.35,4.46,True,"Strong quarter ahead - protect availability, test a price uplift."
+1299,0.73,2026-08-24,0.764,2026-07-13,0.696,Nairobi,KE,city,58.32,4.39,True,"Strong quarter ahead - protect availability, test a price uplift."
+1293,0.729,2026-08-03,0.744,2026-06-22,0.711,Nairobi,KE,city,74.19,4.19,False,"Strong quarter ahead - protect availability, test a price uplift."
+1298,0.724,2026-06-01,0.744,2026-07-13,0.699,Nairobi,KE,city,65.31,4.34,False,"Strong quarter ahead - protect availability, test a price uplift."
+1230,0.713,2026-08-24,0.737,2026-07-13,0.692,Nairobi,KE,city,56.0,4.31,False,"Strong quarter ahead - protect availability, test a price uplift."
+1300,0.713,2026-06-22,0.736,2026-07-13,0.682,Nairobi,KE,city,77.82,4.76,False,"Strong quarter ahead - protect availability, test a price uplift."
+1309,0.713,2026-08-24,0.732,2026-07-13,0.691,Nairobi,KE,city,62.51,4.49,False,"Strong quarter ahead - protect availability, test a price uplift."
+1318,0.708,2026-08-24,0.758,2026-07-06,0.663,Nairobi,KE,city,34.42,4.76,False,"Strong quarter ahead - protect availability, test a price uplift."
+1294,0.703,2026-08-10,0.727,2026-07-06,0.678,Nairobi,KE,city,58.6,4.69,True,"Strong quarter ahead - protect availability, test a price uplift."
+1302,0.703,2026-08-24,0.736,2026-07-06,0.664,Nairobi,KE,city,36.08,4.58,False,"Strong quarter ahead - protect availability, test a price uplift."
+1258,0.7,2026-08-24,0.727,2026-07-13,0.674,Nairobi,KE,city,72.59,5.0,False,"Strong quarter ahead - protect availability, test a price uplift."
+1278,0.697,2026-08-24,0.713,2026-06-29,0.671,Nairobi,KE,city,84.12,4.29,False,"Steady demand - keep rates, watch weekend pickup."
+1236,0.693,2026-08-24,0.719,2026-06-29,0.662,Nairobi,KE,city,101.55,4.24,True,"Steady demand - keep rates, watch weekend pickup."
+1242,0.693,2026-06-22,0.724,2026-06-01,0.674,Nairobi,KE,city,39.04,4.23,False,"Steady demand - keep rates, watch weekend pickup."
+1280,0.691,2026-08-24,0.731,2026-06-29,0.658,Nairobi,KE,city,58.44,4.15,True,"Steady demand - keep rates, watch weekend pickup."
+1248,0.689,2026-08-17,0.716,2026-06-29,0.648,Nairobi,KE,city,43.27,4.25,False,"Steady demand - keep rates, watch weekend pickup."
+1255,0.686,2026-08-24,0.743,2026-07-06,0.634,Nairobi,KE,city,51.24,4.73,True,"Steady demand - keep rates, watch weekend pickup."
+1273,0.68,2026-08-10,0.692,2026-06-29,0.654,Nairobi,KE,city,41.15,4.15,False,"Steady demand - keep rates, watch weekend pickup."
+1292,0.678,2026-06-15,0.697,2026-06-29,0.649,Nairobi,KE,city,53.75,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1308,0.678,2026-06-22,0.698,2026-07-13,0.654,Nairobi,KE,city,58.55,4.21,True,"Steady demand - keep rates, watch weekend pickup."
+1275,0.676,2026-08-24,0.7,2026-06-29,0.655,Nairobi,KE,city,65.55,3.88,False,"Steady demand - keep rates, watch weekend pickup."
+1262,0.668,2026-06-22,0.687,2026-06-01,0.648,Nairobi,KE,city,89.97,4.33,False,"Steady demand - keep rates, watch weekend pickup."
+1265,0.659,2026-08-24,0.682,2026-07-06,0.633,Nairobi,KE,city,86.87,4.62,True,"Steady demand - keep rates, watch weekend pickup."
+1282,0.656,2026-06-22,0.684,2026-06-01,0.627,Nairobi,KE,city,59.98,3.96,False,"Steady demand - keep rates, watch weekend pickup."
+1315,0.651,2026-06-22,0.676,2026-06-01,0.629,Nairobi,KE,city,70.8,4.57,False,"Steady demand - keep rates, watch weekend pickup."
+1322,0.651,2026-08-03,0.692,2026-06-22,0.62,Nairobi,KE,city,47.1,3.3,False,"Steady demand - keep rates, watch weekend pickup."
+1238,0.649,2026-06-22,0.67,2026-06-01,0.624,Nairobi,KE,city,44.16,4.36,False,"Steady demand - keep rates, watch weekend pickup."
+1277,0.649,2026-08-24,0.692,2026-07-06,0.62,Nairobi,KE,city,51.6,4.42,False,"Steady demand - keep rates, watch weekend pickup."
+1281,0.644,2026-08-03,0.668,2026-07-20,0.616,Nairobi,KE,city,78.08,4.48,False,"Steady demand - keep rates, watch weekend pickup."
+1296,0.643,2026-08-24,0.663,2026-07-13,0.616,Nairobi,KE,city,64.55,4.24,False,"Steady demand - keep rates, watch weekend pickup."
+1256,0.641,2026-08-03,0.658,2026-07-06,0.624,Nairobi,KE,city,81.44,4.17,False,"Steady demand - keep rates, watch weekend pickup."
+1295,0.64,2026-08-24,0.665,2026-07-13,0.622,Nairobi,KE,city,86.65,3.82,False,"Steady demand - keep rates, watch weekend pickup."
+1261,0.637,2026-06-29,0.651,2026-07-13,0.611,Nairobi,KE,city,83.13,4.29,False,"Steady demand - keep rates, watch weekend pickup."
+1323,0.637,2026-06-22,0.655,2026-06-01,0.616,Nairobi,KE,city,69.38,4.6,True,"Steady demand - keep rates, watch weekend pickup."
+1290,0.636,2026-08-24,0.659,2026-06-22,0.618,Nairobi,KE,city,81.62,4.39,False,"Steady demand - keep rates, watch weekend pickup."
+1310,0.631,2026-08-03,0.645,2026-07-13,0.612,Nairobi,KE,city,88.77,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1269,0.629,2026-08-24,0.651,2026-07-13,0.608,Nairobi,KE,city,72.21,3.89,True,"Steady demand - keep rates, watch weekend pickup."
+1305,0.625,2026-06-29,0.644,2026-06-01,0.612,Nairobi,KE,city,90.34,4.74,False,"Steady demand - keep rates, watch weekend pickup."
+1301,0.615,2026-08-24,0.643,2026-06-01,0.576,Nairobi,KE,city,42.78,4.68,False,"Steady demand - keep rates, watch weekend pickup."
+1303,0.613,2026-08-10,0.635,2026-07-13,0.59,Nairobi,KE,city,69.68,4.42,False,"Steady demand - keep rates, watch weekend pickup."
+1246,0.61,2026-06-22,0.636,2026-07-13,0.588,Nairobi,KE,city,80.43,4.64,True,"Steady demand - keep rates, watch weekend pickup."
+1232,0.606,2026-08-24,0.634,2026-07-13,0.58,Nairobi,KE,city,53.45,4.42,False,"Steady demand - keep rates, watch weekend pickup."
+1317,0.598,2026-08-17,0.615,2026-06-01,0.586,Nairobi,KE,city,41.0,4.16,False,"Steady demand - keep rates, watch weekend pickup."
+1307,0.595,2026-08-10,0.614,2026-06-22,0.568,Nairobi,KE,city,80.98,4.18,False,"Steady demand - keep rates, watch weekend pickup."
+1233,0.589,2026-08-17,0.621,2026-06-01,0.57,Nairobi,KE,city,66.3,4.45,True,"Steady demand - keep rates, watch weekend pickup."
+1268,0.588,2026-08-24,0.609,2026-07-13,0.569,Nairobi,KE,city,132.75,4.12,False,"Steady demand - keep rates, watch weekend pickup."
+1289,0.584,2026-08-10,0.607,2026-07-13,0.568,Nairobi,KE,city,159.48,4.83,False,"Steady demand - keep rates, watch weekend pickup."
+1270,0.58,2026-08-10,0.611,2026-06-29,0.552,Nairobi,KE,city,52.6,4.25,True,"Steady demand - keep rates, watch weekend pickup."
+1254,0.573,2026-08-24,0.616,2026-06-29,0.522,Nairobi,KE,city,70.74,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1247,0.572,2026-08-24,0.626,2026-06-29,0.515,Nairobi,KE,city,47.68,4.3,False,"Steady demand - keep rates, watch weekend pickup."
+1288,0.57,2026-08-24,0.604,2026-07-06,0.538,Nairobi,KE,city,111.49,4.44,False,"Steady demand - keep rates, watch weekend pickup."
+1311,0.566,2026-08-24,0.593,2026-07-06,0.524,Nairobi,KE,city,73.32,4.7,False,"Steady demand - keep rates, watch weekend pickup."
+1231,0.547,2026-08-17,0.57,2026-07-20,0.525,Nairobi,KE,city,52.84,4.02,False,"Steady demand - keep rates, watch weekend pickup."
+1320,0.543,2026-08-24,0.588,2026-06-29,0.506,Nairobi,KE,city,59.3,4.6,True,"Steady demand - keep rates, watch weekend pickup."
+1274,0.535,2026-08-10,0.571,2026-07-06,0.48,Nairobi,KE,city,125.29,4.47,False,"Steady demand - keep rates, watch weekend pickup."
+1259,0.528,2026-08-24,0.563,2026-07-06,0.5,Nairobi,KE,city,47.49,3.91,False,"Steady demand - keep rates, watch weekend pickup."
+1243,0.494,2026-08-10,0.516,2026-06-29,0.471,Nairobi,KE,city,71.93,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1279,0.492,2026-06-22,0.508,2026-07-27,0.467,Nairobi,KE,city,69.85,4.15,False,"Steady demand - keep rates, watch weekend pickup."
+1267,0.478,2026-06-22,0.502,2026-06-29,0.455,Nairobi,KE,city,69.92,4.15,False,"Steady demand - keep rates, watch weekend pickup."
+1245,0.46,2026-08-24,0.512,2026-07-06,0.431,Nairobi,KE,city,77.22,3.9,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 43%).
+1271,0.46,2026-08-24,0.497,2026-07-06,0.427,Nairobi,KE,city,60.52,4.16,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 43%).
+1250,0.435,2026-06-29,0.473,2026-06-15,0.412,Nairobi,KE,city,85.32,3.96,False,Add a promo / min-stay discount around 2026-06-15 (soft demand 41%).
+1287,0.431,2026-08-24,0.453,2026-06-08,0.41,Nairobi,KE,city,94.72,4.1,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 41%).
+1263,0.397,2026-08-24,0.441,2026-07-06,0.359,Nairobi,KE,city,80.2,4.37,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 36%).
+1253,0.393,2026-08-17,0.436,2026-07-06,0.332,Nairobi,KE,city,48.18,3.99,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 33%).
+1314,0.24,2026-06-22,0.268,2026-07-06,0.198,Nairobi,KE,city,67.73,4.22,False,Add a promo / min-stay discount around 2026-07-06 (soft demand 20%).
+1105,0.812,2026-07-20,0.846,2026-06-01,0.729,Serengeti,TZ,safari,169.17,4.72,True,Raise rates for the week of 2026-07-20 (forecast 85% full).
+1113,0.807,2026-08-03,0.841,2026-06-22,0.753,Serengeti,TZ,safari,284.58,4.04,False,Raise rates for the week of 2026-08-03 (forecast 84% full).
+1098,0.76,2026-08-03,0.777,2026-07-06,0.73,Serengeti,TZ,safari,360.02,4.66,False,"Strong quarter ahead - protect availability, test a price uplift."
+1103,0.741,2026-07-27,0.777,2026-06-01,0.693,Serengeti,TZ,safari,319.9,4.15,False,"Strong quarter ahead - protect availability, test a price uplift."
+1100,0.727,2026-07-27,0.76,2026-06-01,0.67,Serengeti,TZ,safari,197.17,4.42,True,"Strong quarter ahead - protect availability, test a price uplift."
+1091,0.719,2026-08-10,0.781,2026-06-01,0.598,Serengeti,TZ,safari,471.34,4.18,False,"Strong quarter ahead - protect availability, test a price uplift."
+1111,0.717,2026-07-27,0.748,2026-06-01,0.662,Serengeti,TZ,safari,205.11,4.43,False,"Strong quarter ahead - protect availability, test a price uplift."
+1099,0.701,2026-07-27,0.751,2026-06-01,0.631,Serengeti,TZ,safari,285.97,4.39,True,"Strong quarter ahead - protect availability, test a price uplift."
+1112,0.699,2026-08-24,0.755,2026-06-01,0.608,Serengeti,TZ,safari,235.78,3.84,False,"Steady demand - keep rates, watch weekend pickup."
+1102,0.681,2026-07-27,0.709,2026-06-01,0.604,Serengeti,TZ,safari,136.87,4.07,False,"Steady demand - keep rates, watch weekend pickup."
+1114,0.681,2026-06-29,0.724,2026-06-01,0.612,Serengeti,TZ,safari,277.39,4.66,True,"Steady demand - keep rates, watch weekend pickup."
+1096,0.676,2026-08-10,0.717,2026-06-01,0.619,Serengeti,TZ,safari,255.85,4.69,True,"Steady demand - keep rates, watch weekend pickup."
+1108,0.671,2026-08-03,0.711,2026-06-22,0.622,Serengeti,TZ,safari,312.1,4.5,False,"Steady demand - keep rates, watch weekend pickup."
+1093,0.654,2026-07-27,0.688,2026-06-01,0.594,Serengeti,TZ,safari,168.95,4.1,False,"Steady demand - keep rates, watch weekend pickup."
+1115,0.608,2026-08-10,0.644,2026-06-01,0.54,Serengeti,TZ,safari,251.29,4.36,False,"Steady demand - keep rates, watch weekend pickup."
+1097,0.588,2026-08-03,0.631,2026-06-22,0.529,Serengeti,TZ,safari,322.44,4.07,False,"Steady demand - keep rates, watch weekend pickup."
+1095,0.57,2026-07-13,0.614,2026-06-01,0.505,Serengeti,TZ,safari,135.77,4.57,False,"Steady demand - keep rates, watch weekend pickup."
+1092,0.568,2026-08-24,0.632,2026-06-01,0.482,Serengeti,TZ,safari,237.8,4.29,False,"Steady demand - keep rates, watch weekend pickup."
+1104,0.566,2026-07-27,0.63,2026-06-01,0.47,Serengeti,TZ,safari,220.18,4.32,False,"Steady demand - keep rates, watch weekend pickup."
+1094,0.56,2026-08-10,0.631,2026-06-01,0.476,Serengeti,TZ,safari,257.48,4.32,False,"Steady demand - keep rates, watch weekend pickup."
+1101,0.559,2026-08-10,0.621,2026-06-01,0.481,Serengeti,TZ,safari,218.43,4.41,False,"Steady demand - keep rates, watch weekend pickup."
+1109,0.545,2026-08-10,0.617,2026-06-22,0.457,Serengeti,TZ,safari,220.75,3.87,False,"Steady demand - keep rates, watch weekend pickup."
+1107,0.528,2026-08-24,0.617,2026-06-01,0.442,Serengeti,TZ,safari,196.13,4.06,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 44%).
+1110,0.526,2026-08-17,0.595,2026-06-01,0.418,Serengeti,TZ,safari,212.95,4.4,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1116,0.452,2026-08-24,0.533,2026-06-01,0.359,Serengeti,TZ,safari,236.86,3.74,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 36%).
+1106,0.363,2026-08-24,0.41,2026-06-01,0.306,Serengeti,TZ,safari,200.8,3.94,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 31%).
+1045,0.869,2026-08-17,0.898,2026-06-08,0.83,Zanzibar,TZ,beach,141.48,4.95,True,Raise rates for the week of 2026-08-17 (forecast 90% full).
+1015,0.84,2026-08-24,0.884,2026-06-08,0.786,Zanzibar,TZ,beach,91.73,4.81,True,Raise rates for the week of 2026-08-24 (forecast 88% full).
+1016,0.827,2026-08-24,0.864,2026-06-08,0.772,Zanzibar,TZ,beach,99.12,4.34,False,Raise rates for the week of 2026-08-24 (forecast 86% full).
+1014,0.825,2026-07-06,0.857,2026-06-08,0.783,Zanzibar,TZ,beach,99.11,4.53,False,Raise rates for the week of 2026-07-06 (forecast 86% full).
+1077,0.825,2026-08-17,0.851,2026-06-08,0.786,Zanzibar,TZ,beach,99.35,4.41,True,Raise rates for the week of 2026-08-17 (forecast 85% full).
+1052,0.824,2026-08-10,0.841,2026-06-08,0.791,Zanzibar,TZ,beach,118.92,4.34,False,Raise rates for the week of 2026-08-10 (forecast 84% full).
+1074,0.82,2026-08-24,0.851,2026-06-01,0.776,Zanzibar,TZ,beach,95.1,3.96,False,Raise rates for the week of 2026-08-24 (forecast 85% full).
+1063,0.815,2026-08-03,0.852,2026-06-08,0.777,Zanzibar,TZ,beach,80.67,4.55,True,Raise rates for the week of 2026-08-03 (forecast 85% full).
+1054,0.81,2026-08-24,0.855,2026-06-08,0.756,Zanzibar,TZ,beach,116.48,4.35,False,Raise rates for the week of 2026-08-24 (forecast 86% full).
+1081,0.802,2026-08-24,0.845,2026-06-08,0.728,Zanzibar,TZ,beach,117.23,5.0,True,Raise rates for the week of 2026-08-24 (forecast 84% full).
+1084,0.797,2026-08-24,0.873,2026-06-22,0.735,Zanzibar,TZ,beach,57.52,4.42,False,Raise rates for the week of 2026-08-24 (forecast 87% full).
+1026,0.793,2026-08-24,0.822,2026-06-08,0.738,Zanzibar,TZ,beach,123.38,4.65,False,Raise rates for the week of 2026-08-24 (forecast 82% full).
+1047,0.765,2026-08-24,0.824,2026-06-08,0.692,Zanzibar,TZ,beach,60.02,4.25,False,Raise rates for the week of 2026-08-24 (forecast 82% full).
+1041,0.763,2026-08-24,0.824,2026-06-08,0.697,Zanzibar,TZ,beach,57.61,4.39,False,Raise rates for the week of 2026-08-24 (forecast 82% full).
+1010,0.757,2026-08-24,0.829,2026-06-08,0.704,Zanzibar,TZ,beach,53.56,4.58,True,Raise rates for the week of 2026-08-24 (forecast 83% full).
+1022,0.757,2026-08-24,0.789,2026-06-08,0.714,Zanzibar,TZ,beach,87.69,4.06,False,"Strong quarter ahead - protect availability, test a price uplift."
+1009,0.753,2026-08-24,0.808,2026-06-08,0.685,Zanzibar,TZ,beach,75.97,4.21,True,Raise rates for the week of 2026-08-24 (forecast 81% full).
+1065,0.749,2026-08-24,0.781,2026-06-08,0.693,Zanzibar,TZ,beach,107.73,3.88,False,"Strong quarter ahead - protect availability, test a price uplift."
+1068,0.749,2026-08-24,0.792,2026-06-08,0.692,Zanzibar,TZ,beach,74.53,3.92,False,"Strong quarter ahead - protect availability, test a price uplift."
+1035,0.746,2026-08-24,0.805,2026-06-08,0.658,Zanzibar,TZ,beach,80.92,4.71,True,Raise rates for the week of 2026-08-24 (forecast 80% full).
+1085,0.745,2026-08-24,0.773,2026-06-08,0.683,Zanzibar,TZ,beach,78.28,4.03,False,"Strong quarter ahead - protect availability, test a price uplift."
+1004,0.744,2026-08-24,0.821,2026-06-08,0.679,Zanzibar,TZ,beach,63.97,4.36,False,Raise rates for the week of 2026-08-24 (forecast 82% full).
+1040,0.742,2026-07-27,0.771,2026-06-08,0.69,Zanzibar,TZ,beach,73.74,4.38,False,"Strong quarter ahead - protect availability, test a price uplift."
+1042,0.742,2026-08-24,0.803,2026-06-08,0.675,Zanzibar,TZ,beach,113.81,4.65,True,Raise rates for the week of 2026-08-24 (forecast 80% full).
+1076,0.742,2026-08-24,0.799,2026-06-08,0.676,Zanzibar,TZ,beach,138.76,4.2,False,"Strong quarter ahead - protect availability, test a price uplift."
+1038,0.739,2026-08-24,0.793,2026-06-08,0.672,Zanzibar,TZ,beach,130.41,4.02,False,"Strong quarter ahead - protect availability, test a price uplift."
+1061,0.738,2026-08-24,0.795,2026-06-08,0.648,Zanzibar,TZ,beach,103.54,4.61,False,"Strong quarter ahead - protect availability, test a price uplift."
+1051,0.735,2026-08-03,0.767,2026-06-08,0.68,Zanzibar,TZ,beach,150.6,4.18,False,"Strong quarter ahead - protect availability, test a price uplift."
+1060,0.734,2026-08-24,0.784,2026-06-08,0.685,Zanzibar,TZ,beach,81.03,4.08,False,"Strong quarter ahead - protect availability, test a price uplift."
+1067,0.732,2026-08-24,0.781,2026-06-08,0.664,Zanzibar,TZ,beach,75.89,4.16,True,"Strong quarter ahead - protect availability, test a price uplift."
+1033,0.73,2026-08-24,0.778,2026-06-08,0.685,Zanzibar,TZ,beach,85.52,4.37,True,"Strong quarter ahead - protect availability, test a price uplift."
+1088,0.729,2026-08-24,0.766,2026-06-08,0.646,Zanzibar,TZ,beach,103.12,4.23,False,"Strong quarter ahead - protect availability, test a price uplift."
+1069,0.722,2026-08-17,0.745,2026-06-08,0.668,Zanzibar,TZ,beach,134.08,4.03,False,"Strong quarter ahead - protect availability, test a price uplift."
+1080,0.72,2026-08-24,0.762,2026-06-01,0.662,Zanzibar,TZ,beach,95.85,4.52,False,"Strong quarter ahead - protect availability, test a price uplift."
+1056,0.713,2026-08-10,0.774,2026-06-08,0.64,Zanzibar,TZ,beach,68.44,4.46,True,"Strong quarter ahead - protect availability, test a price uplift."
+1043,0.709,2026-08-10,0.75,2026-06-08,0.636,Zanzibar,TZ,beach,121.15,4.5,False,"Strong quarter ahead - protect availability, test a price uplift."
+1003,0.704,2026-08-17,0.729,2026-06-08,0.658,Zanzibar,TZ,beach,129.43,4.45,True,"Strong quarter ahead - protect availability, test a price uplift."
+1027,0.7,2026-08-17,0.726,2026-06-08,0.653,Zanzibar,TZ,beach,137.98,4.16,False,"Strong quarter ahead - protect availability, test a price uplift."
+1089,0.7,2026-08-03,0.721,2026-06-01,0.669,Zanzibar,TZ,beach,118.22,4.04,False,"Strong quarter ahead - protect availability, test a price uplift."
+1079,0.693,2026-08-10,0.721,2026-06-08,0.642,Zanzibar,TZ,beach,124.25,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1008,0.689,2026-08-24,0.722,2026-06-08,0.647,Zanzibar,TZ,beach,149.77,4.24,False,"Steady demand - keep rates, watch weekend pickup."
+1028,0.686,2026-08-10,0.723,2026-06-01,0.63,Zanzibar,TZ,beach,142.27,4.65,True,"Steady demand - keep rates, watch weekend pickup."
+1025,0.685,2026-08-24,0.731,2026-06-01,0.606,Zanzibar,TZ,beach,104.99,3.97,True,"Steady demand - keep rates, watch weekend pickup."
+1029,0.684,2026-08-10,0.717,2026-06-08,0.642,Zanzibar,TZ,beach,93.32,4.38,False,"Steady demand - keep rates, watch weekend pickup."
+1073,0.684,2026-08-24,0.735,2026-06-01,0.631,Zanzibar,TZ,beach,73.98,3.81,False,"Steady demand - keep rates, watch weekend pickup."
+1005,0.678,2026-08-24,0.714,2026-06-01,0.62,Zanzibar,TZ,beach,79.03,4.1,False,"Steady demand - keep rates, watch weekend pickup."
+1050,0.675,2026-08-10,0.712,2026-06-01,0.611,Zanzibar,TZ,beach,115.58,3.89,False,"Steady demand - keep rates, watch weekend pickup."
+1006,0.672,2026-08-24,0.709,2026-06-08,0.629,Zanzibar,TZ,beach,75.28,4.19,False,"Steady demand - keep rates, watch weekend pickup."
+1012,0.671,2026-08-24,0.711,2026-06-01,0.619,Zanzibar,TZ,beach,83.25,4.35,True,"Steady demand - keep rates, watch weekend pickup."
+1059,0.667,2026-08-24,0.705,2026-06-01,0.619,Zanzibar,TZ,beach,90.25,3.99,False,"Steady demand - keep rates, watch weekend pickup."
+1062,0.667,2026-08-10,0.708,2026-06-08,0.607,Zanzibar,TZ,beach,139.34,4.75,False,"Steady demand - keep rates, watch weekend pickup."
+1046,0.66,2026-08-10,0.716,2026-06-15,0.588,Zanzibar,TZ,beach,104.03,5.0,True,"Steady demand - keep rates, watch weekend pickup."
+1058,0.652,2026-06-29,0.698,2026-06-01,0.59,Zanzibar,TZ,beach,151.35,4.59,True,"Steady demand - keep rates, watch weekend pickup."
+1020,0.649,2026-08-10,0.704,2026-06-01,0.583,Zanzibar,TZ,beach,132.62,4.19,False,"Steady demand - keep rates, watch weekend pickup."
+1031,0.648,2026-08-24,0.715,2026-06-01,0.565,Zanzibar,TZ,beach,111.73,4.4,False,"Steady demand - keep rates, watch weekend pickup."
+1087,0.647,2026-08-24,0.683,2026-06-01,0.58,Zanzibar,TZ,beach,85.73,4.4,False,"Steady demand - keep rates, watch weekend pickup."
+1021,0.644,2026-08-10,0.683,2026-06-08,0.577,Zanzibar,TZ,beach,168.05,4.29,False,"Steady demand - keep rates, watch weekend pickup."
+1049,0.644,2026-08-24,0.709,2026-06-08,0.576,Zanzibar,TZ,beach,67.7,4.02,False,"Steady demand - keep rates, watch weekend pickup."
+1001,0.641,2026-08-24,0.689,2026-06-01,0.576,Zanzibar,TZ,beach,104.32,4.28,False,"Steady demand - keep rates, watch weekend pickup."
+1053,0.634,2026-07-13,0.677,2026-06-15,0.578,Zanzibar,TZ,beach,82.96,4.04,False,"Steady demand - keep rates, watch weekend pickup."
+1030,0.632,2026-08-24,0.67,2026-06-15,0.581,Zanzibar,TZ,beach,76.06,4.36,False,"Steady demand - keep rates, watch weekend pickup."
+1086,0.622,2026-07-20,0.676,2026-06-01,0.536,Zanzibar,TZ,beach,72.31,3.93,False,"Steady demand - keep rates, watch weekend pickup."
+1024,0.613,2026-08-17,0.666,2026-06-08,0.545,Zanzibar,TZ,beach,129.71,4.15,False,"Steady demand - keep rates, watch weekend pickup."
+1066,0.61,2026-08-10,0.655,2026-06-29,0.551,Zanzibar,TZ,beach,78.51,4.29,True,"Steady demand - keep rates, watch weekend pickup."
+1019,0.609,2026-07-20,0.649,2026-06-01,0.536,Zanzibar,TZ,beach,172.01,4.32,False,"Steady demand - keep rates, watch weekend pickup."
+1055,0.601,2026-08-24,0.654,2026-06-15,0.553,Zanzibar,TZ,beach,170.8,4.13,False,"Steady demand - keep rates, watch weekend pickup."
+1002,0.588,2026-08-24,0.64,2026-06-01,0.532,Zanzibar,TZ,beach,90.11,4.3,False,"Steady demand - keep rates, watch weekend pickup."
+1037,0.578,2026-08-10,0.626,2026-06-29,0.519,Zanzibar,TZ,beach,121.82,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1000,0.572,2026-08-24,0.63,2026-06-08,0.493,Zanzibar,TZ,beach,108.26,4.35,False,"Steady demand - keep rates, watch weekend pickup."
+1048,0.57,2026-08-24,0.62,2026-06-01,0.48,Zanzibar,TZ,beach,105.85,4.45,False,"Steady demand - keep rates, watch weekend pickup."
+1011,0.568,2026-08-24,0.618,2026-06-08,0.492,Zanzibar,TZ,beach,125.12,4.21,False,"Steady demand - keep rates, watch weekend pickup."
+1083,0.561,2026-08-24,0.622,2026-06-22,0.495,Zanzibar,TZ,beach,65.19,3.69,False,"Steady demand - keep rates, watch weekend pickup."
+1023,0.555,2026-08-10,0.608,2026-06-08,0.478,Zanzibar,TZ,beach,81.07,4.73,False,"Steady demand - keep rates, watch weekend pickup."
+1057,0.552,2026-08-24,0.615,2026-06-01,0.484,Zanzibar,TZ,beach,76.46,4.53,False,"Steady demand - keep rates, watch weekend pickup."
+1044,0.547,2026-08-24,0.608,2026-06-08,0.441,Zanzibar,TZ,beach,106.55,3.95,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1078,0.541,2026-07-20,0.607,2026-06-08,0.437,Zanzibar,TZ,beach,105.24,4.19,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1036,0.537,2026-08-10,0.589,2026-06-08,0.467,Zanzibar,TZ,beach,87.95,4.64,True,"Steady demand - keep rates, watch weekend pickup."
+1013,0.535,2026-08-17,0.589,2026-06-08,0.438,Zanzibar,TZ,beach,87.13,4.22,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1018,0.522,2026-07-06,0.593,2026-06-08,0.412,Zanzibar,TZ,beach,76.22,4.06,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 41%).
+1090,0.519,2026-07-13,0.567,2026-06-08,0.435,Zanzibar,TZ,beach,76.42,4.55,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1072,0.518,2026-07-20,0.576,2026-06-01,0.42,Zanzibar,TZ,beach,163.23,3.92,False,Add a promo / min-stay discount around 2026-06-01 (soft demand 42%).
+1064,0.517,2026-07-20,0.571,2026-06-08,0.432,Zanzibar,TZ,beach,72.57,4.45,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 43%).
+1034,0.515,2026-08-03,0.556,2026-06-08,0.419,Zanzibar,TZ,beach,56.38,4.96,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 42%).
+1007,0.507,2026-08-24,0.553,2026-06-08,0.42,Zanzibar,TZ,beach,62.16,4.21,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 42%).
+1017,0.507,2026-08-24,0.575,2026-06-08,0.401,Zanzibar,TZ,beach,130.17,3.92,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 40%).
+1071,0.505,2026-07-20,0.545,2026-06-08,0.435,Zanzibar,TZ,beach,111.57,4.43,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 44%).
+1075,0.5,2026-07-06,0.561,2026-06-08,0.421,Zanzibar,TZ,beach,118.85,4.49,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 42%).
+1082,0.469,2026-07-20,0.523,2026-06-08,0.4,Zanzibar,TZ,beach,97.63,4.34,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 40%).
+1039,0.459,2026-08-24,0.531,2026-06-08,0.361,Zanzibar,TZ,beach,109.34,4.26,True,Add a promo / min-stay discount around 2026-06-08 (soft demand 36%).
+1032,0.452,2026-07-20,0.499,2026-06-08,0.366,Zanzibar,TZ,beach,82.08,3.92,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 37%).
+1070,0.434,2026-07-27,0.484,2026-06-08,0.368,Zanzibar,TZ,beach,103.52,4.15,False,Add a promo / min-stay discount around 2026-06-08 (soft demand 37%).

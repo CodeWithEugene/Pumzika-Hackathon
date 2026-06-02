@@ -1,0 +1,501 @@
+listing_id,market,country,archetype,property_type,bedrooms,capacity,base_price,is_superhost,review_score,num_reviews,instant_book,wifi,air_conditioning,pool,parking,kitchen,lat,lon,host_since
+1000,Zanzibar,TZ,beach,beach_house,3,8,108.26,False,4.35,49,False,False,True,True,True,True,-6.1325,39.2362,2022-12-14
+1001,Zanzibar,TZ,beach,villa,3,8,104.32,False,4.28,43,True,True,True,False,True,True,-6.1969,39.1852,2020-12-21
+1002,Zanzibar,TZ,beach,villa,3,6,90.11,False,4.3,55,True,True,True,True,True,False,-6.1579,39.2335,2020-11-17
+1003,Zanzibar,TZ,beach,villa,4,9,129.43,True,4.45,26,True,True,True,True,True,True,-6.169,39.1146,2021-01-16
+1004,Zanzibar,TZ,beach,cottage,1,2,63.97,False,4.36,16,False,True,True,True,True,True,-6.1433,39.2109,2021-06-24
+1005,Zanzibar,TZ,beach,villa,1,3,79.03,False,4.1,43,False,True,True,True,True,True,-6.0918,39.1396,2020-11-16
+1006,Zanzibar,TZ,beach,apartment,3,6,75.28,False,4.19,8,False,True,True,False,False,True,-6.1858,39.1684,2020-06-29
+1007,Zanzibar,TZ,beach,villa,1,3,62.16,False,4.21,14,False,True,True,False,False,True,-6.2133,39.1627,2020-12-30
+1008,Zanzibar,TZ,beach,bungalow,5,11,149.77,False,4.24,21,True,True,False,False,False,False,-6.154,39.1785,2022-05-27
+1009,Zanzibar,TZ,beach,villa,2,6,75.97,True,4.21,9,False,True,True,False,False,True,-6.1847,39.1987,2021-04-23
+1010,Zanzibar,TZ,beach,bungalow,1,2,53.56,True,4.58,58,True,True,True,True,False,True,-6.1406,39.1748,2022-07-18
+1011,Zanzibar,TZ,beach,beach_house,2,5,125.12,False,4.21,20,False,True,True,True,True,False,-6.1794,39.1258,2021-08-22
+1012,Zanzibar,TZ,beach,apartment,1,4,83.25,True,4.35,21,True,True,False,False,True,True,-6.2384,39.3055,2020-06-16
+1013,Zanzibar,TZ,beach,cottage,2,6,87.13,True,4.22,27,False,True,True,False,True,True,-6.1769,39.1857,2021-01-13
+1014,Zanzibar,TZ,beach,beach_house,1,2,99.11,False,4.53,41,True,True,False,True,True,True,-6.2032,39.1434,2020-07-06
+1015,Zanzibar,TZ,beach,bungalow,2,5,91.73,True,4.81,51,False,True,True,False,True,True,-6.2933,39.1872,2020-08-10
+1016,Zanzibar,TZ,beach,apartment,2,5,99.12,False,4.34,110,True,True,True,False,True,False,-6.143,39.2862,2021-03-20
+1017,Zanzibar,TZ,beach,villa,4,8,130.17,False,3.92,63,True,True,True,False,True,False,-6.1909,39.2746,2023-02-13
+1018,Zanzibar,TZ,beach,bungalow,3,8,76.22,False,4.06,46,False,True,True,False,False,True,-6.2441,39.2728,2020-12-03
+1019,Zanzibar,TZ,beach,beach_house,4,10,172.01,False,4.32,44,True,True,True,False,True,True,-6.2061,39.2091,2022-12-09
+1020,Zanzibar,TZ,beach,apartment,5,11,132.62,False,4.19,4,False,True,True,False,True,True,-6.1512,39.1284,2022-03-22
+1021,Zanzibar,TZ,beach,cottage,5,11,168.05,False,4.29,62,True,True,True,False,True,False,-6.1709,39.2405,2020-04-25
+1022,Zanzibar,TZ,beach,cottage,2,5,87.69,False,4.06,62,False,True,True,True,True,True,-6.2069,39.1693,2022-02-03
+1023,Zanzibar,TZ,beach,apartment,2,4,81.07,False,4.73,9,False,True,False,False,True,True,-6.1977,39.2204,2023-03-10
+1024,Zanzibar,TZ,beach,villa,2,5,129.71,False,4.15,8,False,False,True,False,True,True,-6.1112,39.1567,2020-07-08
+1025,Zanzibar,TZ,beach,villa,3,6,104.99,True,3.97,13,True,True,True,False,True,True,-6.134,39.182,2022-08-23
+1026,Zanzibar,TZ,beach,villa,3,7,123.38,False,4.65,39,True,True,True,True,False,True,-6.1467,39.1847,2020-10-30
+1027,Zanzibar,TZ,beach,cottage,2,6,137.98,False,4.16,4,True,True,True,True,True,False,-6.193,39.2223,2023-01-06
+1028,Zanzibar,TZ,beach,beach_house,3,8,142.27,True,4.65,59,False,False,True,False,False,True,-6.1584,39.2119,2022-12-16
+1029,Zanzibar,TZ,beach,beach_house,2,4,93.32,False,4.38,7,True,True,True,True,True,False,-6.1777,39.191,2023-07-17
+1030,Zanzibar,TZ,beach,apartment,2,4,76.06,False,4.36,54,False,True,False,False,False,True,-6.1624,39.1607,2020-04-26
+1031,Zanzibar,TZ,beach,cottage,2,4,111.73,False,4.4,42,True,True,True,False,False,True,-6.1468,39.0785,2024-02-27
+1032,Zanzibar,TZ,beach,villa,3,8,82.08,False,3.92,17,False,False,True,False,False,True,-6.191,39.2396,2022-04-02
+1033,Zanzibar,TZ,beach,apartment,3,6,85.52,True,4.37,21,False,True,True,True,True,True,-6.2053,39.1349,2021-02-15
+1034,Zanzibar,TZ,beach,villa,1,4,56.38,True,4.96,25,True,True,True,True,False,True,-6.0375,39.1787,2022-03-10
+1035,Zanzibar,TZ,beach,villa,3,7,80.92,True,4.71,53,False,False,True,True,True,True,-6.1845,39.2914,2020-10-04
+1036,Zanzibar,TZ,beach,villa,2,4,87.95,True,4.64,17,True,True,False,False,True,True,-6.1409,39.1729,2022-01-16
+1037,Zanzibar,TZ,beach,villa,4,10,121.82,False,4.35,154,False,True,True,False,False,True,-6.1255,39.2739,2023-04-21
+1038,Zanzibar,TZ,beach,bungalow,4,9,130.41,False,4.02,18,True,True,True,True,True,True,-6.2105,39.2269,2020-09-18
+1039,Zanzibar,TZ,beach,apartment,2,4,109.34,True,4.26,36,True,True,True,False,False,True,-6.2398,39.1529,2024-03-31
+1040,Zanzibar,TZ,beach,villa,3,6,73.74,False,4.38,38,True,False,True,True,True,True,-6.216,39.106,2023-11-27
+1041,Zanzibar,TZ,beach,bungalow,1,2,57.61,False,4.39,27,True,False,True,False,False,True,-6.133,39.2211,2020-11-21
+1042,Zanzibar,TZ,beach,villa,2,4,113.81,True,4.65,5,True,True,True,False,True,False,-6.2197,39.2188,2021-03-11
+1043,Zanzibar,TZ,beach,beach_house,3,8,121.15,False,4.5,36,False,True,True,True,True,True,-6.2543,39.1929,2024-03-10
+1044,Zanzibar,TZ,beach,beach_house,3,7,106.55,False,3.95,47,False,True,True,False,True,True,-6.1902,39.1676,2022-11-03
+1045,Zanzibar,TZ,beach,bungalow,4,9,141.48,True,4.95,12,False,True,True,False,False,True,-6.2214,39.18,2020-06-18
+1046,Zanzibar,TZ,beach,apartment,2,6,104.03,True,5.0,27,True,True,False,True,True,True,-6.1831,39.1745,2024-03-19
+1047,Zanzibar,TZ,beach,apartment,1,3,60.02,False,4.25,47,True,False,True,True,False,False,-6.2321,39.1787,2022-10-07
+1048,Zanzibar,TZ,beach,beach_house,2,5,105.85,False,4.45,38,True,True,True,False,False,False,-6.2197,39.2134,2022-11-09
+1049,Zanzibar,TZ,beach,cottage,2,5,67.7,False,4.02,22,True,True,False,False,False,True,-6.1599,39.1916,2023-11-15
+1050,Zanzibar,TZ,beach,beach_house,2,4,115.58,False,3.89,38,True,True,True,True,False,False,-6.259,39.1831,2021-06-01
+1051,Zanzibar,TZ,beach,villa,5,11,150.6,False,4.18,38,False,True,False,True,True,True,-6.1217,39.2096,2022-03-02
+1052,Zanzibar,TZ,beach,beach_house,3,6,118.92,False,4.34,51,True,True,True,False,True,True,-6.2151,39.1935,2023-06-04
+1053,Zanzibar,TZ,beach,cottage,1,3,82.96,False,4.04,69,True,True,True,False,True,True,-6.2358,39.2212,2020-05-03
+1054,Zanzibar,TZ,beach,apartment,2,6,116.48,False,4.35,57,False,True,False,False,True,True,-6.1705,39.2166,2021-05-10
+1055,Zanzibar,TZ,beach,apartment,4,8,170.8,False,4.13,57,True,True,True,False,True,True,-6.2478,39.1467,2021-09-14
+1056,Zanzibar,TZ,beach,cottage,1,4,68.44,True,4.46,57,False,True,True,False,False,True,-6.1056,39.2091,2024-01-01
+1057,Zanzibar,TZ,beach,villa,2,5,76.46,False,4.53,22,False,True,True,False,True,True,-6.1379,39.1512,2022-09-04
+1058,Zanzibar,TZ,beach,cottage,5,12,151.35,True,4.59,49,False,True,True,False,False,True,-6.0927,39.1951,2022-06-18
+1059,Zanzibar,TZ,beach,apartment,2,4,90.25,False,3.99,43,False,False,False,True,True,True,-6.1854,39.1291,2022-09-19
+1060,Zanzibar,TZ,beach,apartment,1,4,81.03,False,4.08,36,False,False,False,False,True,True,-6.1343,39.2289,2023-01-31
+1061,Zanzibar,TZ,beach,bungalow,3,8,103.54,False,4.61,66,False,True,False,True,False,True,-6.2144,39.2215,2020-12-21
+1062,Zanzibar,TZ,beach,villa,3,6,139.34,False,4.75,33,False,True,True,False,True,True,-6.1694,39.1992,2022-12-18
+1063,Zanzibar,TZ,beach,apartment,2,5,80.67,True,4.55,59,True,True,True,True,False,True,-6.1595,39.1991,2023-05-23
+1064,Zanzibar,TZ,beach,cottage,2,6,72.57,True,4.45,29,False,True,True,False,True,True,-6.2149,39.1948,2021-10-24
+1065,Zanzibar,TZ,beach,villa,3,8,107.73,False,3.88,66,True,True,True,False,True,True,-6.1146,39.1862,2023-03-10
+1066,Zanzibar,TZ,beach,bungalow,2,4,78.51,True,4.29,97,True,True,True,True,False,True,-6.1501,39.2433,2022-03-08
+1067,Zanzibar,TZ,beach,villa,2,4,75.89,True,4.16,5,True,True,True,False,True,False,-6.1286,39.1702,2020-08-03
+1068,Zanzibar,TZ,beach,beach_house,2,5,74.53,False,3.92,39,False,True,True,True,True,False,-6.1128,39.2024,2021-08-16
+1069,Zanzibar,TZ,beach,bungalow,4,8,134.08,False,4.03,45,True,True,True,True,True,True,-6.1874,39.1965,2022-06-23
+1070,Zanzibar,TZ,beach,bungalow,5,10,103.52,False,4.15,48,True,True,True,False,True,True,-6.162,39.2115,2023-06-15
+1071,Zanzibar,TZ,beach,bungalow,3,8,111.57,True,4.43,26,True,False,False,False,True,True,-6.1343,39.2367,2022-01-10
+1072,Zanzibar,TZ,beach,villa,4,9,163.23,False,3.92,64,True,True,False,True,True,True,-6.1661,39.1209,2021-10-13
+1073,Zanzibar,TZ,beach,apartment,1,3,73.98,False,3.81,33,True,True,False,True,False,False,-6.0295,39.1883,2022-06-08
+1074,Zanzibar,TZ,beach,villa,2,5,95.1,False,3.96,149,False,True,False,True,False,False,-6.1838,39.1736,2020-07-23
+1075,Zanzibar,TZ,beach,beach_house,3,8,118.85,False,4.49,26,False,True,False,False,False,False,-6.1662,39.2172,2024-01-03
+1076,Zanzibar,TZ,beach,villa,5,11,138.76,False,4.2,6,True,True,True,True,False,True,-6.0719,39.2291,2020-11-11
+1077,Zanzibar,TZ,beach,villa,4,9,99.35,True,4.41,22,False,True,True,True,False,True,-6.0966,39.1564,2024-01-23
+1078,Zanzibar,TZ,beach,bungalow,3,6,105.24,False,4.19,48,False,True,True,True,False,True,-6.2468,39.2108,2021-01-05
+1079,Zanzibar,TZ,beach,beach_house,4,9,124.25,False,4.35,9,False,True,False,False,False,True,-6.1703,39.1792,2022-05-15
+1080,Zanzibar,TZ,beach,cottage,4,9,95.85,False,4.52,19,True,True,True,False,True,True,-6.1657,39.086,2022-09-23
+1081,Zanzibar,TZ,beach,beach_house,3,6,117.23,True,5.0,50,False,True,True,True,True,True,-6.1958,39.1979,2020-06-26
+1082,Zanzibar,TZ,beach,apartment,2,5,97.63,False,4.34,12,True,True,True,True,True,True,-6.0651,39.2056,2020-08-31
+1083,Zanzibar,TZ,beach,apartment,1,2,65.19,False,3.69,6,False,True,True,False,False,True,-6.1862,39.2529,2022-07-11
+1084,Zanzibar,TZ,beach,apartment,1,2,57.52,False,4.42,54,False,True,True,True,False,False,-6.123,39.2108,2023-10-15
+1085,Zanzibar,TZ,beach,cottage,2,5,78.28,False,4.03,54,True,True,False,True,False,True,-6.1245,39.1917,2020-07-21
+1086,Zanzibar,TZ,beach,cottage,1,4,72.31,False,3.93,15,False,True,True,True,True,True,-6.2281,39.2005,2021-05-06
+1087,Zanzibar,TZ,beach,cottage,3,6,85.73,False,4.4,20,False,True,True,True,True,True,-6.2015,39.2179,2023-06-08
+1088,Zanzibar,TZ,beach,beach_house,3,7,103.12,False,4.23,79,True,True,True,True,False,False,-6.1671,39.2029,2021-11-19
+1089,Zanzibar,TZ,beach,villa,3,7,118.22,False,4.04,55,False,True,False,False,False,True,-6.226,39.1575,2020-11-30
+1090,Zanzibar,TZ,beach,bungalow,1,4,76.42,False,4.55,5,False,True,True,False,False,True,-6.171,39.2575,2023-01-14
+1091,Serengeti,TZ,safari,cottage,4,10,471.34,False,4.18,7,False,True,False,False,True,True,-2.3678,34.8442,2021-05-08
+1092,Serengeti,TZ,safari,cottage,3,8,237.8,False,4.29,50,True,True,False,False,True,True,-2.365,34.865,2021-11-13
+1093,Serengeti,TZ,safari,lodge_room,2,6,168.95,False,4.1,7,False,True,True,False,False,True,-2.3894,34.8083,2022-09-10
+1094,Serengeti,TZ,safari,safari_tent,3,7,257.48,False,4.32,74,False,True,False,True,False,False,-2.3999,34.8854,2020-12-27
+1095,Serengeti,TZ,safari,safari_tent,1,3,135.77,False,4.57,39,False,True,False,False,True,True,-2.2873,34.7646,2023-12-22
+1096,Serengeti,TZ,safari,safari_tent,3,6,255.85,True,4.69,10,False,True,False,True,True,True,-2.278,34.8644,2020-05-15
+1097,Serengeti,TZ,safari,cottage,4,8,322.44,False,4.07,14,True,True,True,True,False,True,-2.3294,34.7682,2021-07-09
+1098,Serengeti,TZ,safari,cottage,4,9,360.02,False,4.66,64,True,False,True,False,False,True,-2.3334,34.8467,2023-09-08
+1099,Serengeti,TZ,safari,safari_tent,3,6,285.97,True,4.39,25,True,True,True,False,True,False,-2.285,34.7354,2022-01-03
+1100,Serengeti,TZ,safari,villa,2,4,197.17,True,4.42,58,True,True,False,False,True,True,-2.2551,34.7892,2020-07-21
+1101,Serengeti,TZ,safari,lodge_room,3,6,218.43,False,4.41,39,True,True,True,True,True,True,-2.4349,34.8346,2022-12-27
+1102,Serengeti,TZ,safari,villa,1,3,136.87,False,4.07,43,True,True,False,True,False,True,-2.2624,34.8842,2021-08-05
+1103,Serengeti,TZ,safari,lodge_room,2,5,319.9,False,4.15,43,False,True,False,False,True,True,-2.4143,34.8692,2023-07-20
+1104,Serengeti,TZ,safari,safari_tent,2,5,220.18,False,4.32,13,False,True,True,False,True,True,-2.3103,34.8105,2021-12-26
+1105,Serengeti,TZ,safari,lodge_room,3,7,169.17,True,4.72,12,False,False,False,False,True,True,-2.4854,34.8022,2020-08-03
+1106,Serengeti,TZ,safari,cottage,1,3,200.8,False,3.94,74,True,True,True,False,False,True,-2.3762,34.8977,2021-05-20
+1107,Serengeti,TZ,safari,lodge_room,2,5,196.13,False,4.06,18,True,True,False,True,True,True,-2.233,34.8358,2022-10-06
+1108,Serengeti,TZ,safari,safari_tent,3,6,312.1,False,4.5,12,True,True,True,True,True,True,-2.3545,34.8728,2022-06-18
+1109,Serengeti,TZ,safari,safari_tent,2,5,220.75,False,3.87,63,True,True,True,True,False,True,-2.3475,34.8429,2024-02-16
+1110,Serengeti,TZ,safari,villa,2,5,212.95,False,4.4,43,False,True,False,False,False,False,-2.3204,34.7628,2020-06-20
+1111,Serengeti,TZ,safari,cottage,2,4,205.11,False,4.43,11,True,True,True,False,True,True,-2.3092,34.8337,2022-06-21
+1112,Serengeti,TZ,safari,villa,2,6,235.78,False,3.84,55,True,True,False,True,True,True,-2.2832,34.7833,2021-06-09
+1113,Serengeti,TZ,safari,cottage,2,5,284.58,False,4.04,9,False,True,False,True,True,True,-2.3147,34.8622,2022-11-17
+1114,Serengeti,TZ,safari,villa,5,12,277.39,True,4.66,28,False,True,False,True,True,True,-2.3617,34.7687,2021-01-01
+1115,Serengeti,TZ,safari,safari_tent,2,6,251.29,False,4.36,48,False,False,False,False,True,True,-2.3015,34.8396,2022-12-01
+1116,Serengeti,TZ,safari,safari_tent,3,7,236.86,False,3.74,100,True,True,True,False,False,True,-2.3135,34.8578,2021-04-16
+1117,Arusha,TZ,safari,lodge_room,2,6,76.1,False,4.27,39,True,True,False,True,True,True,-3.4132,36.7041,2022-09-15
+1118,Arusha,TZ,safari,lodge_room,3,8,97.69,False,4.03,27,True,True,False,True,False,True,-3.4341,36.7298,2023-03-25
+1119,Arusha,TZ,safari,safari_tent,1,3,50.98,True,4.75,17,False,True,True,False,False,True,-3.3219,36.7147,2022-03-27
+1120,Arusha,TZ,safari,villa,1,4,61.06,True,4.07,19,True,True,True,True,False,True,-3.4057,36.7891,2021-12-03
+1121,Arusha,TZ,safari,safari_tent,2,6,75.82,False,4.25,33,True,True,True,True,True,True,-3.396,36.6837,2020-07-05
+1122,Arusha,TZ,safari,lodge_room,2,5,87.67,False,4.28,56,True,False,False,True,True,True,-3.4303,36.6837,2024-03-06
+1123,Arusha,TZ,safari,safari_tent,5,12,99.95,False,4.03,13,False,True,False,False,True,True,-3.4332,36.6308,2021-11-03
+1124,Arusha,TZ,safari,lodge_room,2,6,90.66,False,4.59,18,True,True,True,False,True,True,-3.3532,36.5639,2023-01-08
+1125,Arusha,TZ,safari,villa,2,6,70.72,False,4.55,54,True,True,True,True,True,True,-3.4098,36.7038,2022-03-13
+1126,Arusha,TZ,safari,villa,2,4,79.82,True,3.69,11,False,True,False,True,False,True,-3.2731,36.7316,2023-06-04
+1127,Arusha,TZ,safari,villa,1,2,47.71,True,4.89,25,True,True,False,True,True,True,-3.4087,36.7015,2023-08-01
+1128,Arusha,TZ,safari,lodge_room,4,10,117.01,False,4.33,90,False,True,True,True,True,True,-3.3864,36.5638,2021-07-05
+1129,Arusha,TZ,safari,lodge_room,1,4,65.08,False,4.3,73,True,True,True,True,False,False,-3.3448,36.757,2020-10-25
+1130,Arusha,TZ,safari,lodge_room,2,6,59.38,False,3.98,31,True,True,False,False,False,False,-3.3708,36.7435,2022-03-06
+1131,Arusha,TZ,safari,cottage,5,12,81.22,True,4.86,26,False,True,True,False,True,False,-3.422,36.6851,2022-05-02
+1132,Arusha,TZ,safari,lodge_room,4,10,92.48,False,4.08,7,True,True,False,True,True,True,-3.3962,36.6508,2024-01-10
+1133,Arusha,TZ,safari,safari_tent,4,8,79.86,False,4.41,17,True,True,False,False,True,True,-3.3315,36.7508,2021-02-20
+1134,Arusha,TZ,safari,villa,2,5,102.03,False,3.73,29,True,True,True,True,False,True,-3.4379,36.6881,2023-05-13
+1135,Arusha,TZ,safari,lodge_room,3,8,85.04,False,4.33,72,False,True,False,True,False,True,-3.3486,36.724,2021-11-08
+1136,Arusha,TZ,safari,cottage,1,2,54.46,False,4.02,26,True,True,True,True,True,False,-3.4257,36.661,2020-08-24
+1137,Arusha,TZ,safari,cottage,3,6,77.65,True,4.64,55,False,True,False,False,True,False,-3.3888,36.678,2020-08-28
+1138,Arusha,TZ,safari,villa,3,7,61.33,True,4.61,36,True,True,True,False,True,True,-3.3593,36.6954,2022-02-02
+1139,Arusha,TZ,safari,cottage,2,6,66.14,False,4.68,47,True,True,True,False,False,True,-3.3152,36.7108,2021-10-26
+1140,Arusha,TZ,safari,safari_tent,3,7,100.33,False,4.19,5,True,True,True,True,True,True,-3.3957,36.7353,2021-09-28
+1141,Arusha,TZ,safari,villa,2,5,80.42,False,4.38,49,True,True,True,True,True,True,-3.3924,36.6613,2022-08-26
+1142,Arusha,TZ,safari,cottage,3,7,98.49,True,4.95,97,False,False,True,False,True,True,-3.2734,36.715,2024-01-07
+1143,Arusha,TZ,safari,lodge_room,4,8,139.85,False,4.6,91,False,True,False,False,True,False,-3.3558,36.6413,2022-07-25
+1144,Arusha,TZ,safari,safari_tent,4,10,90.74,False,4.33,4,True,True,True,True,True,True,-3.4535,36.5996,2021-11-10
+1145,Arusha,TZ,safari,safari_tent,3,7,88.49,False,4.25,69,False,True,False,False,True,True,-3.3137,36.6422,2022-05-24
+1146,Arusha,TZ,safari,safari_tent,3,6,76.6,False,4.57,82,True,True,False,False,True,False,-3.305,36.6573,2022-04-02
+1147,Arusha,TZ,safari,villa,3,6,80.23,True,4.91,17,False,True,False,False,False,True,-3.4584,36.6619,2023-04-09
+1148,Arusha,TZ,safari,lodge_room,3,6,98.75,False,4.44,94,True,True,False,False,True,True,-3.3372,36.6485,2023-06-01
+1149,Arusha,TZ,safari,villa,2,6,75.45,True,4.91,4,True,True,False,False,True,True,-3.4301,36.7259,2022-04-18
+1150,Arusha,TZ,safari,cottage,1,2,45.61,False,4.31,31,False,True,False,False,True,True,-3.3813,36.6911,2022-01-25
+1151,Arusha,TZ,safari,cottage,1,4,45.37,False,4.61,6,False,True,False,True,False,True,-3.3006,36.6599,2023-11-06
+1152,Arusha,TZ,safari,cottage,3,7,88.31,False,4.64,17,True,True,True,False,True,True,-3.4067,36.602,2022-08-09
+1153,Arusha,TZ,safari,safari_tent,2,4,52.95,False,4.34,62,False,False,False,False,True,False,-3.3457,36.7215,2022-07-17
+1154,Arusha,TZ,safari,safari_tent,4,10,110.36,False,4.41,25,True,True,True,False,True,True,-3.4158,36.6605,2021-10-18
+1155,Arusha,TZ,safari,lodge_room,4,10,93.01,False,4.09,54,True,True,True,True,True,True,-3.3007,36.5872,2022-07-21
+1156,Arusha,TZ,safari,safari_tent,2,4,55.7,True,4.45,25,True,True,True,False,True,True,-3.4386,36.6835,2022-04-24
+1157,Arusha,TZ,safari,villa,1,4,58.37,False,3.78,162,False,True,False,True,True,False,-3.3832,36.6746,2020-05-20
+1158,Dar es Salaam,TZ,city,studio,1,4,45.97,False,4.06,14,True,True,True,True,True,False,-6.7951,39.2143,2021-03-09
+1159,Dar es Salaam,TZ,city,villa,2,4,51.12,False,4.03,210,False,True,False,False,True,True,-6.8868,39.2138,2021-12-05
+1160,Dar es Salaam,TZ,city,apartment,2,6,53.77,True,4.66,46,False,False,False,True,False,True,-6.7709,39.2033,2023-06-25
+1161,Dar es Salaam,TZ,city,studio,3,7,72.03,True,4.82,38,True,True,False,False,True,True,-6.791,39.148,2020-06-06
+1162,Dar es Salaam,TZ,city,apartment,5,11,116.38,True,4.99,117,True,True,True,False,False,False,-6.8595,39.1924,2020-11-01
+1163,Dar es Salaam,TZ,city,townhouse,3,7,69.82,False,3.48,5,False,True,True,True,False,True,-6.712,39.2291,2020-12-25
+1164,Dar es Salaam,TZ,city,villa,2,6,57.47,False,4.17,1,False,True,True,False,False,True,-6.7906,39.128,2022-10-06
+1165,Dar es Salaam,TZ,city,apartment,4,8,128.96,False,4.24,22,True,True,False,False,True,False,-6.7147,39.1982,2023-07-12
+1166,Dar es Salaam,TZ,city,apartment,3,8,57.51,True,4.99,43,True,True,False,False,True,True,-6.8087,39.2705,2023-12-30
+1167,Dar es Salaam,TZ,city,studio,5,10,119.75,False,4.17,61,False,True,False,False,True,True,-6.8942,39.1467,2021-11-05
+1168,Dar es Salaam,TZ,city,apartment,1,3,46.92,True,4.5,37,True,False,False,False,True,True,-6.785,39.2032,2024-02-29
+1169,Dar es Salaam,TZ,city,villa,4,8,84.1,False,4.31,27,True,True,True,False,True,True,-6.8489,39.1859,2023-08-17
+1170,Dar es Salaam,TZ,city,apartment,1,4,37.79,True,4.88,42,True,True,True,False,True,False,-6.8706,39.2465,2022-08-27
+1171,Dar es Salaam,TZ,city,townhouse,2,5,49.07,False,3.9,75,True,True,True,False,True,False,-6.7435,39.2699,2024-04-01
+1172,Dar es Salaam,TZ,city,apartment,1,4,53.18,True,5.0,12,False,True,False,False,True,False,-6.7541,39.2146,2024-02-09
+1173,Dar es Salaam,TZ,city,townhouse,2,4,59.71,True,5.0,63,True,True,True,False,True,True,-6.7647,39.2201,2024-01-10
+1174,Dar es Salaam,TZ,city,townhouse,6,14,97.76,True,4.38,23,True,True,False,False,True,True,-6.8119,39.2266,2021-01-11
+1175,Dar es Salaam,TZ,city,studio,4,10,94.07,False,4.37,32,True,True,False,True,True,True,-6.7582,39.1758,2021-01-25
+1176,Dar es Salaam,TZ,city,townhouse,3,8,76.56,True,4.85,59,False,True,False,False,True,True,-6.8276,39.2362,2023-11-28
+1177,Dar es Salaam,TZ,city,apartment,1,2,34.81,False,4.05,27,True,True,False,False,True,False,-6.7408,39.1871,2023-12-10
+1178,Dar es Salaam,TZ,city,townhouse,3,8,85.86,True,4.45,52,True,True,False,False,True,True,-6.7316,39.3197,2021-10-22
+1179,Dar es Salaam,TZ,city,townhouse,4,10,70.25,True,4.38,16,False,True,True,True,True,True,-6.8162,39.2353,2022-05-13
+1180,Dar es Salaam,TZ,city,villa,2,5,59.71,False,4.56,17,True,True,False,False,True,False,-6.8623,39.2563,2020-10-03
+1181,Dar es Salaam,TZ,city,townhouse,2,4,57.35,False,4.0,27,True,True,True,False,True,True,-6.8329,39.2621,2023-04-19
+1182,Dar es Salaam,TZ,city,villa,2,6,50.54,True,4.23,71,True,True,True,False,True,True,-6.7383,39.1877,2020-11-06
+1183,Dar es Salaam,TZ,city,townhouse,3,7,85.23,False,4.09,57,True,True,True,False,True,False,-6.7662,39.2322,2022-07-07
+1184,Dar es Salaam,TZ,city,townhouse,4,8,87.83,True,4.59,77,True,True,False,True,True,True,-6.7778,39.2373,2022-03-05
+1185,Dar es Salaam,TZ,city,villa,4,10,115.51,True,4.44,38,True,True,True,False,False,True,-6.8654,39.1964,2022-04-05
+1186,Dar es Salaam,TZ,city,apartment,1,3,40.04,False,3.99,38,False,True,False,False,True,True,-6.7948,39.095,2022-07-04
+1187,Dar es Salaam,TZ,city,studio,2,4,51.76,False,4.26,29,False,True,False,False,True,True,-6.806,39.1597,2024-02-04
+1188,Dar es Salaam,TZ,city,apartment,1,4,32.25,False,4.78,20,True,True,False,False,True,True,-6.7628,39.2381,2022-04-09
+1189,Dar es Salaam,TZ,city,studio,3,7,78.14,False,4.48,19,False,True,False,False,True,True,-6.9018,39.1069,2020-09-01
+1190,Dar es Salaam,TZ,city,studio,4,8,93.7,False,4.29,83,False,True,False,False,False,True,-6.8723,39.2782,2021-11-17
+1191,Dar es Salaam,TZ,city,townhouse,4,8,101.67,False,4.17,123,True,True,True,True,True,False,-6.7939,39.1289,2022-02-10
+1192,Dar es Salaam,TZ,city,apartment,3,6,103.67,False,4.32,15,True,True,True,False,True,True,-6.7209,39.2548,2023-04-17
+1193,Dar es Salaam,TZ,city,villa,2,4,73.11,False,3.88,56,True,True,False,False,True,False,-6.7379,39.2446,2023-02-06
+1194,Dar es Salaam,TZ,city,apartment,2,4,55.27,False,3.98,29,False,True,False,True,False,True,-6.8515,39.2161,2022-09-06
+1195,Dar es Salaam,TZ,city,villa,3,7,70.73,False,4.39,9,False,True,False,False,True,True,-6.7592,39.1716,2021-01-31
+1196,Dar es Salaam,TZ,city,villa,1,2,46.88,True,4.29,101,True,True,False,False,True,True,-6.7451,39.1913,2023-02-18
+1197,Dar es Salaam,TZ,city,villa,4,10,62.73,False,4.18,21,False,True,True,False,True,False,-6.8046,39.1974,2020-10-06
+1198,Dar es Salaam,TZ,city,townhouse,2,4,65.81,True,4.58,11,True,True,True,False,True,True,-6.7956,39.1776,2022-04-11
+1199,Dar es Salaam,TZ,city,apartment,2,5,50.01,False,3.88,58,True,True,False,False,True,True,-6.7945,39.2754,2020-09-29
+1200,Dar es Salaam,TZ,city,villa,2,5,66.77,False,4.13,22,True,True,True,False,True,True,-6.7527,39.2061,2021-10-18
+1201,Dar es Salaam,TZ,city,apartment,2,5,69.79,True,4.03,66,True,True,True,False,True,True,-6.6909,39.2103,2024-01-25
+1202,Dar es Salaam,TZ,city,villa,6,14,107.32,False,3.89,29,False,False,True,False,False,False,-6.8117,39.2764,2021-08-26
+1203,Dar es Salaam,TZ,city,townhouse,2,6,53.45,False,4.45,57,True,True,False,False,False,True,-6.8004,39.1289,2021-02-12
+1204,Dar es Salaam,TZ,city,apartment,2,6,58.58,True,4.69,53,False,True,True,False,True,True,-6.7852,39.1856,2023-05-18
+1205,Dar es Salaam,TZ,city,townhouse,6,13,96.03,False,3.71,10,False,True,False,False,False,True,-6.8311,39.2341,2023-12-12
+1206,Dar es Salaam,TZ,city,apartment,1,2,47.67,False,4.21,29,True,True,True,False,True,True,-6.7897,39.2428,2022-06-20
+1207,Dar es Salaam,TZ,city,townhouse,3,8,65.49,True,4.73,45,True,True,False,False,True,True,-6.8256,39.1843,2022-01-11
+1208,Dar es Salaam,TZ,city,apartment,4,8,77.96,False,3.78,68,False,True,False,False,True,True,-6.7721,39.1187,2022-10-12
+1209,Dar es Salaam,TZ,city,townhouse,2,5,63.71,False,4.23,80,False,True,False,True,True,True,-6.8388,39.1627,2023-02-28
+1210,Dar es Salaam,TZ,city,studio,2,5,53.0,False,3.73,15,True,False,True,True,False,True,-6.7559,39.1341,2022-03-11
+1211,Dar es Salaam,TZ,city,villa,2,5,59.43,False,4.48,35,False,True,False,False,True,True,-6.7718,39.2214,2020-05-12
+1212,Dar es Salaam,TZ,city,townhouse,3,8,67.39,False,4.05,34,False,True,True,False,True,True,-6.7804,39.2198,2020-08-16
+1213,Dar es Salaam,TZ,city,townhouse,2,4,60.91,False,4.03,94,False,True,False,False,True,True,-6.7877,39.0913,2022-11-21
+1214,Dar es Salaam,TZ,city,studio,2,5,62.0,True,4.72,19,True,True,True,True,False,True,-6.8512,39.2901,2021-10-06
+1215,Dar es Salaam,TZ,city,villa,4,8,67.44,False,4.25,14,True,True,True,True,True,True,-6.8164,39.2783,2022-09-10
+1216,Dar es Salaam,TZ,city,townhouse,2,4,43.31,True,4.28,26,True,True,True,False,True,True,-6.8238,39.2241,2022-05-25
+1217,Dar es Salaam,TZ,city,villa,1,4,40.39,True,4.49,7,True,True,False,False,False,True,-6.9038,39.1958,2022-12-24
+1218,Dar es Salaam,TZ,city,studio,2,4,50.41,True,4.64,28,True,True,True,True,False,True,-6.7744,39.263,2022-07-31
+1219,Dar es Salaam,TZ,city,villa,4,9,84.4,False,4.28,28,True,True,False,False,False,True,-6.8283,39.3272,2022-03-29
+1220,Dar es Salaam,TZ,city,townhouse,2,4,55.31,False,3.69,19,True,True,False,False,True,False,-6.8442,39.1771,2022-05-04
+1221,Dar es Salaam,TZ,city,villa,2,4,54.15,False,4.73,20,True,True,True,True,True,True,-6.8323,39.1769,2021-02-21
+1222,Dar es Salaam,TZ,city,apartment,2,5,46.09,False,4.33,14,False,True,True,True,False,False,-6.7783,39.3199,2023-06-19
+1223,Dar es Salaam,TZ,city,studio,3,7,67.49,False,4.58,47,False,True,False,False,True,False,-6.7822,39.2261,2021-08-28
+1224,Dar es Salaam,TZ,city,villa,3,7,106.22,False,4.43,32,False,True,False,False,False,False,-6.8007,39.2126,2024-01-21
+1225,Dar es Salaam,TZ,city,studio,1,2,39.91,False,3.98,32,True,True,True,False,True,True,-6.7732,39.2513,2022-04-09
+1226,Dar es Salaam,TZ,city,studio,2,5,55.51,False,4.55,21,True,True,False,False,True,True,-6.7212,39.1472,2022-09-06
+1227,Dar es Salaam,TZ,city,townhouse,4,8,128.43,False,4.49,38,False,True,False,False,False,False,-6.8303,39.1488,2022-01-23
+1228,Dar es Salaam,TZ,city,apartment,4,8,85.71,False,4.41,41,True,True,False,True,True,True,-6.8241,39.2354,2021-07-27
+1229,Dar es Salaam,TZ,city,apartment,3,6,68.8,False,4.04,21,False,True,True,True,True,True,-6.7411,39.1697,2023-10-22
+1230,Nairobi,KE,city,villa,3,7,56.0,False,4.31,14,True,True,False,False,False,False,-1.2918,36.7303,2022-03-04
+1231,Nairobi,KE,city,townhouse,1,4,52.84,False,4.02,20,True,True,True,True,True,False,-1.2973,36.8322,2023-06-26
+1232,Nairobi,KE,city,townhouse,3,8,53.45,False,4.42,38,True,True,False,False,True,True,-1.282,36.7461,2021-12-08
+1233,Nairobi,KE,city,townhouse,2,4,66.3,True,4.45,19,False,True,True,True,True,False,-1.388,36.8329,2020-09-19
+1234,Nairobi,KE,city,studio,4,10,93.86,True,4.55,68,False,True,False,False,True,False,-1.2621,36.903,2022-07-03
+1235,Nairobi,KE,city,villa,3,6,100.49,True,4.36,49,False,True,False,True,False,True,-1.256,36.8272,2021-10-25
+1236,Nairobi,KE,city,villa,3,6,101.55,True,4.24,17,False,True,False,False,False,True,-1.2619,36.7252,2021-12-10
+1237,Nairobi,KE,city,apartment,3,7,82.96,True,4.45,45,False,True,True,False,True,True,-1.2952,36.7534,2021-04-30
+1238,Nairobi,KE,city,villa,1,3,44.16,False,4.36,26,True,True,True,False,False,False,-1.3217,36.783,2021-01-02
+1239,Nairobi,KE,city,townhouse,4,9,83.56,True,4.57,51,False,True,True,False,True,True,-1.286,36.83,2022-07-10
+1240,Nairobi,KE,city,studio,1,3,40.47,False,4.34,37,True,True,True,False,True,True,-1.281,36.7422,2022-11-09
+1241,Nairobi,KE,city,townhouse,1,2,41.15,True,4.84,51,True,True,False,False,True,True,-1.3095,36.8185,2023-04-27
+1242,Nairobi,KE,city,townhouse,1,4,39.04,False,4.23,24,True,True,False,False,True,True,-1.3374,36.7795,2021-08-09
+1243,Nairobi,KE,city,townhouse,2,5,71.93,False,4.35,47,False,False,True,False,True,True,-1.3155,36.7602,2022-12-18
+1244,Nairobi,KE,city,villa,5,10,143.97,True,5.0,46,True,True,False,False,False,False,-1.3398,36.7708,2024-03-10
+1245,Nairobi,KE,city,studio,3,8,77.22,False,3.9,35,True,True,False,False,True,True,-1.2146,36.8102,2022-06-17
+1246,Nairobi,KE,city,townhouse,3,7,80.43,True,4.64,48,False,True,False,False,True,True,-1.3607,36.8143,2021-11-04
+1247,Nairobi,KE,city,townhouse,1,2,47.68,False,4.3,121,True,False,True,False,True,False,-1.2809,36.7631,2021-08-17
+1248,Nairobi,KE,city,studio,1,4,43.27,False,4.25,18,False,True,False,False,True,True,-1.2887,36.8713,2022-01-12
+1249,Nairobi,KE,city,townhouse,3,6,71.07,True,5.0,18,False,True,True,True,True,True,-1.2665,36.8278,2020-10-19
+1250,Nairobi,KE,city,apartment,4,9,85.32,False,3.96,50,False,True,True,False,True,True,-1.311,36.7426,2022-10-22
+1251,Nairobi,KE,city,townhouse,2,6,64.04,False,4.7,62,True,True,True,True,True,True,-1.2455,36.809,2023-11-01
+1252,Nairobi,KE,city,villa,1,4,42.29,False,4.47,14,True,True,True,False,True,True,-1.2715,36.9067,2023-12-29
+1253,Nairobi,KE,city,townhouse,1,2,48.18,False,3.99,45,False,True,True,False,False,False,-1.2239,36.8238,2024-04-01
+1254,Nairobi,KE,city,apartment,2,4,70.74,False,4.35,114,False,True,False,False,False,True,-1.2974,36.8421,2020-05-04
+1255,Nairobi,KE,city,apartment,1,2,51.24,True,4.73,50,False,False,True,False,True,False,-1.4079,36.7931,2023-10-25
+1256,Nairobi,KE,city,villa,3,8,81.44,False,4.17,51,True,True,True,True,True,True,-1.2678,36.8549,2023-12-18
+1257,Nairobi,KE,city,studio,4,10,94.65,False,4.26,35,True,True,False,True,True,False,-1.3071,36.7837,2022-11-23
+1258,Nairobi,KE,city,studio,2,6,72.59,False,5.0,56,True,True,True,False,False,True,-1.374,36.7387,2022-03-08
+1259,Nairobi,KE,city,studio,1,4,47.49,False,3.91,24,False,True,False,False,True,False,-1.2775,36.8052,2023-06-24
+1260,Nairobi,KE,city,apartment,2,5,55.6,False,4.29,34,True,True,True,True,True,True,-1.2208,36.8568,2020-08-12
+1261,Nairobi,KE,city,villa,4,8,83.13,False,4.29,45,True,True,True,False,False,True,-1.3185,36.7816,2021-07-22
+1262,Nairobi,KE,city,studio,3,8,89.97,False,4.33,44,True,False,True,True,True,True,-1.2726,36.8533,2022-11-04
+1263,Nairobi,KE,city,townhouse,3,8,80.2,False,4.37,22,True,True,False,False,False,True,-1.3313,36.8145,2023-07-20
+1264,Nairobi,KE,city,studio,2,5,54.74,False,3.95,46,True,True,True,False,False,True,-1.2884,36.8035,2022-03-16
+1265,Nairobi,KE,city,studio,2,4,86.87,True,4.62,62,True,True,True,False,True,True,-1.2776,36.8597,2020-10-04
+1266,Nairobi,KE,city,villa,3,6,108.6,True,5.0,82,False,True,True,False,True,False,-1.2979,36.8528,2022-05-23
+1267,Nairobi,KE,city,studio,2,6,69.92,False,4.15,83,True,True,False,False,False,True,-1.4415,36.8537,2022-04-04
+1268,Nairobi,KE,city,apartment,4,9,132.75,False,4.12,25,True,True,False,False,True,True,-1.2893,36.8204,2022-10-29
+1269,Nairobi,KE,city,studio,2,5,72.21,True,3.89,120,True,True,True,False,False,True,-1.3086,36.8047,2021-10-07
+1270,Nairobi,KE,city,townhouse,2,6,52.6,True,4.25,18,False,True,True,False,True,True,-1.2882,36.8604,2023-06-03
+1271,Nairobi,KE,city,apartment,2,5,60.52,False,4.16,31,False,True,True,False,False,False,-1.2562,36.8503,2021-10-21
+1272,Nairobi,KE,city,apartment,3,6,86.56,False,4.85,39,False,True,False,False,True,True,-1.3131,36.8306,2022-12-02
+1273,Nairobi,KE,city,apartment,1,4,41.15,False,4.15,43,True,True,False,False,False,True,-1.2553,36.8798,2024-01-30
+1274,Nairobi,KE,city,villa,6,13,125.29,False,4.47,15,True,True,True,False,True,True,-1.2719,36.8656,2022-01-15
+1275,Nairobi,KE,city,villa,1,2,65.55,False,3.88,9,False,True,False,False,True,True,-1.3053,36.7836,2023-01-03
+1276,Nairobi,KE,city,townhouse,2,5,73.34,True,4.65,23,False,True,False,False,True,True,-1.2899,36.7259,2023-05-09
+1277,Nairobi,KE,city,studio,2,5,51.6,False,4.42,16,True,True,False,False,False,True,-1.269,36.8081,2023-08-31
+1278,Nairobi,KE,city,villa,3,7,84.12,False,4.29,55,False,True,True,False,False,True,-1.3107,36.8584,2021-12-26
+1279,Nairobi,KE,city,townhouse,4,8,69.85,False,4.15,63,False,True,True,False,True,True,-1.2648,36.7762,2020-08-07
+1280,Nairobi,KE,city,apartment,1,2,58.44,True,4.15,107,True,True,False,False,True,True,-1.3073,36.6858,2022-12-25
+1281,Nairobi,KE,city,villa,3,6,78.08,False,4.48,84,True,True,True,False,False,False,-1.2672,36.7266,2023-11-28
+1282,Nairobi,KE,city,townhouse,2,5,59.98,False,3.96,36,True,True,True,False,True,True,-1.2843,36.7646,2022-01-29
+1283,Nairobi,KE,city,studio,1,2,45.66,True,4.47,47,False,True,True,False,False,False,-1.284,36.8378,2020-11-02
+1284,Nairobi,KE,city,villa,1,2,69.18,True,4.27,21,True,False,True,True,True,True,-1.353,36.8169,2022-12-29
+1285,Nairobi,KE,city,studio,1,3,56.34,True,5.0,15,True,True,True,True,True,True,-1.299,36.8474,2023-02-06
+1286,Nairobi,KE,city,studio,3,7,71.15,True,4.71,64,True,True,True,False,True,True,-1.2173,36.8302,2021-07-02
+1287,Nairobi,KE,city,villa,3,7,94.72,False,4.1,28,False,True,True,False,True,True,-1.2804,36.8963,2020-10-19
+1288,Nairobi,KE,city,studio,5,12,111.49,False,4.44,16,False,True,False,False,True,True,-1.3805,36.762,2020-11-16
+1289,Nairobi,KE,city,studio,4,10,159.48,False,4.83,31,False,True,False,False,True,True,-1.2746,36.8478,2021-12-14
+1290,Nairobi,KE,city,villa,3,6,81.62,False,4.39,46,True,True,False,False,True,True,-1.3454,36.7344,2023-04-04
+1291,Nairobi,KE,city,villa,3,7,86.92,False,4.36,61,False,True,True,True,False,True,-1.3849,36.8847,2023-08-15
+1292,Nairobi,KE,city,apartment,2,5,53.75,False,4.17,48,False,True,True,False,False,True,-1.2953,36.8594,2021-02-12
+1293,Nairobi,KE,city,villa,4,9,74.19,False,4.19,75,False,True,False,False,False,True,-1.3481,36.7426,2023-09-06
+1294,Nairobi,KE,city,apartment,1,4,58.6,True,4.69,53,True,False,True,False,True,True,-1.3191,36.7247,2023-11-16
+1295,Nairobi,KE,city,apartment,2,4,86.65,False,3.82,48,False,True,False,False,True,True,-1.3309,36.8339,2022-01-28
+1296,Nairobi,KE,city,apartment,2,5,64.55,False,4.24,57,False,True,False,False,True,True,-1.2503,36.7679,2022-10-21
+1297,Nairobi,KE,city,townhouse,2,6,63.25,True,4.85,62,False,True,False,False,True,True,-1.1849,36.7763,2023-08-23
+1298,Nairobi,KE,city,villa,2,6,65.31,False,4.34,108,True,True,False,True,False,True,-1.29,36.7836,2021-08-09
+1299,Nairobi,KE,city,apartment,2,6,58.32,True,4.39,45,False,True,True,False,True,False,-1.3111,36.8239,2021-07-24
+1300,Nairobi,KE,city,townhouse,3,8,77.82,False,4.76,36,True,True,True,True,True,True,-1.2364,36.8783,2022-05-17
+1301,Nairobi,KE,city,studio,1,3,42.78,False,4.68,79,True,True,True,False,True,True,-1.2716,36.848,2022-02-19
+1302,Nairobi,KE,city,villa,1,2,36.08,False,4.58,5,True,True,False,False,True,True,-1.2607,36.8559,2023-11-22
+1303,Nairobi,KE,city,villa,3,6,69.68,False,4.42,71,True,True,True,False,False,True,-1.2811,36.8673,2020-06-03
+1304,Nairobi,KE,city,studio,1,3,37.78,True,4.25,73,True,True,False,True,True,True,-1.2279,36.7816,2024-03-27
+1305,Nairobi,KE,city,apartment,4,9,90.34,False,4.74,14,True,True,False,False,False,True,-1.293,36.7682,2022-12-22
+1306,Nairobi,KE,city,apartment,3,7,65.32,True,4.47,24,False,True,False,False,False,True,-1.2852,36.8878,2020-08-10
+1307,Nairobi,KE,city,townhouse,4,9,80.98,False,4.18,2,False,True,False,True,True,True,-1.3973,36.7625,2022-07-05
+1308,Nairobi,KE,city,studio,2,6,58.55,True,4.21,41,False,True,False,False,True,True,-1.2147,36.8576,2020-05-15
+1309,Nairobi,KE,city,villa,2,6,62.51,False,4.49,32,True,True,False,True,True,True,-1.2681,36.7593,2023-06-15
+1310,Nairobi,KE,city,villa,3,7,88.77,False,4.35,56,False,True,False,False,True,True,-1.3176,36.8084,2021-04-07
+1311,Nairobi,KE,city,apartment,3,6,73.32,False,4.7,10,False,True,True,False,True,True,-1.2549,36.8732,2022-02-23
+1312,Nairobi,KE,city,townhouse,4,10,94.11,True,4.69,98,True,True,True,True,False,False,-1.2663,36.8401,2020-04-29
+1313,Nairobi,KE,city,studio,3,8,84.88,True,5.0,89,False,True,False,False,False,False,-1.3206,36.7828,2020-09-21
+1314,Nairobi,KE,city,studio,2,6,67.73,False,4.22,37,False,True,True,False,True,True,-1.1901,36.7172,2021-07-22
+1315,Nairobi,KE,city,studio,4,10,70.8,False,4.57,48,True,True,True,False,False,True,-1.3656,36.8192,2023-04-19
+1316,Nairobi,KE,city,villa,5,12,114.35,True,4.46,36,False,True,True,False,True,True,-1.2599,36.7892,2022-12-01
+1317,Nairobi,KE,city,townhouse,1,3,41.0,False,4.16,24,True,True,True,False,True,True,-1.3727,36.8936,2021-04-11
+1318,Nairobi,KE,city,studio,1,3,34.42,False,4.76,27,False,True,True,False,True,True,-1.2561,36.818,2020-10-07
+1319,Nairobi,KE,city,studio,2,5,57.97,False,4.3,18,True,True,False,False,True,True,-1.2624,36.8246,2022-01-06
+1320,Nairobi,KE,city,studio,2,5,59.3,True,4.6,6,True,True,False,True,True,True,-1.2529,36.7279,2022-05-23
+1321,Nairobi,KE,city,apartment,2,4,77.03,False,4.43,53,False,True,True,False,True,False,-1.3296,36.8289,2021-06-12
+1322,Nairobi,KE,city,townhouse,1,4,47.1,False,3.3,156,True,True,True,True,False,True,-1.2567,36.8143,2023-09-19
+1323,Nairobi,KE,city,townhouse,2,5,69.38,True,4.6,87,False,True,True,False,True,True,-1.3224,36.8857,2022-03-03
+1324,Diani Beach,KE,beach,apartment,2,6,113.17,False,3.97,48,True,True,True,True,True,False,-4.2969,39.5429,2021-02-07
+1325,Diani Beach,KE,beach,beach_house,2,5,93.11,False,4.38,55,True,True,True,False,True,True,-4.2707,39.5808,2021-08-15
+1326,Diani Beach,KE,beach,cottage,3,7,122.73,False,4.1,13,True,True,True,False,False,True,-4.292,39.5904,2020-12-17
+1327,Diani Beach,KE,beach,beach_house,3,7,123.03,False,4.41,35,True,True,True,False,False,True,-4.2122,39.651,2021-08-16
+1328,Diani Beach,KE,beach,villa,2,6,102.99,False,4.39,21,False,True,True,False,False,True,-4.2225,39.5659,2022-02-14
+1329,Diani Beach,KE,beach,beach_house,6,13,241.14,False,4.68,48,False,True,True,False,True,True,-4.2888,39.6198,2020-10-16
+1330,Diani Beach,KE,beach,apartment,2,4,133.63,True,4.46,32,True,True,True,True,True,False,-4.2857,39.6174,2022-10-26
+1331,Diani Beach,KE,beach,beach_house,4,8,161.96,False,4.73,180,True,True,True,False,True,True,-4.2902,39.59,2023-08-24
+1332,Diani Beach,KE,beach,apartment,1,3,88.46,False,4.46,44,True,True,True,False,True,True,-4.1176,39.4773,2024-01-20
+1333,Diani Beach,KE,beach,beach_house,3,6,174.1,False,4.29,16,False,True,True,False,False,True,-4.3179,39.5868,2022-02-18
+1334,Diani Beach,KE,beach,bungalow,4,8,145.26,True,4.92,36,True,True,True,True,True,True,-4.2496,39.5829,2024-02-07
+1335,Diani Beach,KE,beach,beach_house,2,4,103.87,True,4.81,44,True,True,True,True,True,True,-4.2348,39.6213,2022-12-15
+1336,Diani Beach,KE,beach,cottage,4,10,142.94,False,3.79,60,True,False,True,False,True,True,-4.2853,39.6217,2021-09-25
+1337,Diani Beach,KE,beach,apartment,3,8,106.8,False,3.63,47,True,True,True,False,False,True,-4.1713,39.5879,2022-07-26
+1338,Diani Beach,KE,beach,apartment,3,7,138.11,True,4.4,65,False,True,True,False,True,True,-4.3306,39.5793,2023-02-12
+1339,Diani Beach,KE,beach,beach_house,2,4,115.11,True,4.69,105,True,True,True,True,True,True,-4.274,39.4614,2020-12-01
+1340,Diani Beach,KE,beach,cottage,2,5,79.09,False,4.02,13,True,True,True,False,True,True,-4.2548,39.6419,2023-08-05
+1341,Diani Beach,KE,beach,apartment,5,10,175.55,False,4.74,46,False,True,True,True,False,True,-4.2561,39.6636,2023-06-13
+1342,Diani Beach,KE,beach,beach_house,2,4,107.39,True,5.0,73,True,True,True,True,True,True,-4.2695,39.6356,2021-07-05
+1343,Diani Beach,KE,beach,villa,5,11,215.58,False,4.72,47,True,True,True,False,True,False,-4.3181,39.532,2020-09-28
+1344,Diani Beach,KE,beach,beach_house,4,10,145.49,False,4.53,45,True,True,True,False,True,True,-4.3704,39.5753,2023-02-27
+1345,Diani Beach,KE,beach,beach_house,3,6,95.1,False,4.04,37,False,True,True,True,True,True,-4.2747,39.6767,2023-04-09
+1346,Diani Beach,KE,beach,bungalow,5,10,147.23,False,4.12,32,True,True,True,False,True,True,-4.2812,39.5095,2020-08-17
+1347,Diani Beach,KE,beach,bungalow,2,4,88.05,False,4.07,83,True,True,True,False,True,True,-4.2938,39.592,2023-06-11
+1348,Diani Beach,KE,beach,apartment,3,6,97.44,False,4.06,33,True,True,True,False,False,True,-4.2212,39.5893,2020-10-17
+1349,Diani Beach,KE,beach,beach_house,2,4,117.85,False,4.01,24,True,True,True,False,True,True,-4.2774,39.5353,2021-05-26
+1350,Diani Beach,KE,beach,beach_house,4,9,144.03,True,4.23,50,True,True,True,True,False,True,-4.1957,39.6397,2020-10-29
+1351,Diani Beach,KE,beach,villa,5,10,122.09,False,4.6,15,True,True,True,True,True,True,-4.2724,39.64,2023-08-26
+1352,Diani Beach,KE,beach,cottage,3,6,130.27,False,4.53,134,True,True,False,False,True,True,-4.1806,39.5879,2022-05-07
+1353,Diani Beach,KE,beach,villa,6,12,145.5,True,5.0,33,False,True,True,True,True,True,-4.259,39.5229,2021-08-27
+1354,Diani Beach,KE,beach,villa,3,7,179.27,False,4.02,15,False,True,True,False,True,True,-4.2874,39.6314,2021-04-09
+1355,Diani Beach,KE,beach,villa,2,6,111.62,False,4.77,29,True,True,False,False,True,True,-4.3005,39.5973,2023-05-22
+1356,Diani Beach,KE,beach,cottage,4,10,158.86,True,4.44,16,False,True,False,True,False,True,-4.2587,39.5905,2022-07-14
+1357,Diani Beach,KE,beach,cottage,2,5,95.38,True,4.26,61,False,True,True,False,True,True,-4.3104,39.6789,2022-11-12
+1358,Mombasa,KE,beach,cottage,6,14,179.45,False,4.22,35,False,True,True,False,True,False,-4.0331,39.6579,2022-08-31
+1359,Mombasa,KE,beach,beach_house,1,4,76.34,True,4.8,77,True,True,True,False,True,True,-4.0434,39.6453,2023-03-08
+1360,Mombasa,KE,beach,beach_house,2,6,69.93,False,4.34,36,True,False,True,False,True,True,-4.1048,39.7016,2021-10-13
+1361,Mombasa,KE,beach,cottage,2,6,70.7,False,4.32,41,True,True,True,True,True,True,-4.0601,39.7542,2021-06-26
+1362,Mombasa,KE,beach,apartment,3,8,98.7,False,4.03,73,True,True,True,False,True,True,-3.9706,39.808,2023-12-15
+1363,Mombasa,KE,beach,beach_house,2,5,59.79,False,4.28,21,True,True,True,False,True,False,-4.0223,39.6789,2022-07-16
+1364,Mombasa,KE,beach,villa,3,7,70.09,False,4.56,69,True,True,True,False,True,True,-4.1001,39.6563,2022-11-27
+1365,Mombasa,KE,beach,bungalow,3,6,88.96,False,4.13,35,False,True,True,False,True,True,-4.0398,39.6994,2023-08-24
+1366,Mombasa,KE,beach,beach_house,1,3,44.78,True,4.55,6,True,True,True,True,False,True,-3.9686,39.6106,2022-09-14
+1367,Mombasa,KE,beach,villa,1,4,65.19,True,4.06,7,True,True,True,True,False,False,-4.0754,39.6699,2024-03-21
+1368,Mombasa,KE,beach,villa,2,5,76.51,False,4.08,23,False,True,True,False,True,True,-4.0503,39.6651,2020-08-28
+1369,Mombasa,KE,beach,cottage,3,7,117.48,False,4.27,108,False,True,True,False,False,False,-4.0784,39.6623,2021-05-28
+1370,Mombasa,KE,beach,beach_house,2,5,83.39,False,4.34,27,True,True,False,False,True,False,-4.0713,39.6158,2021-04-04
+1371,Mombasa,KE,beach,beach_house,1,4,52.08,True,4.58,15,False,True,False,False,True,True,-3.9894,39.5775,2022-04-11
+1372,Mombasa,KE,beach,beach_house,3,8,130.26,False,4.18,26,False,False,False,False,False,True,-3.9213,39.6481,2021-02-24
+1373,Mombasa,KE,beach,beach_house,1,3,53.55,False,3.82,9,True,True,True,True,True,True,-4.1046,39.6992,2020-06-29
+1374,Mombasa,KE,beach,bungalow,2,5,69.09,True,4.46,70,False,True,True,True,True,True,-3.9835,39.6478,2020-06-04
+1375,Mombasa,KE,beach,beach_house,5,12,175.2,False,4.24,98,True,True,True,True,False,True,-3.9971,39.663,2023-03-19
+1376,Mombasa,KE,beach,apartment,2,6,71.86,False,4.75,73,True,True,True,False,False,True,-4.0583,39.701,2024-01-27
+1377,Mombasa,KE,beach,apartment,4,9,139.15,True,4.53,52,False,True,True,False,True,True,-4.0746,39.7616,2022-12-09
+1378,Mombasa,KE,beach,cottage,3,6,90.48,False,4.26,29,False,True,False,False,False,True,-4.0613,39.6127,2024-02-15
+1379,Mombasa,KE,beach,bungalow,3,7,119.64,False,4.14,47,True,True,True,False,False,True,-3.9905,39.6618,2023-07-24
+1380,Mombasa,KE,beach,apartment,1,4,56.45,False,4.56,19,True,True,True,False,True,True,-4.0363,39.6372,2020-07-30
+1381,Mombasa,KE,beach,beach_house,5,12,134.13,False,3.53,26,True,True,True,False,True,True,-3.9738,39.6628,2020-11-06
+1382,Mombasa,KE,beach,villa,3,8,90.71,True,4.73,28,False,True,True,True,True,True,-4.0424,39.6176,2020-05-17
+1383,Mombasa,KE,beach,cottage,2,5,89.39,False,3.89,100,False,True,True,True,True,False,-3.9851,39.6579,2023-08-07
+1384,Mombasa,KE,beach,bungalow,3,6,75.59,False,4.25,40,True,True,True,True,True,True,-4.0956,39.6493,2023-10-05
+1385,Mombasa,KE,beach,cottage,3,8,104.33,False,4.14,12,True,False,True,False,False,False,-4.041,39.6706,2023-05-26
+1386,Mombasa,KE,beach,beach_house,2,6,70.9,False,4.85,7,False,True,True,False,True,True,-4.092,39.6006,2021-01-25
+1387,Mombasa,KE,beach,villa,2,6,63.29,False,4.48,40,False,True,True,False,False,True,-4.071,39.686,2021-09-22
+1388,Mombasa,KE,beach,apartment,5,10,82.46,False,4.77,70,False,True,True,True,True,True,-4.0202,39.7409,2021-02-01
+1389,Mombasa,KE,beach,beach_house,2,6,104.77,False,4.55,42,False,True,True,False,True,False,-3.9625,39.64,2020-11-23
+1390,Mombasa,KE,beach,beach_house,3,6,86.06,False,4.46,20,True,True,True,False,True,True,-4.0195,39.595,2023-09-15
+1391,Mombasa,KE,beach,beach_house,3,8,80.78,False,3.8,7,True,True,True,False,True,True,-4.0186,39.6276,2022-07-14
+1392,Mombasa,KE,beach,apartment,4,8,100.86,False,4.26,97,True,True,True,True,True,True,-4.0152,39.627,2020-05-24
+1393,Mombasa,KE,beach,apartment,3,6,99.97,True,5.0,25,False,True,True,True,True,False,-3.9979,39.5777,2023-06-26
+1394,Mombasa,KE,beach,apartment,3,7,94.74,False,4.06,57,False,True,True,False,False,True,-4.0406,39.7271,2021-10-29
+1395,Mombasa,KE,beach,bungalow,3,6,90.31,False,4.59,74,False,True,True,False,True,True,-4.1272,39.7096,2022-06-27
+1396,Mombasa,KE,beach,bungalow,1,4,54.63,True,4.18,35,False,True,True,False,True,True,-4.0139,39.6961,2023-07-22
+1397,Mombasa,KE,beach,cottage,2,4,78.3,True,4.13,33,False,True,True,False,True,True,-4.0172,39.6484,2022-10-20
+1398,Mombasa,KE,beach,cottage,1,3,60.41,False,4.26,41,True,True,True,True,True,False,-4.0885,39.7135,2021-08-16
+1399,Mombasa,KE,beach,villa,4,8,86.62,False,4.13,56,False,True,True,True,False,True,-4.0319,39.6472,2020-06-09
+1400,Mombasa,KE,beach,bungalow,2,4,79.62,False,4.3,9,True,True,True,True,False,True,-4.0393,39.6585,2020-12-30
+1401,Mombasa,KE,beach,apartment,5,11,121.8,True,4.3,22,False,True,True,False,False,True,-4.0014,39.7103,2023-07-12
+1402,Mombasa,KE,beach,bungalow,2,5,61.92,False,4.02,86,True,True,True,True,True,True,-4.0616,39.6637,2020-10-02
+1403,Mombasa,KE,beach,cottage,4,9,88.65,False,4.2,18,False,True,True,True,False,True,-4.024,39.7265,2023-04-02
+1404,Mombasa,KE,beach,bungalow,3,6,76.44,True,4.29,49,False,True,False,True,True,False,-4.0481,39.6731,2021-05-12
+1405,Mombasa,KE,beach,apartment,2,5,65.94,True,4.26,38,False,True,True,False,True,True,-3.9499,39.6916,2022-11-04
+1406,Mombasa,KE,beach,villa,5,11,117.32,True,4.48,19,True,False,False,True,True,True,-3.9904,39.7568,2022-12-01
+1407,Mombasa,KE,beach,beach_house,2,5,71.95,False,4.33,30,True,False,True,False,True,True,-4.0649,39.6842,2022-03-14
+1408,Maasai Mara,KE,safari,safari_tent,3,8,296.8,False,4.01,105,False,True,False,False,True,True,-1.4268,35.1845,2022-10-29
+1409,Maasai Mara,KE,safari,villa,3,6,285.92,False,4.57,38,False,True,True,True,True,True,-1.5615,35.1764,2024-01-08
+1410,Maasai Mara,KE,safari,cottage,2,6,209.19,True,4.91,27,True,False,False,False,True,True,-1.5671,35.1766,2023-06-03
+1411,Maasai Mara,KE,safari,cottage,2,4,215.23,True,4.54,38,True,True,False,False,True,True,-1.5363,35.0898,2024-01-15
+1412,Maasai Mara,KE,safari,safari_tent,2,4,201.75,False,4.03,38,False,True,False,True,True,True,-1.4809,35.0759,2021-09-02
+1413,Maasai Mara,KE,safari,safari_tent,3,8,189.54,False,4.25,42,False,True,True,False,False,False,-1.4595,35.0974,2021-02-19
+1414,Maasai Mara,KE,safari,cottage,5,11,419.24,False,3.9,43,True,True,False,False,True,True,-1.4324,35.2152,2022-11-29
+1415,Maasai Mara,KE,safari,lodge_room,3,7,390.54,True,4.34,81,False,True,False,False,False,False,-1.4996,35.0262,2023-11-01
+1416,Maasai Mara,KE,safari,villa,3,8,234.18,False,4.66,22,True,True,True,True,False,False,-1.458,35.1504,2020-05-27
+1417,Maasai Mara,KE,safari,safari_tent,3,7,181.28,False,4.59,57,True,True,False,True,True,True,-1.4831,35.1663,2022-01-30
+1418,Maasai Mara,KE,safari,lodge_room,2,5,228.05,False,4.19,13,False,True,False,False,True,True,-1.5363,35.0511,2022-03-30
+1419,Maasai Mara,KE,safari,lodge_room,2,6,156.73,True,4.21,45,False,True,True,False,True,True,-1.4784,35.1668,2020-12-24
+1420,Maasai Mara,KE,safari,cottage,2,5,267.18,True,4.72,110,True,True,False,True,True,False,-1.5487,35.1232,2022-10-14
+1421,Maasai Mara,KE,safari,lodge_room,3,7,299.86,False,4.19,62,True,True,False,False,False,False,-1.5239,35.1626,2023-04-22
+1422,Maasai Mara,KE,safari,safari_tent,3,6,311.21,False,3.84,21,True,True,True,False,True,False,-1.5011,35.2102,2022-05-15
+1423,Maasai Mara,KE,safari,cottage,4,8,369.01,True,4.42,60,True,True,True,False,False,True,-1.5007,35.0889,2023-11-21
+1424,Maasai Mara,KE,safari,lodge_room,3,8,385.83,False,4.25,23,False,True,True,False,True,True,-1.5339,35.2093,2020-10-12
+1425,Maasai Mara,KE,safari,lodge_room,3,6,223.85,True,4.5,46,True,True,True,False,True,False,-1.5241,35.191,2020-07-12
+1426,Maasai Mara,KE,safari,lodge_room,3,6,222.27,True,4.45,66,False,True,False,False,True,True,-1.501,35.1397,2023-01-11
+1427,Maasai Mara,KE,safari,lodge_room,1,3,187.46,True,4.43,37,True,True,False,False,True,True,-1.4537,35.2501,2021-11-21
+1428,Maasai Mara,KE,safari,cottage,3,8,272.79,True,4.19,31,False,True,True,True,True,True,-1.4748,35.1558,2024-02-10
+1429,Maasai Mara,KE,safari,cottage,3,6,295.5,False,4.48,70,True,True,False,False,False,True,-1.5205,35.2308,2022-12-15
+1430,Maasai Mara,KE,safari,safari_tent,3,6,321.73,False,4.66,20,True,True,False,False,True,False,-1.5161,35.2239,2022-07-19
+1431,Maasai Mara,KE,safari,villa,2,6,278.82,False,4.17,33,False,True,True,True,True,True,-1.4716,35.0407,2020-08-03
+1432,Maasai Mara,KE,safari,villa,2,4,266.53,True,4.72,10,True,True,False,False,True,True,-1.4888,35.1159,2020-10-11
+1433,Maasai Mara,KE,safari,lodge_room,3,7,377.51,False,4.65,35,False,True,True,False,False,True,-1.5554,35.2706,2020-12-13
+1434,Maasai Mara,KE,safari,lodge_room,2,4,232.17,False,4.2,31,False,False,False,True,True,False,-1.5204,35.2016,2021-11-16
+1435,Kampala,UG,city,villa,6,13,100.42,True,4.82,32,True,False,False,False,True,True,0.2982,32.6177,2020-11-05
+1436,Kampala,UG,city,studio,5,12,117.56,True,4.83,41,True,True,True,False,False,True,0.3746,32.6416,2021-06-02
+1437,Kampala,UG,city,studio,3,6,65.06,False,4.25,2,True,True,False,True,True,False,0.4093,32.6879,2022-01-10
+1438,Kampala,UG,city,apartment,3,8,50.78,False,4.18,74,False,True,True,False,False,True,0.4001,32.5722,2021-10-10
+1439,Kampala,UG,city,villa,1,3,29.25,True,4.75,26,True,True,False,False,True,True,0.3162,32.5128,2022-08-17
+1440,Kampala,UG,city,studio,2,4,55.02,False,4.14,22,True,True,True,False,False,True,0.3099,32.6191,2020-12-19
+1441,Kampala,UG,city,townhouse,1,4,39.99,False,3.54,56,True,True,False,False,True,True,0.346,32.6378,2023-07-19
+1442,Kampala,UG,city,apartment,2,5,41.41,False,4.25,18,True,False,True,False,True,True,0.3767,32.6204,2020-08-10
+1443,Kampala,UG,city,villa,2,4,50.03,True,4.51,9,True,True,True,False,True,True,0.2636,32.575,2022-01-26
+1444,Kampala,UG,city,apartment,6,13,122.57,True,4.29,31,True,True,True,False,True,False,0.3164,32.6202,2020-12-17
+1445,Kampala,UG,city,villa,2,6,76.22,False,4.01,47,True,True,False,True,True,False,0.3178,32.5567,2020-09-24
+1446,Kampala,UG,city,villa,1,4,31.21,False,4.32,46,True,True,True,True,False,True,0.3672,32.4972,2020-05-02
+1447,Kampala,UG,city,studio,5,12,84.19,True,4.33,97,True,True,True,False,True,False,0.3733,32.5972,2021-11-10
+1448,Kampala,UG,city,apartment,2,6,50.45,True,4.51,9,True,False,False,False,True,True,0.402,32.6321,2023-02-16
+1449,Kampala,UG,city,studio,1,4,37.28,False,4.41,28,False,True,False,False,False,True,0.4108,32.6092,2023-12-19
+1450,Kampala,UG,city,villa,5,12,70.99,False,4.45,9,False,True,True,False,True,True,0.2872,32.5722,2022-03-14
+1451,Kampala,UG,city,studio,2,5,45.47,False,4.14,83,False,False,True,True,True,True,0.3462,32.6709,2023-08-05
+1452,Kampala,UG,city,villa,2,6,40.68,False,4.24,6,False,True,False,False,True,True,0.3741,32.5264,2022-04-02
+1453,Kampala,UG,city,townhouse,2,6,45.5,False,4.1,18,True,True,False,False,True,True,0.2989,32.6142,2024-02-10
+1454,Kampala,UG,city,studio,2,6,51.18,False,4.67,55,False,True,False,False,True,True,0.3382,32.5452,2021-06-20
+1455,Kampala,UG,city,villa,1,3,53.36,False,4.2,6,True,True,False,False,True,True,0.3454,32.5253,2022-03-08
+1456,Kampala,UG,city,studio,3,6,63.07,False,4.22,52,False,True,True,False,True,True,0.2863,32.6699,2022-12-01
+1457,Kampala,UG,city,studio,3,6,43.06,False,4.41,22,True,True,False,False,True,True,0.306,32.646,2022-07-16
+1458,Kampala,UG,city,studio,5,10,72.46,False,4.42,14,False,True,True,True,True,False,0.3923,32.561,2023-09-03
+1459,Kampala,UG,city,studio,3,6,47.32,True,4.52,44,False,True,False,False,True,True,0.3669,32.6556,2024-03-22
+1460,Kampala,UG,city,villa,3,6,64.86,False,3.93,87,False,True,True,False,False,True,0.3607,32.5043,2022-05-19
+1461,Kampala,UG,city,townhouse,3,6,55.35,False,4.62,12,True,True,True,False,False,True,0.3313,32.6176,2022-04-09
+1462,Kampala,UG,city,townhouse,5,12,69.21,False,3.97,62,True,True,False,False,True,False,0.3213,32.56,2020-08-18
+1463,Kampala,UG,city,apartment,3,6,52.44,True,4.7,9,True,True,False,False,True,False,0.371,32.4603,2022-01-04
+1464,Kampala,UG,city,apartment,3,7,87.64,False,4.44,22,True,True,True,False,False,True,0.4108,32.5778,2023-04-10
+1465,Kampala,UG,city,villa,1,3,30.93,False,4.67,78,False,True,False,False,True,True,0.3589,32.5653,2024-03-23
+1466,Kampala,UG,city,studio,3,8,58.37,False,3.64,115,True,True,False,False,True,True,0.3617,32.5332,2020-07-07
+1467,Kampala,UG,city,villa,2,5,41.02,False,4.2,69,True,True,False,False,True,True,0.3636,32.5912,2023-03-25
+1468,Kampala,UG,city,studio,2,6,43.35,False,4.04,30,True,True,True,False,False,True,0.3543,32.6136,2024-02-13
+1469,Kampala,UG,city,townhouse,1,2,42.61,False,3.78,73,False,True,True,False,False,True,0.3982,32.6032,2021-05-18
+1470,Kampala,UG,city,villa,4,8,81.29,False,4.26,40,True,True,True,False,True,True,0.3958,32.5776,2023-07-02
+1471,Kampala,UG,city,studio,2,5,51.74,False,4.45,63,True,True,True,False,True,True,0.3635,32.6192,2022-06-10
+1472,Kampala,UG,city,studio,1,4,39.83,False,4.1,40,False,True,True,False,True,True,0.3619,32.6571,2023-05-09
+1473,Kampala,UG,city,townhouse,1,3,35.25,False,4.82,10,False,True,True,False,True,True,0.3135,32.4911,2021-11-09
+1474,Kampala,UG,city,apartment,2,4,36.41,True,4.43,30,True,True,True,True,True,True,0.3324,32.5085,2022-05-28
+1475,Kampala,UG,city,apartment,1,4,32.67,True,4.45,28,False,True,False,False,True,False,0.3466,32.5599,2024-02-24
+1476,Kampala,UG,city,apartment,2,4,68.07,False,4.2,54,True,True,False,True,True,True,0.3898,32.5385,2021-05-15
+1477,Kampala,UG,city,studio,4,10,82.24,False,4.28,116,True,True,True,False,True,True,0.3223,32.6325,2021-02-21
+1478,Entebbe,UG,city,villa,2,6,37.54,True,4.3,40,False,True,True,False,False,True,0.0526,32.545,2022-01-01
+1479,Entebbe,UG,city,villa,2,4,53.25,False,3.92,33,True,True,False,False,True,True,0.0439,32.4543,2021-08-27
+1480,Entebbe,UG,city,townhouse,2,4,44.25,False,4.36,65,False,True,False,False,False,False,0.026,32.4445,2022-02-02
+1481,Entebbe,UG,city,villa,2,6,42.42,False,4.27,37,False,True,False,True,True,True,0.121,32.4721,2021-09-24
+1482,Entebbe,UG,city,studio,1,4,28.75,False,4.07,43,False,True,False,False,True,True,0.0444,32.4908,2023-07-01
+1483,Entebbe,UG,city,apartment,2,4,55.35,False,4.26,11,True,True,False,True,True,True,0.0811,32.4932,2020-10-10
+1484,Entebbe,UG,city,apartment,1,4,38.6,False,4.4,26,False,True,True,False,False,True,-0.0167,32.4741,2021-06-19
+1485,Entebbe,UG,city,apartment,1,2,38.86,False,4.24,147,True,True,True,False,True,True,0.0916,32.4951,2021-03-01
+1486,Entebbe,UG,city,townhouse,3,6,51.02,True,4.21,36,True,True,True,False,True,False,0.0555,32.426,2021-08-17
+1487,Entebbe,UG,city,townhouse,3,8,52.51,False,3.83,147,True,False,False,False,True,True,0.0499,32.4771,2020-06-16
+1488,Entebbe,UG,city,studio,3,8,69.45,False,4.09,54,True,True,False,False,True,True,-0.0402,32.4629,2021-09-27
+1489,Entebbe,UG,city,townhouse,3,6,70.29,False,4.59,27,False,True,False,True,True,True,0.0257,32.4629,2023-08-05
+1490,Entebbe,UG,city,villa,4,9,83.66,False,4.42,12,True,True,True,True,True,True,-0.0172,32.4455,2023-02-05
+1491,Entebbe,UG,city,studio,3,7,79.71,True,4.94,82,False,True,True,False,False,True,0.0135,32.4498,2024-02-20
+1492,Entebbe,UG,city,townhouse,5,12,103.22,False,4.12,34,True,True,True,False,True,False,0.086,32.3739,2022-01-27
+1493,Entebbe,UG,city,villa,1,4,33.19,True,4.22,94,True,True,True,False,True,True,0.0911,32.5278,2023-10-26
+1494,Entebbe,UG,city,studio,3,8,52.55,False,4.6,51,False,True,False,False,True,True,0.0319,32.4057,2023-12-24
+1495,Entebbe,UG,city,studio,2,5,41.18,False,4.1,23,True,True,True,True,True,True,0.0111,32.438,2021-01-10
+1496,Entebbe,UG,city,apartment,1,3,32.01,True,4.99,52,True,True,False,False,True,True,0.1145,32.5075,2020-07-19
+1497,Entebbe,UG,city,townhouse,4,10,61.58,False,4.41,104,False,True,False,False,False,False,0.1041,32.4551,2022-04-17
+1498,Entebbe,UG,city,studio,2,5,46.37,True,4.71,56,True,True,True,False,True,True,0.0013,32.4466,2021-06-26
+1499,Entebbe,UG,city,apartment,2,4,49.13,False,4.63,12,True,False,True,False,True,True,0.1086,32.5279,2022-06-22

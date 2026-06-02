@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/secrets.toml
+# Generated artifacts are reproducible via ./run.sh; keep them out of git by
+# default. Comment these out if you want to commit a frozen submission snapshot.
+# data/
+# models/
