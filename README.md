@@ -20,11 +20,11 @@ sources.
 
 | | |
 |---|---|
-| 🎯 **Beats the seasonal baseline by 56.4%** | LightGBM occupancy-rate MAE **0.068** vs seasonal-naive **0.155** (hotel-week, held-out, real Kaggle data) |
+| 🎯 **Beats the seasonal baseline by 43.4%** | Ensemble MAE **0.088** vs seasonal-naive **0.155** (hotel-week, held-out, no-lag features, real Kaggle data) |
 | 🏨 **Real hotel data** | 119K booking records from 2 Portuguese hotels (2015–2017) — exactly the Track 02 dataset |
 | 🌍 **Proven general** | Same pipeline reaches AUC **0.87** on real Inside Airbnb Cape Town data (1.8M listing-nights) |
 | 🔒 **No leakage, no hand-waving** | 3 rolling-origin folds — model only ever sees the past, forecasts 90 days forward |
-| 🧭 **Explainable** | Top drivers: ADR, lead time, segment mix, seasonality — the signals a revenue manager uses |
+| 🧭 **Explainable** | Top drivers: hotel seasonal patterns, ADR, lead time, segment mix — the signals a revenue manager uses |
 | 🖥️ **A product, not a notebook** | Polished static dashboard with dark/light/system theming, per-hotel plans, and plain-language actions |
 
 ---
@@ -69,18 +69,15 @@ cd web && npm install && npm run build && npx serve out
 
 | Model | MAE · hotel-week ↓ | MAE · daily ↓ |
 |---|---|---|
-| **LightGBM (ours)** | **0.068** | **0.089** |
-| Seasonal-naive (hotel × month) | 0.155 | 0.167 |
-| Hotel-average | 0.131 | 0.179 |
-| Global-average | 0.153 | 0.199 |
-| **Improvement vs seasonal-naive** | **+56.4%** | |
+| **Ensemble (ours)** — per-hotel LGB+XGB+CatBoost | **0.088** | **0.091** |
+| Seasonal-naive (hotel × month) | 0.155 | 0.163 |
+| Hotel-average | 0.204 | 0.205 |
+| Global-average | 0.204 | 0.202 |
+| **Improvement vs seasonal-naive** | **+43.4%** | |
 
-**With lag features excluded** (for forward-forecast honesty):
-| Model | MAE · hotel-week ↓ |
-|---|---|
-| **LightGBM (no lag features)** | **0.094** |
-| Seasonal-naive (hotel × month) | 0.155 |
-| **Improvement vs seasonal-naive** | **+39.6%** |
+All models use only features computable at forecast time (no lag features).
+The ensemble blends LGB + XGB + CatBoost on a logit-transformed target with
+per-hotel optimal weights and quantile LightGBM 80% prediction intervals.
 
 ### East African STR (synthetic demo, same pipeline)
 
@@ -112,7 +109,7 @@ fetch_kaggle_hotel.py ─► data/kaggle_occupancy.csv  (1,605 daily records, 2 
         │
 validate_kaggle.py ───► rolling back-test with lag features (56.4% improvement)
         │
-kaggle_full.py ───────► forward-forecast model (no lag) + 90-day forecast + export
+kaggle_full.py ───────► per-hotel LGB+XGB+CB ensemble + forward forecast + export
         │
 export_web.py ─────────► web/public/data/*.json
 ```
@@ -129,19 +126,22 @@ forecast.py ──────────────────────�
 export_web.py ─────────────────────────► web/public/data/*.json
 ```
 
-**Model.** A single global LightGBM regression model predicts each hotel's daily
-occupancy rate; aggregating gives occupancy at any level (hotel, week, month).
-One global model shares signal across entities — far more robust than thin
-per-entity models.
+**Model.** Per-hotel ensemble of three gradient boosters (LightGBM + XGBoost +
+CatBoost) on a logit-transformed target, with validation-set-optimised blend
+weights. A separate quantile LightGBM model per hotel provides 80% prediction
+intervals. Per-hotel specialisation captures the distinct ADR ($101 vs $90) and
+seasonal patterns of City Hotel vs Resort Hotel far better than a shared model.
 
 **Features (all knowable at forecast time):**
-- *Calendar / seasonality* — month, day-of-week, cyclical day-of-year, weekend.
-- *Price & lead time* — average daily rate (ADR), average lead time, average
-  adults (hotel-level rolling means for future dates).
-- *Market segment mix* — fraction from TA/TO, Direct, Corporate channels.
-- *Learned levels* — empirical occupancy for each hotel and hotel×month,
-  **estimated only from data before the forecast origin** and recomputed per
-  fold (this is the leakage guard).
+- *Calendar / seasonality* — multi-frequency Fourier features
+  (doy/dow/month/week/quarter/day sin/cos), week-of-month, month-start/end.
+- *Price & lead time* — ADR (squared, log), lead time (log), ADR × weekend
+  interaction.
+- *Market segment mix* — fraction from Direct, Corporate channels.
+- *Learned levels* — empirical occupancy for each hotel, hotel×month,
+  hotel×day-of-week — **estimated only from data before the forecast origin**
+  and recomputed per fold (this is the leakage guard).
+- *Peak season indicator* — June–August, when occupancy peaks above 90%.
 
 **Deliberately excluded: future price.** Price is a *decision*, not a
 known input. The output is a clean **demand** forecast under expected pricing
@@ -187,7 +187,7 @@ ahead earn more, stay longer, and list more.
 ├── src/
 │   ├── fetch_kaggle_hotel.py    download + transform Hotel Booking Demand dataset
 │   ├── validate_kaggle.py       rolling back-test with lag features (56.4% lift)
-│   ├── kaggle_full.py           train + forward forecast (no-lag model)
+│   ├── kaggle_full.py           per-hotel ensemble + forward forecast (no-lag model)
 │   ├── generate_data.py         domain-grounded synthetic STR data generator
 │   ├── features.py              leakage-safe feature engineering
 │   ├── train.py                 LightGBM + rolling back-test (synthetic/real STR)
@@ -212,7 +212,7 @@ pip install -r requirements.txt
 # Kaggle pipeline (primary)
 python3 src/fetch_kaggle_hotel.py     # ~10s  -> data/kaggle_*
 python3 src/validate_kaggle.py        # ~30s  -> reports/kaggle_metrics.json
-python3 src/kaggle_full.py            # ~15s  -> reports/kaggle_fwd_*, forecasts
+python3 src/kaggle_full.py            # ~3min  -> reports/kaggle_fwd_*, forecasts
 
 # Web export + build
 python3 src/export_web.py             # -> web/public/data/*.json
