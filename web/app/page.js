@@ -77,7 +77,7 @@ async function getJSON(name) {
 
 /* ======================================================================= */
 const TAB_SLUGS = ["outlook", "planner", "drivers", "trust"];
-const TABS = ["Market outlook", "Listing planner", "Demand drivers", "Model & trust"];
+const TABS = ["Market Outlook", "Listing Planner", "Demand Drivers", "Model & Trust"];
 
 export default function Page() {
   const theme = useTheme();
@@ -254,7 +254,7 @@ function MarketOutlook({ markets, T }) {
       <section className="panel">
         <div className="panel-head row-between">
           <div>
-            <h2>Where demand is heading</h2>
+            <h2>Where Demand Is Heading</h2>
             <p>Forecast occupancy for the next {markets.dates.length} days. Toggle
               markets to compare safari, coastal and city demand curves.</p>
           </div>
@@ -290,7 +290,7 @@ function MarketOutlook({ markets, T }) {
 
       <section className="panel">
         <div className="panel-head">
-          <h2>Occupancy heatmap</h2>
+          <h2>Occupancy Heatmap</h2>
           <p>Every market by week. Safari markets light up into the Jul–Aug Great
             Migration peak; coastal demand softens after the long rains.</p>
         </div>
@@ -349,7 +349,7 @@ function ListingPlanner({ data, T }) {
     <div className="stack">
       <div className="cols planner">
         <section className="panel">
-          <div className="panel-head"><h2>Plan ahead</h2></div>
+          <div className="panel-head"><h2>Plan Ahead</h2></div>
           <div className="field">
             <label>Market</label>
             <select value={mkt} onChange={(e) => setMkt(e.target.value)}>
@@ -396,7 +396,7 @@ function ListingPlanner({ data, T }) {
         </section>
 
         <section className="panel">
-          <div className="panel-head"><h2>90-day forecast · #{row.listing_id}</h2></div>
+          <div className="panel-head"><h2>90-Day Forecast · #{row.listing_id}</h2></div>
           <ResponsiveContainer width="100%" height={420}>
             <AreaChart data={chartData} margin={{ top: 6, right: 16, left: -6, bottom: 0 }}>
               <CartesianGrid stroke={T.grid} vertical={false} />
@@ -463,7 +463,7 @@ function DemandDrivers({ importance, season, T }) {
     <div className="stack">
       <section className="panel">
         <div className="panel-head">
-          <h2>What the forecaster watches</h2>
+          <h2>What The Forecaster Watches</h2>
           <p>Relative model gain per signal. It leans on a listing's own track
             record, market seasonality, the annual season cycle and review quality
             — the same signals an experienced host uses, quantified and projected
@@ -485,7 +485,7 @@ function DemandDrivers({ importance, season, T }) {
 
       <section className="panel">
         <div className="panel-head">
-          <h2>Seasonality, learned from history</h2>
+          <h2>Seasonality, Learned From History</h2>
           <p>Safari peaks Jul–Oct (Great Migration) plus a Dec–Feb bump; coastal
             peaks Dec–Mar and dips in the Apr–May long rains; city demand stays
             flat — driven by business travel.</p>
@@ -525,7 +525,7 @@ function RealValidation({ real, T }) {
   return (
     <section className="panel">
       <div className="panel-head">
-        <h2>Validated on real Airbnb data</h2>
+        <h2>Validated On Real Airbnb Data</h2>
         <p>The exact same model and leakage-safe pipeline, re-run on real
           short-term-rental data from <strong>{real.source}</strong> — the only
           African market Inside Airbnb publishes. It reaches <strong>AUC
@@ -596,7 +596,7 @@ function ModelTrust({ meta, backtest, real, T }) {
     <div className="stack">
       <section className="panel">
         <div className="panel-head">
-          <h2>Honest, held-out back-testing</h2>
+          <h2>Honest, Held-Out Back-Testing</h2>
           <p>Validated with {meta.n_folds} rolling-origin folds: at each origin the
             model sees only the past and forecasts the next {meta.horizon_days} days
             — a true plan-ahead test, no leakage. Lower MAE is better.</p>
@@ -627,7 +627,7 @@ function ModelTrust({ meta, backtest, real, T }) {
 
       <div className="cols two">
         <section className="panel">
-          <div className="panel-head"><h2>Forecast vs actual</h2>
+          <div className="panel-head"><h2>Forecast Vs Actual</h2>
             <p>{fvaMarket}, held-out — forecast tracks reality, beating seasonal-naive.</p></div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={fva} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
