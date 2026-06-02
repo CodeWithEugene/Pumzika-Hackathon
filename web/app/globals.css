@@ -90,12 +90,7 @@ p { text-wrap: pretty; }
   padding: 22px 0 18px; gap: 16px;
 }
 .brand { display: flex; align-items: center; gap: 11px; }
-.brand .mark {
-  width: 36px; height: 36px; border-radius: 9px;
-  background: var(--accent); color: var(--on-accent);
-  display: grid; place-items: center;
-  font-weight: 700; font-size: 19px; letter-spacing: -0.03em;
-}
+.brand .mark { height: 38px; width: 38px; object-fit: contain; display: block; }
 .brand b { font-weight: 650; font-size: 1.05rem; letter-spacing: -0.02em;
   display: block; line-height: 1.1; }
 .brand small { color: var(--text-muted); font-size: 0.78rem; }
@@ -126,7 +121,8 @@ p { text-wrap: pretty; }
 .theme-toggle svg { width: 15px; height: 15px; }
 
 /* ---------- hero ---------- */
-.hero { padding: 46px 0 30px; max-width: 60ch; }
+.hero { padding: 52px 0 34px; max-width: 64ch; margin: 0 auto;
+  text-align: center; }
 .hero .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 0.82rem; color: var(--text-muted); font-weight: 550;
@@ -139,7 +135,7 @@ p { text-wrap: pretty; }
   letter-spacing: -0.035em; margin: 0;
 }
 .hero p {
-  margin-top: 18px; color: var(--text-muted); font-size: 1.1rem;
+  margin: 18px auto 0; color: var(--text-muted); font-size: 1.1rem;
   max-width: 56ch;
 }
 .hero p strong { color: var(--text); font-weight: 600; }

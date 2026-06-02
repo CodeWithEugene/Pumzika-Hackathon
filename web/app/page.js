@@ -148,7 +148,7 @@ function TopBar({ theme }) {
   return (
     <header className="topbar">
       <div className="brand">
-        <div className="mark">P</div>
+        <img className="mark" src="/pumzika-mark.png" alt="Pumzika" width="38" height="38" />
         <div>
           <b>Pumzika Demand Radar</b>
           <small>Occupancy &amp; demand forecasting</small>
