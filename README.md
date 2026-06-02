@@ -9,7 +9,13 @@ Built solo. End-to-end: data → model → back-test → forward forecast →
 interactive dashboard. Validated with honest, leakage-free rolling-origin
 back-testing across 🇹🇿 Tanzania, 🇰🇪 Kenya and 🇺🇬 Uganda.
 
-![Forward forecast heatmap](reports/figures/forecast_heatmap.png)
+![Web dashboard preview](reports/figures/web_preview.png)
+
+> **Two ways to run the demo:**
+> - 🌐 **Web app (Vercel-ready)** — a static Next.js dashboard in [`web/`](web/).
+>   `cd web && npm install && npm run dev` → http://localhost:3000.
+>   Deploy: import the repo on Vercel with **Root Directory = `web`**. See [`web/README.md`](web/README.md).
+> - 🐍 **Python dashboard** — Streamlit: `./run.sh` (also rebuilds data + model).
 
 ---
 
@@ -174,7 +180,7 @@ ahead earn more, stay longer, and list more.
 ## Repository map
 
 ```
-pumzika-occupancy/
+.
 ├── run.sh                  one-command pipeline
 ├── requirements.txt
 ├── src/
@@ -182,8 +188,12 @@ pumzika-occupancy/
 │   ├── features.py         leakage-safe feature engineering
 │   ├── train.py            LightGBM + rolling back-test vs baselines
 │   └── forecast.py         90-day forward forecast + planning summary
+│   └── export_web.py       dump model outputs to JSON for the web app
 ├── app/
 │   └── dashboard.py        Streamlit "Demand Radar"
+├── web/                    Next.js static dashboard (Vercel-ready)
+│   ├── app/                React UI (page.js, globals.css, lib.js)
+│   └── public/data/        precomputed JSON the site reads
 ├── data/                   listings.csv, calendar.csv (generated)
 ├── models/                 model.txt, levels.joblib, feature_meta.joblib
 └── reports/                metrics.json, forecasts, planning_summary.csv, figures/
