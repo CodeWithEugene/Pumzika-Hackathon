@@ -51,7 +51,170 @@ def w(name, obj):
     print(f"  {name:22s} {kb:7.1f} KB")
 
 
-def main():
+def export_kaggle():
+    """Export web data from Kaggle forecast outputs — becomes primary data."""
+    kf = pd.read_csv(os.path.join(REPORTS, "kaggle_forecast_hotel.csv"),
+                     parse_dates=["date"])
+    plan = pd.read_csv(os.path.join(REPORTS, "kaggle_planning_summary.csv"))
+    imp = pd.read_csv(os.path.join(REPORTS, "kaggle_importance.csv"))
+    meta = json.load(open(os.path.join(REPORTS, "kaggle_run_meta.json")))
+    metrics = json.load(open(os.path.join(REPORTS, "kaggle_fwd_metrics.json")))
+    occ = pd.read_csv(os.path.join(DATA, "kaggle_occupancy.csv"),
+                      parse_dates=["date"])
+
+    # ---- meta.json ----
+    s = metrics["summary"]
+    order = ["LightGBM", "Seasonal-naive (hotel \u00d7 month)", "Hotel-average",
+             "Global-average"]
+    baselines = [{
+        "model": k,
+        "mae_mw": round(s[k]["hotel_week_MAE"], 4),
+        "mae_lm": round(s[k]["MAE"], 4),
+        "is_model": k == "LightGBM",
+    } for k in order if k in s]
+    w("meta.json", {
+        **meta,
+        "source": "kaggle",
+        "headline": {
+            "improvement_pct": round(metrics["headline"]["improvement_pct"], 1),
+            "model_mae": round(metrics["headline"]["model_hotel_week_MAE"], 4),
+            "seasonal_mae": round(
+                metrics["headline"]["seasonal_naive_hotel_week_MAE"], 4),
+        },
+        "n_folds": metrics["n_folds"],
+        "baselines": baselines,
+    })
+
+    # ---- per-hotel daily forecast (markets.json) ----
+    dates = sorted(kf["date"].unique())
+    date_str = [pd.Timestamp(d).strftime("%Y-%m-%d") for d in dates]
+    markets = []
+    for h, g in kf.sort_values("date").groupby("hotel"):
+        g = g.set_index("date").reindex(dates)
+        markets.append({
+            "market": h,
+            "avg": round(float(g.occ_forecast.mean()), 3),
+            "occ": [round(float(x), 3) for x in g.occ_forecast.values],
+        })
+    markets.sort(key=lambda m: -m["avg"])
+    w("markets.json", {"dates": date_str, "markets": markets})
+
+    # ---- per-hotel planning summary (listings.json) ----
+    lj = []
+    for _, r in plan.iterrows():
+        lj.append({
+            "listing_id": r["hotel"],
+            "market": r["hotel"],
+            "avg_occ_90d": round(float(r["avg_occ_90d"]), 3),
+            "peak_week": r["peak_week"],
+            "peak_occ": round(float(r["peak_occ"]), 3),
+            "low_week": r["low_week"],
+            "low_occ": round(float(r["low_occ"]), 3),
+            "recommendation": r["recommendation"],
+        })
+    w("listings.json", lj)
+
+    # ---- per-hotel forecast + trailing history (listing_series.json) ----
+    fc = kf.pivot_table(index="hotel", columns="date", values="occ_forecast")
+    fc = fc.reindex(columns=dates)
+    series = {str(h): [round(float(x), 3) for x in row]
+              for h, row in zip(fc.index, fc.values)}
+
+    occ["week"] = occ["date"].dt.to_period("W").apply(lambda p: p.start_time)
+    hw = occ.groupby(["hotel", "week"]).occupancy_rate.mean().reset_index()
+    last_weeks = sorted(hw["week"].unique())[-16:]
+    hist_weeks = [pd.Timestamp(x).strftime("%Y-%m-%d") for x in last_weeks]
+    hp = hw.pivot_table(index="hotel", columns="week", values="occupancy_rate")
+    hp = hp.reindex(columns=last_weeks)
+    history = {str(h): [None if pd.isna(x) else round(float(x), 3) for x in row]
+               for h, row in zip(hp.index, hp.values)}
+    w("listing_series.json", {
+        "forecast_dates": date_str, "forecast": series,
+        "history_weeks": hist_weeks, "history": history,
+    })
+
+    # ---- demand drivers ----
+    imp2 = imp.sort_values("gain", ascending=False).head(12)
+    tot = imp2.gain.sum()
+    w("importance.json", [{"name": r["feature"],
+                           "pct": round(float(r.gain / tot * 100), 1)}
+                          for _, r in imp2.iterrows()])
+
+    # ---- seasonality (per-hotel monthly avg) ----
+    occ["month"] = occ["date"].dt.month
+    season = occ.groupby(["hotel", "month"]).occupancy_rate.mean().reset_index()
+    out = {}
+    for h, g in season.groupby("hotel"):
+        g = g.set_index("month").reindex(range(1, 13))
+        out[h] = [round(float(x), 3) for x in g.occupancy_rate.values]
+    w("season.json", out)
+
+    # ---- back-test detail ----
+    bt = os.path.join(REPORTS, "kaggle_fwd_backtest.json")
+    if os.path.exists(bt):
+        w("backtest.json", json.load(open(bt)))
+
+    # ---- real-data (Inside Airbnb) validation, if present ----
+    rm_path = os.path.join(REPORTS, "real_metrics.json")
+    rb_path = os.path.join(REPORTS, "real_backtest_web.json")
+    if os.path.exists(rm_path):
+        rm = json.load(open(rm_path))
+        s = rm["summary"]
+        order = ["LightGBM", "Seasonal-naive (mkt x month)", "Listing-average",
+                 "Market-average", "Global-average"]
+        real = {
+            "source": rm["source"], "n_listings": rm["n_listings"],
+            "n_markets": rm["n_markets"], "n_rows": rm["n_rows"],
+            "occupancy_rate": rm["occupancy_rate"], "n_folds": rm["n_folds"],
+            "headline": {k: round(v, 4) if isinstance(v, float) else v
+                         for k, v in rm["headline"].items()},
+            "baselines": [{
+                "model": k, "auc": round(s[k]["AUC"], 3),
+                "mae_mw": round(s[k]["market_week_MAE"], 4),
+                "mae_lm": round(s[k]["listing_month_MAE"], 4),
+                "is_model": k == "LightGBM",
+            } for k in order if k in s],
+        }
+        if os.path.exists(rb_path):
+            real["detail"] = json.load(open(rb_path))
+        w("real.json", real)
+
+    # ---- Kaggle Hotel Booking Demand validation (lag-feature back-test) ----
+    km_path = os.path.join(REPORTS, "kaggle_metrics.json")
+    kb_path = os.path.join(REPORTS, "kaggle_backtest_web.json")
+    if os.path.exists(km_path):
+        km = json.load(open(km_path))
+        s = km["summary"]
+        order = ["LightGBM", "Seasonal-naive (hotel \u00d7 month)", "Hotel-average",
+                 "Global-average"]
+        kaggle = {
+            "source": km["source"],
+            "source_url": km.get("source_url", ""),
+            "n_hotels": km["n_hotels"],
+            "n_rows": km["n_rows"],
+            "n_bookings": km.get("n_bookings", 0),
+            "mean_occupancy": km["mean_occupancy"],
+            "horizon_days": km.get("horizon_days", 90),
+            "n_folds": km["n_folds"],
+            "headline": {k: round(v, 4) if isinstance(v, float) else v
+                         for k, v in km["headline"].items()},
+            "baselines": [{
+                "model": k,
+                "mae_wk": round(s[k]["hotel_week_MAE"], 4),
+                "mae_daily": round(s[k]["MAE"], 4),
+                "is_model": k == "LightGBM",
+            } for k in order if k in s],
+            "importance": km.get("importance", {}),
+        }
+        if os.path.exists(kb_path):
+            kaggle["detail"] = json.load(open(kb_path))
+        w("kaggle.json", kaggle)
+
+    print("Exported web data from Kaggle pipeline to web/public/data/")
+
+
+def export_synthetic():
+    """Legacy export from the synthetic East African STR pipeline."""
     listings = pd.read_csv(os.path.join(DATA, "listings.csv"))
     fc_m = pd.read_csv(os.path.join(REPORTS, "forecast_market.csv"),
                        parse_dates=["date"])
@@ -177,6 +340,37 @@ def main():
             real["detail"] = json.load(open(rb_path))
         w("real.json", real)
 
+    # ---- Kaggle Hotel Booking Demand validation, if present ----
+    km_path = os.path.join(REPORTS, "kaggle_metrics.json")
+    kb_path = os.path.join(REPORTS, "kaggle_backtest_web.json")
+    if os.path.exists(km_path):
+        km = json.load(open(km_path))
+        s = km["summary"]
+        order = ["LightGBM", "Seasonal-naive (hotel \u00d7 month)", "Hotel-average",
+                 "Global-average"]
+        kaggle = {
+            "source": km["source"],
+            "source_url": km.get("source_url", ""),
+            "n_hotels": km["n_hotels"],
+            "n_rows": km["n_rows"],
+            "n_bookings": km.get("n_bookings", 0),
+            "mean_occupancy": km["mean_occupancy"],
+            "horizon_days": km.get("horizon_days", 90),
+            "n_folds": km["n_folds"],
+            "headline": {k: round(v, 4) if isinstance(v, float) else v
+                         for k, v in km["headline"].items()},
+            "baselines": [{
+                "model": k,
+                "mae_wk": round(s[k]["hotel_week_MAE"], 4),
+                "mae_daily": round(s[k]["MAE"], 4),
+                "is_model": k == "LightGBM",
+            } for k in order if k in s],
+            "importance": km.get("importance", {}),
+        }
+        if os.path.exists(kb_path):
+            kaggle["detail"] = json.load(open(kb_path))
+        w("kaggle.json", kaggle)
+
     # ---- learned seasonality by archetype x month ----
     hm = hist.merge(listings[["listing_id", "archetype"]], on="listing_id")
     hm["month"] = hm["date"].dt.month
@@ -188,6 +382,15 @@ def main():
     w("season.json", out)
 
     print("Exported web data to web/public/data/")
+
+
+def main():
+    kaggle_fc = os.path.join(REPORTS, "kaggle_forecast_hotel.csv")
+    if os.path.exists(kaggle_fc):
+        print("Kaggle forecast found — using real hotel data as primary source.\n")
+        export_kaggle()
+    else:
+        export_synthetic()
 
 
 if __name__ == "__main__":

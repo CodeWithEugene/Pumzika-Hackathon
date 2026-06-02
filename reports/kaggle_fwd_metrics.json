@@ -1,0 +1,156 @@
+{
+  "source": "Hotel Booking Demand (Antonio, Almeida, Nunes 2019)",
+  "source_url": "https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand",
+  "n_hotels": 2,
+  "n_rows": 1605,
+  "n_bookings": 119390,
+  "mean_occupancy": 0.784,
+  "horizon_days": 90,
+  "n_folds": 3,
+  "headline": {
+    "model_hotel_week_MAE": 0.0937,
+    "seasonal_naive_hotel_week_MAE": 0.1551,
+    "improvement_pct": 39.6,
+    "model_MAE": 0.0991
+  },
+  "summary": {
+    "LightGBM": {
+      "MAE": 0.0991,
+      "RMSE": 0.1667,
+      "hotel_week_MAE": 0.0937,
+      "hotel_week_RMSE": 0.1636
+    },
+    "Seasonal-naive (hotel \u00d7 month)": {
+      "MAE": 0.1627,
+      "RMSE": 0.2204,
+      "hotel_week_MAE": 0.1551,
+      "hotel_week_RMSE": 0.2139
+    },
+    "Hotel-average": {
+      "MAE": 0.2052,
+      "RMSE": 0.234,
+      "hotel_week_MAE": 0.2041,
+      "hotel_week_RMSE": 0.238
+    },
+    "Global-average": {
+      "MAE": 0.2025,
+      "RMSE": 0.227,
+      "hotel_week_MAE": 0.2042,
+      "hotel_week_RMSE": 0.2308
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "window": "2016-12-18 \u2192 2017-03-17",
+      "train_size": 1072,
+      "test_size": 180,
+      "LightGBM": {
+        "MAE": 0.11930286703694143,
+        "RMSE": 0.1544902605473101,
+        "hotel_week_MAE": 0.09343780919299598,
+        "hotel_week_RMSE": 0.11881199879534099
+      },
+      "Seasonal-naive (hotel \u00d7 month)": {
+        "MAE": 0.1964630922171369,
+        "RMSE": 0.2429118690306672,
+        "hotel_week_MAE": 0.17659783263011194,
+        "hotel_week_RMSE": 0.2138717084141997
+      },
+      "Hotel-average": {
+        "MAE": 0.18450718612894412,
+        "RMSE": 0.2153320020177659,
+        "hotel_week_MAE": 0.17970599985423932,
+        "hotel_week_RMSE": 0.21189894019326688
+      },
+      "Global-average": {
+        "MAE": 0.17940822575257978,
+        "RMSE": 0.20554602038411832,
+        "hotel_week_MAE": 0.17970599985423932,
+        "hotel_week_RMSE": 0.2018385204280855
+      }
+    },
+    {
+      "fold": 2,
+      "window": "2017-03-18 \u2192 2017-06-15",
+      "train_size": 1252,
+      "test_size": 180,
+      "LightGBM": {
+        "MAE": 0.059510280101515635,
+        "RMSE": 0.07601786587915652,
+        "hotel_week_MAE": 0.0447459749396562,
+        "hotel_week_RMSE": 0.056438379047446266
+      },
+      "Seasonal-naive (hotel \u00d7 month)": {
+        "MAE": 0.0724370984151,
+        "RMSE": 0.08527417689737227,
+        "hotel_week_MAE": 0.05983413165943454,
+        "hotel_week_RMSE": 0.06907555181746564
+      },
+      "Hotel-average": {
+        "MAE": 0.18809164292808503,
+        "RMSE": 0.20406022426914144,
+        "hotel_week_MAE": 0.18575108344706748,
+        "hotel_week_RMSE": 0.19832494596343256
+      },
+      "Global-average": {
+        "MAE": 0.18624451679637152,
+        "RMSE": 0.19676336998591845,
+        "hotel_week_MAE": 0.18575108344706745,
+        "hotel_week_RMSE": 0.19032556365672104
+      }
+    },
+    {
+      "fold": 3,
+      "window": "2017-06-16 \u2192 2017-09-13",
+      "train_size": 1432,
+      "test_size": 173,
+      "LightGBM": {
+        "MAE": 0.11850037869718155,
+        "RMSE": 0.26966860083525007,
+        "hotel_week_MAE": 0.14302163361822384,
+        "hotel_week_RMSE": 0.3155558358064879
+      },
+      "Seasonal-naive (hotel \u00d7 month)": {
+        "MAE": 0.21914304557880912,
+        "RMSE": 0.3331029776448936,
+        "hotel_week_MAE": 0.22883870595416372,
+        "hotel_week_RMSE": 0.35864397274371407
+      },
+      "Hotel-average": {
+        "MAE": 0.24310729807544618,
+        "RMSE": 0.28272967394874327,
+        "hotel_week_MAE": 0.24677366627175473,
+        "hotel_week_RMSE": 0.3036718381572312
+      },
+      "Global-average": {
+        "MAE": 0.24183760939615612,
+        "RMSE": 0.2786422232228316,
+        "hotel_week_MAE": 0.2470699617150083,
+        "hotel_week_RMSE": 0.3001060998649804
+      }
+    }
+  ],
+  "importance": {
+    "hotel_month_occ": 243.9,
+    "avg_lead_time": 133.1,
+    "avg_adr": 93.5,
+    "doy_cos": 52.8,
+    "year": 31.7,
+    "avg_adults": 20.8,
+    "hotel_avg_occ": 20.1,
+    "doy_sin": 18.2,
+    "seg_Direct": 17.7,
+    "day": 10.8,
+    "seg_Corporate": 10.0,
+    "dayofyear": 9.0,
+    "weekofyear": 5.8,
+    "dayofweek": 5.3,
+    "dow_cos": 3.4,
+    "dow_sin": 2.2,
+    "month": 0.6,
+    "is_weekend": 0.0,
+    "quarter": 0.0,
+    "seg_TA": 0.0
+  }
+}

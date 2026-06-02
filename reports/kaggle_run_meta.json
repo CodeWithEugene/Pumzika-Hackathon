@@ -1,0 +1,7 @@
+{
+  "origin": "2017-09-14",
+  "horizon_days": 90,
+  "forecast_end": "2017-12-12",
+  "n_hotels": 2,
+  "portfolio_avg_occ_90d": 0.775
+}

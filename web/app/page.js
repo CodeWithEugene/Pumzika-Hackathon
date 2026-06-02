@@ -105,8 +105,9 @@ export default function Page() {
       getJSON("meta.json"), getJSON("markets.json"), getJSON("listings.json"),
       getJSON("listing_series.json"), getJSON("importance.json"),
       getJSON("season.json"), getJSON("backtest.json"), getJSON("real.json"),
-    ]).then(([meta, markets, listings, series, importance, season, backtest, real]) =>
-      setD({ meta, markets, listings, series, importance, season, backtest, real })
+      getJSON("kaggle.json"),
+    ]).then(([meta, markets, listings, series, importance, season, backtest, real, kaggle]) =>
+      setD({ meta, markets, listings, series, importance, season, backtest, real, kaggle })
     ).catch(() => setD({ error: true }));
   }, []);
 
@@ -119,10 +120,10 @@ export default function Page() {
 
   return (
     <div className="wrap">
-      <TopBar theme={theme} />
-      <Hero meta={d.meta} />
-      <StatBar meta={d.meta} />
+      <TopBar theme={theme} meta={d.meta} />
+      <Hero meta={d.meta} kaggle={d.kaggle} />
 
+      <StatBar meta={d.meta} kaggle={d.kaggle} />
       <nav className="tabs">
         {TABS.map((t, i) => (
           <button key={t} className={`tab ${tab === i ? "active" : ""}`}
@@ -134,7 +135,7 @@ export default function Page() {
         {tab === 0 && <MarketOutlook markets={d.markets} T={T} />}
         {tab === 1 && <ListingPlanner data={d} T={T} />}
         {tab === 2 && <DemandDrivers importance={d.importance} season={d.season} T={T} />}
-        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} T={T} />}
+        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} kaggle={d.kaggle} T={T} />}
       </div>
 
       <Footer />
@@ -143,8 +144,9 @@ export default function Page() {
 }
 
 /* ---------- chrome ----------------------------------------------------- */
-function TopBar({ theme }) {
+function TopBar({ theme, meta }) {
   const opts = [["light", SunIcon], ["dark", MoonIcon], ["system", SystemIcon]];
+  const isKaggle = meta?.source === "kaggle";
   return (
     <header className="topbar">
       <div className="brand">
@@ -156,9 +158,11 @@ function TopBar({ theme }) {
       </div>
       <div className="right">
         <div className="chips">
-          <span className="chip">Tanzania</span>
-          <span className="chip">Kenya</span>
-          <span className="chip">Uganda</span>
+          {isKaggle ? (
+            <span className="chip">Portugal</span>
+          ) : (
+            <><span className="chip">Tanzania</span><span className="chip">Kenya</span><span className="chip">Uganda</span></>
+          )}
         </div>
         <div className="theme-toggle" role="group" aria-label="Theme">
           {opts.map(([m, Ico]) => (
@@ -171,45 +175,49 @@ function TopBar({ theme }) {
   );
 }
 
-function Hero({ meta }) {
+function Hero({ meta, kaggle }) {
   return (
     <section className="hero">
       <div className="eyebrow"><span className="dot" />
         Pumzika Hackathon 2026 · Track 02</div>
       <h1>Know Your Peaks Before They Arrive.</h1>
       <p>
-        A {meta.horizon_days}-day occupancy forecast for every host across East
-        Africa — so owners can price, staff and promote ahead of demand instead
-        of reacting after the fact. In held-out rolling back-testing it forecasts
-        market occupancy <strong>{meta.headline.improvement_pct}% more accurately
-        </strong> than the seasonal-average baseline.
+      A {meta.horizon_days}-day hotel occupancy forecast for every property
+      — so managers can price, staff and promote ahead of demand instead of
+      reacting after the fact. Validated on the official Hotel Booking Demand
+      dataset (Antonio, Almeida, Nunes 2019), the model beats the seasonal
+      baseline by <strong>{kaggle ? kaggle.headline.improvement_pct : meta.headline.improvement_pct}%</strong>
+      {" "}in held-out rolling back-testing.{kaggle
+        ? " Trained on 119K real booking records from two Portuguese hotels (2015–2017)."
+        : " Demonstrated on full East African STR data and real Airbnb Cape Town data."}
       </p>
     </section>
   );
 }
 
-function StatBar({ meta }) {
+function StatBar({ meta, kaggle }) {
+  const k = kaggle;
   return (
     <div className="statbar">
       <div className="stat lead">
         <div className="label">Lift Vs Seasonal-Naive</div>
-        <div className="value">{meta.headline.improvement_pct}%</div>
+        <div className="value">{k ? k.headline.improvement_pct : meta.headline.improvement_pct}%</div>
         <div className="sub">Lower Forecast Error, Held-Out</div>
       </div>
       <div className="stat">
-        <div className="label">Portfolio Occupancy · 90d</div>
-        <div className="value">{fmtPct(meta.portfolio_avg_occ_90d)}</div>
-        <div className="sub">Forecast Mean</div>
+        <div className="label">Occupancy Rate</div>
+        <div className="value">{k ? fmtPct(k.mean_occupancy) : fmtPct(meta.portfolio_avg_occ_90d)}</div>
+        <div className="sub">Forecast Mean{k ? " · 2 Hotels" : ""}</div>
       </div>
       <div className="stat">
         <div className="label">Forecast Error</div>
-        <div className="value">{(meta.headline.model_mae * 100).toFixed(1)}<small style={{ fontSize: "1rem", color: "var(--text-muted)" }}> pts</small></div>
-        <div className="sub">Market-Week MAE</div>
+        <div className="value">{(k ? (k.headline.model_hotel_week_MAE * 100).toFixed(1) : (meta.headline.model_mae * 100).toFixed(1))}<small style={{ fontSize: "1rem", color: "var(--text-muted)" }}> pts</small></div>
+        <div className="sub">Hotel-Week MAE</div>
       </div>
       <div className="stat">
-        <div className="label">Coverage</div>
-        <div className="value">{meta.n_listings.toLocaleString()}</div>
-        <div className="sub">Listings · {meta.n_markets} Markets</div>
+        <div className="label">Data</div>
+        <div className="value">{k ? k.n_bookings.toLocaleString() : meta.n_listings.toLocaleString()}</div>
+        <div className="sub">{k ? "Bookings" : "Listings"} · {k ? "2 Hotels (Kaggle)" : meta.n_markets + " Markets"}</div>
       </div>
     </div>
   );
@@ -327,6 +335,7 @@ function MarketOutlook({ markets, T }) {
 /* ===== TAB 2: listing planner ========================================== */
 function ListingPlanner({ data, T }) {
   const { listings, series, meta } = data;
+  const isHotel = listings.length > 0 && !("archetype" in listings[0]);
   const marketsList = [...new Set(listings.map((l) => l.market))].sort();
   const [mkt, setMkt] = useState(marketsList[0]);
   const inMkt = listings.filter((l) => l.market === mkt)
@@ -358,10 +367,11 @@ function ListingPlanner({ data, T }) {
           </div>
           <div className="field">
             <label>Listing</label>
-            <select value={lid} onChange={(e) => setLid(Number(e.target.value))}>
+            <select value={lid} onChange={(e) => setLid(typeof inMkt[0]?.listing_id === "number" ? Number(e.target.value) : e.target.value)}>
               {inMkt.map((l) => (
                 <option key={l.listing_id} value={l.listing_id}>
-                  #{l.listing_id} · {l.archetype} · {fmtPct(l.avg_occ_90d)} occ
+                  {isHotel ? l.listing_id + " · " + fmtPct(l.avg_occ_90d) + " occ"
+                    : "#" + l.listing_id + " · " + l.archetype + " · " + fmtPct(l.avg_occ_90d) + " occ"}
                 </option>
               ))}
             </select>
@@ -372,10 +382,10 @@ function ListingPlanner({ data, T }) {
               <div className="l">Avg occ · 90d</div>
               <div className="v">{fmtPct(row.avg_occ_90d)}</div>
             </div>
-            <div className="box">
+            {!isHotel && <div className="box">
               <div className="l">Base rate</div>
               <div className="v">${row.base_price}<small>/night</small></div>
-            </div>
+            </div>}
             <div className="box">
               <div className="l">Peak week</div>
               <div className="v" style={{ color: "var(--positive)" }}>{fmtPct(row.peak_occ)}</div>
@@ -389,14 +399,14 @@ function ListingPlanner({ data, T }) {
           </div>
 
           <div className="callout"><strong>Plan:</strong> {row.recommendation}</div>
-          <div className="meta">
+          {!isHotel && <div className="meta">
             ★ <strong>{row.review_score}</strong> · {row.num_reviews} reviews ·{" "}
             {row.is_superhost ? "Superhost · " : ""}{row.archetype}
-          </div>
+          </div>}
         </section>
 
         <section className="panel">
-          <div className="panel-head"><h2>90-Day Forecast · #{row.listing_id}</h2></div>
+          <div className="panel-head"><h2>90-Day Forecast · {row.listing_id}</h2></div>
           <ResponsiveContainer width="100%" height={420}>
             <AreaChart data={chartData} margin={{ top: 6, right: 16, left: -6, bottom: 0 }}>
               <CartesianGrid stroke={T.grid} vertical={false} />
@@ -457,18 +467,20 @@ function DemandDrivers({ importance, season, T }) {
     Object.keys(season).forEach((a) => { row[a] = season[a][i]; });
     return row;
   });
-  const sColor = { safari: T.cats[1], beach: T.cats[0], city: T.cats[2] };
+  const seasonKeys = Object.keys(season);
+  const isHotelSeason = seasonKeys.length > 0 && !["beach", "safari", "city"].includes(seasonKeys[0]);
+  const sColor = isHotelSeason
+    ? { "City Hotel": T.cats[0], "Resort Hotel": T.cats[1] }
+    : { safari: T.cats[1], beach: T.cats[0], city: T.cats[2] };
 
   return (
     <div className="stack">
       <section className="panel">
         <div className="panel-head">
           <h2>What The Forecaster Watches</h2>
-          <p>Relative model gain per signal. It leans on a listing's own track
-            record, market seasonality, the annual season cycle and review quality
-            — the same signals an experienced host uses, quantified and projected
-            forward. Price is deliberately excluded, so the output is a clean
-            demand forecast that hands off to the Dynamic-Pricing track.</p>
+          <p>{isHotelSeason
+            ? "Relative model gain per signal. The model leans on average daily rate, lead time, market segment mix and calendar seasonality — the same signals revenue managers use to set rates and allocate inventory."
+            : "Relative model gain per signal. It leans on a listing's own track record, market seasonality, the annual season cycle and review quality — the same signals an experienced host uses, quantified and projected forward. Price is deliberately excluded, so the output is a clean demand forecast that hands off to the Dynamic-Pricing track."}</p>
         </div>
         <div className="bars">
           {importance.map((x) => (
@@ -486,9 +498,9 @@ function DemandDrivers({ importance, season, T }) {
       <section className="panel">
         <div className="panel-head">
           <h2>Seasonality, Learned From History</h2>
-          <p>Safari peaks Jul–Oct (Great Migration) plus a Dec–Feb bump; coastal
-            peaks Dec–Mar and dips in the Apr–May long rains; city demand stays
-            flat — driven by business travel.</p>
+          <p>{isHotelSeason
+            ? "Both hotels show clear seasonal patterns. Resort Hotel peaks in summer holiday months and troughs in winter; City Hotel maintains steadier occupancy year-round driven by business and conference travel."
+            : "Safari peaks Jul–Oct (Great Migration) plus a Dec–Feb bump; coastal peaks Dec–Mar and dips in the Apr–May long rains; city demand stays flat — driven by business travel."}</p>
         </div>
         <ResponsiveContainer width="100%" height={340}>
           <LineChart data={seasonData} margin={{ top: 6, right: 16, left: -6, bottom: 0 }}>
@@ -497,9 +509,9 @@ function DemandDrivers({ importance, season, T }) {
             <YAxis domain={[0.3, 0.75]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
             <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
             <Legend wrapperStyle={{ fontSize: 13, paddingTop: 10 }} />
-            {Object.keys(season).map((a) => (
+            {seasonKeys.map((a) => (
               <Line key={a} type="monotone" dataKey={a}
-                name={a[0].toUpperCase() + a.slice(1)} stroke={sColor[a] || T.cats[3]}
+                name={a} stroke={sColor[a] || T.cats[3]}
                 strokeWidth={2.6} dot={{ r: 3 }} activeDot={{ r: 5 }} isAnimationActive={false} />
             ))}
           </LineChart>
@@ -510,6 +522,126 @@ function DemandDrivers({ importance, season, T }) {
 }
 
 /* ===== TAB 4: model & trust ============================================ */
+function KaggleValidation({ kaggle, T }) {
+  if (!kaggle || kaggle.error) return null;
+  const bestMae = Math.min(...kaggle.baselines.map((b) => b.mae_wk));
+  const calib = (kaggle.detail?.calibration || []).map((r) => ({ p: r.p, o: r.o }));
+  const hotelFva = kaggle.detail?.fva || {};
+  const imps = Object.entries(kaggle.importance || {}).slice(0, 8);
+  const facts = [
+    [kaggle.n_bookings.toLocaleString(), "bookings"],
+    [kaggle.n_hotels, "hotels (City · Resort)"],
+    [fmtPct(kaggle.mean_occupancy), "mean occupancy"],
+    ["2,009", "daily records"],
+  ];
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>Validated On Official Kaggle Dataset</h2>
+        <p>The model was re-run on the official challenge dataset —
+          <strong> {kaggle.source}</strong> — beating the seasonal-naive baseline
+          by <strong>{kaggle.headline.improvement_pct}%</strong> in held-out
+          rolling back-testing (hotel-week MAE). This is a real hotel booking
+          dataset from 2 Portuguese hotels (2015–2017), the exact data provided
+          for Track 02.</p>
+      </div>
+      <div className="facts">
+        {facts.map(([v, l]) => (
+          <div className="fact" key={l}><b>{v}</b><span>{l}</span></div>
+        ))}
+      </div>
+
+      <div className="cols two" style={{ marginTop: 16 }}>
+        <table className="data" style={{ alignSelf: "start" }}>
+          <thead>
+            <tr><th>Model</th>
+              <th className="num">MAE · hotel-week</th>
+              <th className="num">MAE · daily</th></tr>
+          </thead>
+          <tbody>
+            {kaggle.baselines.map((b) => (
+              <tr key={b.model} className={b.is_model ? "model" : ""}>
+                <td>{b.model}{b.is_model ? "  ★" : ""}</td>
+                <td className={`num ${b.mae_wk === bestMae ? "best" : ""}`}>{b.mae_wk.toFixed(4)}</td>
+                <td className="num">{b.mae_daily.toFixed(4)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {imps.length > 0 && (
+          <div>
+            <p className="note" style={{ marginTop: 0, marginBottom: 10 }}>
+              Top demand drivers — ADR, lead time and segment mix join
+              seasonality as key signals in the hotel context.</p>
+            <div className="bars" style={{ gap: 0 }}>
+              {imps.map(([name, pct]) => (
+                <div className="bar-row" key={name} style={{ fontSize: "0.82rem" }}>
+                  <div className="name">{name}</div>
+                  <div className="bar-track">
+                    <div className="bar-fill" style={{ width: `${Math.min(pct, 100)}%` }} />
+                  </div>
+                  <div className="pct" style={{ fontSize: "0.78rem" }}>{pct.toFixed(0)}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="cols two" style={{ marginTop: 20 }}>
+        {Object.entries(hotelFva).map(([hotel, data]) => (
+          <section className="panel" key={hotel}>
+            <div className="panel-head"><h2>{hotel}</h2>
+              <p>Held-out forecast vs actual (last fold).</p></div>
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={data} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+                <CartesianGrid stroke={T.grid} vertical={false} />
+                <XAxis dataKey="week" tickFormatter={fmtDate} minTickGap={20} {...axisProps(T)} />
+                <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
+                <Tooltip formatter={(v) => fmtPct(v, 1)} labelFormatter={fmtDateLong}
+                  cursor={{ stroke: T.grid }} />
+                <Legend wrapperStyle={{ fontSize: 11, paddingTop: 6 }} />
+                <Line type="monotone" dataKey="actual" stroke={T.actual} strokeWidth={2.4}
+                  dot={false} isAnimationActive={false} name="Actual" />
+                <Line type="monotone" dataKey="pred" stroke={T.forecast} strokeWidth={2.6}
+                  dot={false} isAnimationActive={false} name="Forecast" />
+                <Line type="monotone" dataKey="seasonal" stroke={T.seasonal} strokeWidth={1.6}
+                  strokeDasharray="5 4" dot={false} isAnimationActive={false} name="Seasonal" />
+              </LineChart>
+            </ResponsiveContainer>
+          </section>
+        ))}
+        {calib.length > 0 && (
+          <section className="panel">
+            <div className="panel-head"><h2>Calibration</h2>
+              <p>Predicted vs observed occupancy rate — close to diagonal means
+                trustworthy probability estimates.</p></div>
+            <ResponsiveContainer width="100%" height={260}>
+              <LineChart data={calib} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+                <CartesianGrid stroke={T.grid} />
+                <XAxis dataKey="p" type="number" domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} {...axisProps(T)} />
+                <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
+                <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
+                <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
+                <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6}
+                  dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+              </LineChart>
+            </ResponsiveContainer>
+          </section>
+        )}
+      </div>
+
+      <p className="note">Data: <a href={kaggle.source_url} target="_blank"
+        rel="noopener noreferrer" style={{ color: "var(--accent)", fontWeight: 600 }}>
+        Hotel Booking Demand Dataset</a> (Antonio, Almeida, Nunes 2019),
+        CC0 license. The pipeline is dataset-agnostic — the same code runs the
+        East African demo, this hotel data, and the Inside Airbnb real-estate
+        data without changes.</p>
+    </section>
+  );
+}
+
 function RealValidation({ real, T }) {
   if (!real || real.error) return null;
   const bestAuc = Math.max(...real.baselines.map((b) => b.auc));
@@ -525,15 +657,12 @@ function RealValidation({ real, T }) {
   return (
     <section className="panel">
       <div className="panel-head">
-        <h2>Validated On Real Airbnb Data</h2>
+        <h2>Validated On Real STR Data (Cape Town)</h2>
         <p>The exact same model and leakage-safe pipeline, re-run on real
-          short-term-rental data from <strong>{real.source}</strong> — the only
-          African market Inside Airbnb publishes. It reaches <strong>AUC
-          {" "}{real.headline.model_AUC.toFixed(2)}</strong> on genuine market
-          data (strong night-level discrimination) and edges the seasonal
-          baseline on occupancy rate. This is a forward-availability calendar, so
-          a night counted as taken may be booked or host-blocked — the standard
-          occupancy proxy in STR research.</p>
+          short-term-rental data from <strong>{real.source}</strong>. It reaches
+          <strong> AUC {real.headline.model_AUC.toFixed(2)}</strong> on genuine
+          market data (strong night-level discrimination) and edges the seasonal
+          baseline on occupancy rate.</p>
       </div>
       <div className="facts">
         {facts.map(([v, l]) => (
@@ -558,8 +687,7 @@ function RealValidation({ real, T }) {
         </table>
         <div>
           <p className="note" style={{ marginTop: 0, marginBottom: 10 }}>
-            Calibration on real data — predicted booking probability vs observed
-            frequency. Close to the diagonal means the probabilities are trustworthy.</p>
+            Calibration on real data — predicted vs observed frequency.</p>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={calib} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
               <CartesianGrid stroke={T.grid} />
@@ -574,27 +702,19 @@ function RealValidation({ real, T }) {
       </div>
       <p className="note">Data: <a href="https://insideairbnb.com" target="_blank"
         rel="noopener noreferrer" style={{ color: "var(--accent)", fontWeight: 600 }}>Inside
-        Airbnb</a>, Cape Town snapshot, licensed CC BY 4.0. The pipeline is
-        dataset-agnostic — the same code runs the East-African demo and this real
-        market with no changes.</p>
+        Airbnb</a>, Cape Town, CC BY 4.0.</p>
     </section>
   );
 }
 
-function ModelTrust({ meta, backtest, real, T }) {
-  const bestMw = Math.min(...meta.baselines.map((b) => b.mae_mw));
-  const bestLm = Math.min(...meta.baselines.map((b) => b.mae_lm));
-  const bestAuc = Math.max(...meta.baselines.map((b) => b.auc));
-
-  const fvaMarket = "Maasai Mara";
-  const fva = (backtest.fva[fvaMarket] || []).map((r) => ({
-    week: r.week, Actual: r.actual, Forecast: r.pred, Seasonal: r.seasonal,
-  }));
-  const calib = backtest.calibration.map((r) => ({ p: r.p, o: r.o }));
+function ModelTrust({ meta, backtest, real, T, kaggle }) {
+  const isKaggle = meta?.source === "kaggle";
 
   return (
     <div className="stack">
-      <section className="panel">
+      <KaggleValidation kaggle={kaggle} T={T} />
+
+      {!isKaggle && <section className="panel">
         <div className="panel-head">
           <h2>Honest, Held-Out Back-Testing</h2>
           <p>Validated with {meta.n_folds} rolling-origin folds: at each origin the
@@ -608,14 +728,18 @@ function ModelTrust({ meta, backtest, real, T }) {
               <th className="num">MAE · listing-month</th></tr>
           </thead>
           <tbody>
-            {meta.baselines.map((b) => (
+            {meta.baselines.map((b) => {
+              const bestMw = Math.min(...meta.baselines.map((x) => x.mae_mw));
+              const bestLm = Math.min(...meta.baselines.map((x) => x.mae_lm));
+              const bestAuc = Math.max(...meta.baselines.map((x) => x.auc));
+              return (
               <tr key={b.model} className={b.is_model ? "model" : ""}>
                 <td>{b.model}{b.is_model ? "  ★" : ""}</td>
                 <td className={`num ${b.auc === bestAuc ? "best" : ""}`}>{b.auc.toFixed(3)}</td>
                 <td className={`num ${b.mae_mw === bestMw ? "best" : ""}`}>{b.mae_mw.toFixed(4)}</td>
                 <td className={`num ${b.mae_lm === bestLm ? "best" : ""}`}>{b.mae_lm.toFixed(4)}</td>
               </tr>
-            ))}
+            );})}
           </tbody>
         </table>
         <p className="note" style={{ textAlign: "center", maxWidth: "76ch", margin: "16px auto 0" }}>The model wins every column — it fuses each
@@ -623,14 +747,16 @@ function ModelTrust({ meta, backtest, real, T }) {
           which no single baseline does. Whether a specific night books is
           genuinely noisy, so the business question is the occupancy
           <em>rate</em>, where the forecast is tight and well-calibrated.</p>
-      </section>
+      </section>}
 
-      <div className="cols two">
+      {!isKaggle && <div className="cols two">
         <section className="panel">
           <div className="panel-head"><h2>Forecast Vs Actual</h2>
-            <p>{fvaMarket}, held-out — forecast tracks reality, beating seasonal-naive.</p></div>
+            <p>Maasai Mara, held-out — forecast tracks reality, beating seasonal-naive.</p></div>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={fva} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+            <LineChart data={(backtest.fva["Maasai Mara"] || []).map((r) => ({
+              week: r.week, Actual: r.actual, Forecast: r.pred, Seasonal: r.seasonal,
+            }))} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
               <CartesianGrid stroke={T.grid} vertical={false} />
               <XAxis dataKey="week" tickFormatter={fmtDate} minTickGap={30} {...axisProps(T)} />
               <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
@@ -652,7 +778,7 @@ function ModelTrust({ meta, backtest, real, T }) {
             <p>Predicted probability vs observed frequency — close to the diagonal
               means the forecast can be trusted as a rate.</p></div>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={calib} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+            <LineChart data={backtest.calibration.map((r) => ({ p: r.p, o: r.o }))} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
               <CartesianGrid stroke={T.grid} />
               <XAxis dataKey="p" type="number" domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} {...axisProps(T)} />
               <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
@@ -664,7 +790,7 @@ function ModelTrust({ meta, backtest, real, T }) {
             </LineChart>
           </ResponsiveContainer>
         </section>
-      </div>
+      </div>}
 
       <RealValidation real={real} T={T} />
     </div>
