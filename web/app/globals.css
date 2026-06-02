@@ -81,7 +81,7 @@ h1, h2, h3, h4 {
 }
 p { text-wrap: pretty; }
 
-.wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 28px; }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 /* ---------- top bar ---------- */
@@ -121,7 +121,7 @@ p { text-wrap: pretty; }
 .theme-toggle svg { width: 15px; height: 15px; }
 
 /* ---------- hero ---------- */
-.hero { padding: 52px 0 34px; max-width: 64ch; margin: 0 auto;
+.hero { padding: 52px 0 34px; margin: 0 auto;
   text-align: center; }
 .hero .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -136,7 +136,7 @@ p { text-wrap: pretty; }
 }
 .hero p {
   margin: 18px auto 0; color: var(--text-muted); font-size: 1.1rem;
-  max-width: 56ch;
+  max-width: 90ch;
 }
 .hero p strong { color: var(--text); font-weight: 600; }
 

@@ -153,7 +153,7 @@ function TopBar({ theme, meta }) {
         <img className="mark" src="/pumzika-mark.png" alt="Pumzika" width="38" height="38" />
         <div>
           <b>Pumzika Demand Radar</b>
-          <small>Occupancy &amp; demand forecasting</small>
+          <small>Occupancy &amp; Demand Forecasting</small>
         </div>
       </div>
       <div className="right">
