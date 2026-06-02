@@ -137,7 +137,7 @@ export default function Page() {
         {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} T={T} />}
       </div>
 
-      <Footer meta={d.meta} />
+      <Footer />
     </div>
   );
 }
@@ -176,7 +176,7 @@ function Hero({ meta }) {
     <section className="hero">
       <div className="eyebrow"><span className="dot" />
         Pumzika Hackathon 2026 · Track 02</div>
-      <h1>Know your peaks before they arrive.</h1>
+      <h1>Know Your Peaks Before They Arrive.</h1>
       <p>
         A {meta.horizon_days}-day occupancy forecast for every host across East
         Africa — so owners can price, staff and promote ahead of demand instead
@@ -598,17 +598,11 @@ function ModelTrust({ meta, backtest, T }) {
   );
 }
 
-function Footer({ meta }) {
+function Footer() {
   return (
     <footer className="foot">
-      <p className="datanote"><strong>Data note.</strong> Pumzika's live booking
-        history is private, so this entry sources its own data: a simulator
-        grounded in documented East-African tourism seasonality (Great Migration,
-        coastal long-rains, Eid/Christmas demand). The pipeline is dataset-agnostic
-        — point it at real Pumzika exports with the same schema and it runs
-        unchanged.</p>
-      <p className="fine">Pumzika Hackathon 2026 · Track 02 · Occupancy &amp; Demand
-        Forecasting · forecast origin {fmtDateLong(meta.origin)}</p>
+      <p className="fine">A <a href="https://codewitheugene.top/" target="_blank"
+        rel="noopener noreferrer">CodeWithEugene</a> Creation.</p>
     </footer>
   );
 }
