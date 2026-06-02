@@ -28,17 +28,20 @@ FWD_HORIZON = 214
 LGB_PARAMS = dict(
     objective="regression",
     metric="mae",
-    learning_rate=0.05,
-    num_leaves=31,
-    min_child_samples=100,
-    feature_fraction=0.8,
-    bagging_fraction=0.8,
+    learning_rate=0.03,
+    num_leaves=63,
+    min_child_samples=30,
+    feature_fraction=0.9,
+    bagging_fraction=0.9,
     bagging_freq=1,
+    lambda_l1=0.3,
+    lambda_l2=0.3,
     max_depth=-1,
     verbosity=-1,
     seed=42,
 )
-NUM_ROUNDS = 500
+NUM_ROUNDS = 2000
+ES_ROUNDS = 100
 
 LGB_PARAMS_LOWER = dict(LGB_PARAMS, objective="quantile", alpha=0.1, metric="quantile")
 LGB_PARAMS_UPPER = dict(LGB_PARAMS, objective="quantile", alpha=0.9, metric="quantile")
@@ -48,10 +51,17 @@ QUANTILE_PARAMS = [LGB_PARAMS, LGB_PARAMS_LOWER, LGB_PARAMS_UPPER]
 FEATURES = [
     "year", "month", "day", "dayofweek", "dayofyear", "weekofyear", "quarter",
     "is_weekend", "doy_sin", "doy_cos", "dow_sin", "dow_cos",
+    "month_sin", "month_cos",
     "avg_adr", "avg_lead_time", "avg_adults",
-    "seg_TA", "seg_TO", "seg_Direct", "seg_Corporate",
+    "seg_Direct", "seg_Corporate",
     "hotel_avg_occ", "hotel_month_occ",
 ]
+
+
+def add_cyclic_features(df_):
+    df_["month_sin"] = np.sin(2 * np.pi * df_["month"] / 12)
+    df_["month_cos"] = np.cos(2 * np.pi * df_["month"] / 12)
+    return df_
 
 
 def load():
@@ -137,14 +147,27 @@ def main():
 
         train_df = add_hotel_levels(train_df, train_df)
         test_df = add_hotel_levels(train_df, test_df)
+        train_df = add_cyclic_features(train_df)
+        test_df = add_cyclic_features(test_df)
         test_df = make_baselines(train_df, test_df)
 
-        X_tr = train_df[FEATURES].fillna(0)
-        y_tr = train_df["occupancy_rate"]
+        # chronological train/val split for early stopping
+        tr_sorted = train_df.sort_values("date")
+        split = int(len(tr_sorted) * 0.8)
+        tr_fit = tr_sorted.iloc[:split]
+        val_fit = tr_sorted.iloc[split:]
+
+        X_tr = tr_fit[FEATURES].fillna(0)
+        y_tr = tr_fit["occupancy_rate"]
+        X_val = val_fit[FEATURES].fillna(0)
+        y_val = val_fit["occupancy_rate"]
         boosters = {}
         for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
             boosters[name] = lgb.train(
-                params, lgb.Dataset(X_tr, label=y_tr), num_boost_round=NUM_ROUNDS
+                params, lgb.Dataset(X_tr, label=y_tr),
+                num_boost_round=NUM_ROUNDS,
+                valid_sets=[lgb.Dataset(X_val, label=y_val)],
+                callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
             )
 
         X_te = test_df[FEATURES].fillna(0)
@@ -237,18 +260,30 @@ def main():
     imp_agg = imp_all.groupby("feature")["gain"].mean().sort_values(ascending=False)
     imp_top = imp_agg.head(20).to_dict()
 
-    # ---- Train production models on ALL history (mean + quantiles) ----
-    full = add_hotel_levels(df, df)
-    X_full = full[FEATURES].fillna(0)
-    y_full = full["occupancy_rate"]
+    # ---- Define forecast window, then train production model BEFORE it ----
+    origin = (max_date + pd.Timedelta(days=1)) - pd.Timedelta(days=105)
+    train_prod = df[df["date"] < origin].copy()
+    full = add_hotel_levels(train_prod, train_prod)
+    full = add_cyclic_features(full)
+    # chronological train/val split for early stopping
+    full_sorted = full.sort_values("date")
+    split = int(len(full_sorted) * 0.8)
+    tr_full = full_sorted.iloc[:split]
+    val_full = full_sorted.iloc[split:]
+    X_trf = tr_full[FEATURES].fillna(0)
+    y_trf = tr_full["occupancy_rate"]
+    X_valf = val_full[FEATURES].fillna(0)
+    y_valf = val_full["occupancy_rate"]
     prod_boosters = {}
     for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
         prod_boosters[name] = lgb.train(
-            params, lgb.Dataset(X_full, label=y_full), num_boost_round=NUM_ROUNDS
+            params, lgb.Dataset(X_trf, label=y_trf),
+            num_boost_round=NUM_ROUNDS,
+            valid_sets=[lgb.Dataset(X_valf, label=y_valf)],
+            callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
         )
 
     # ---- Forward forecast: start ~105 days early so +9yr shift → Jun–Dec 2026 ----
-    origin = (max_date + pd.Timedelta(days=1)) - pd.Timedelta(days=105)
     future_dates = pd.date_range(origin, periods=FWD_HORIZON, freq="D")
     grid = pd.MultiIndex.from_product(
         [df["hotel"].unique(), future_dates], names=["hotel", "date"]
@@ -266,14 +301,14 @@ def main():
     grid["doy_cos"] = np.cos(2 * np.pi * grid["dayofyear"] / 365.25)
     grid["dow_sin"] = np.sin(2 * np.pi * grid["dayofweek"] / 7)
     grid["dow_cos"] = np.cos(2 * np.pi * grid["dayofweek"] / 7)
+    grid["month_sin"] = np.sin(2 * np.pi * grid["month"] / 12)
+    grid["month_cos"] = np.cos(2 * np.pi * grid["month"] / 12)
 
-    recent = df[df["date"] >= max_date - pd.Timedelta(days=90)]
+    recent = train_prod[train_prod["date"] >= train_prod["date"].max() - pd.Timedelta(days=90)]
     hotel_means = recent.groupby("hotel").agg(
         avg_adr=("avg_adr", "mean"),
         avg_lead_time=("avg_lead_time", "mean"),
         avg_adults=("avg_adults", "mean"),
-        seg_TA=("seg_TA", "mean"),
-        seg_TO=("seg_TO", "mean"),
         seg_Direct=("seg_Direct", "mean"),
         seg_Corporate=("seg_Corporate", "mean"),
     ).to_dict(orient="index")
@@ -283,11 +318,12 @@ def main():
         hm = hotel_means[h]
         for col in [
             "avg_adr", "avg_lead_time", "avg_adults",
-            "seg_TA", "seg_TO", "seg_Direct", "seg_Corporate",
+            "seg_Direct", "seg_Corporate",
         ]:
             grid.loc[mask, col] = hm[col]
 
-    grid = add_hotel_levels(df, grid)
+    grid = add_hotel_levels(train_prod, grid)
+    grid = add_cyclic_features(grid)
 
     X_fwd = grid[FEATURES].fillna(0)
     grid["occ_forecast"] = prod_boosters["pred"].predict(X_fwd)
@@ -368,17 +404,24 @@ def main():
     train_te = df[df["date"] < test_start].copy()
     train_te = add_hotel_levels(train_te, train_te)
     te = add_hotel_levels(train_te, te)
+    train_te = add_cyclic_features(train_te)
+    te = add_cyclic_features(te)
     X_te_last = te[FEATURES].fillna(0)
 
-    full_train = train_te.copy()
+    full_train = add_cyclic_features(train_te.copy())
+    # chronological train/val split for last-fold model
+    ft_sorted = full_train.sort_values("date")
+    ft_split = int(len(ft_sorted) * 0.8)
+    ft_tr = ft_sorted.iloc[:ft_split]
+    ft_val = ft_sorted.iloc[ft_split:]
     last_boosters = {}
     for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
         last_boosters[name] = lgb.train(
             params,
-            lgb.Dataset(
-                full_train[FEATURES].fillna(0), label=full_train["occupancy_rate"]
-            ),
+            lgb.Dataset(ft_tr[FEATURES].fillna(0), label=ft_tr["occupancy_rate"]),
             num_boost_round=NUM_ROUNDS,
+            valid_sets=[lgb.Dataset(ft_val[FEATURES].fillna(0), label=ft_val["occupancy_rate"])],
+            callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
         )
     for name in QUANTILE_NAMES:
         te[name] = last_boosters[name].predict(X_te_last)

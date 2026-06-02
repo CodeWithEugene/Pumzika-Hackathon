@@ -8,17 +8,17 @@
   "horizon_days": 90,
   "n_folds": 3,
   "headline": {
-    "model_hotel_week_MAE": 0.0937,
+    "model_hotel_week_MAE": 0.0933,
     "seasonal_naive_hotel_week_MAE": 0.1551,
-    "improvement_pct": 39.6,
-    "model_MAE": 0.0991
+    "improvement_pct": 39.8,
+    "model_MAE": 0.0987
   },
   "summary": {
     "LightGBM": {
-      "MAE": 0.0991,
-      "RMSE": 0.1667,
-      "hotel_week_MAE": 0.0937,
-      "hotel_week_RMSE": 0.1636
+      "MAE": 0.0987,
+      "RMSE": 0.1691,
+      "hotel_week_MAE": 0.0933,
+      "hotel_week_RMSE": 0.1628
     },
     "Seasonal-naive (hotel \u00d7 month)": {
       "MAE": 0.1627,
@@ -45,12 +45,12 @@
       "window": "2016-12-18 \u2192 2017-03-17",
       "train_size": 1072,
       "test_size": 180,
-      "interval_coverage": 0.6,
+      "interval_coverage": 0.806,
       "LightGBM": {
-        "MAE": 0.11930286703694143,
-        "RMSE": 0.1544902605473101,
-        "hotel_week_MAE": 0.09343780919299598,
-        "hotel_week_RMSE": 0.11881199879534099
+        "MAE": 0.1340871374930404,
+        "RMSE": 0.17315291920915774,
+        "hotel_week_MAE": 0.11065910533215408,
+        "hotel_week_RMSE": 0.13212274780980982
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.1964630922171369,
@@ -76,12 +76,12 @@
       "window": "2017-03-18 \u2192 2017-06-15",
       "train_size": 1252,
       "test_size": 180,
-      "interval_coverage": 0.65,
+      "interval_coverage": 0.761,
       "LightGBM": {
-        "MAE": 0.059510280101515635,
-        "RMSE": 0.07601786587915652,
-        "hotel_week_MAE": 0.0447459749396562,
-        "hotel_week_RMSE": 0.056438379047446266
+        "MAE": 0.05443277410766538,
+        "RMSE": 0.06912499223949975,
+        "hotel_week_MAE": 0.03976404204169698,
+        "hotel_week_RMSE": 0.04906160835105882
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.0724370984151,
@@ -107,12 +107,12 @@
       "window": "2017-06-16 \u2192 2017-09-13",
       "train_size": 1432,
       "test_size": 173,
-      "interval_coverage": 0.618,
+      "interval_coverage": 0.607,
       "LightGBM": {
-        "MAE": 0.11850037869718155,
-        "RMSE": 0.26966860083525007,
-        "hotel_week_MAE": 0.14302163361822384,
-        "hotel_week_RMSE": 0.3155558358064879
+        "MAE": 0.10745276239663348,
+        "RMSE": 0.2650357973491328,
+        "hotel_week_MAE": 0.12953087466588414,
+        "hotel_week_RMSE": 0.30720092014549666
       },
       "Seasonal-naive (hotel \u00d7 month)": {
         "MAE": 0.21914304557880912,
@@ -135,25 +135,25 @@
     }
   ],
   "importance": {
-    "hotel_month_occ": 243.9,
-    "avg_lead_time": 133.1,
-    "avg_adr": 93.5,
-    "doy_cos": 52.8,
-    "year": 31.7,
-    "avg_adults": 20.8,
-    "hotel_avg_occ": 20.1,
-    "doy_sin": 18.2,
-    "seg_Direct": 17.7,
-    "day": 10.8,
-    "seg_Corporate": 10.0,
-    "dayofyear": 9.0,
-    "weekofyear": 5.8,
-    "dayofweek": 5.3,
-    "dow_cos": 3.4,
-    "dow_sin": 2.2,
-    "month": 0.6,
-    "is_weekend": 0.0,
-    "quarter": 0.0,
-    "seg_TA": 0.0
+    "hotel_month_occ": 507.5,
+    "avg_adr": 169.9,
+    "avg_lead_time": 143.3,
+    "doy_cos": 60.0,
+    "avg_adults": 35.6,
+    "seg_Direct": 24.3,
+    "doy_sin": 20.6,
+    "year": 15.7,
+    "day": 13.3,
+    "dayofyear": 11.2,
+    "seg_Corporate": 5.5,
+    "hotel_avg_occ": 5.5,
+    "dayofweek": 5.2,
+    "weekofyear": 2.6,
+    "dow_sin": 2.3,
+    "dow_cos": 2.2,
+    "month_cos": 1.2,
+    "month": 0.4,
+    "month_sin": 0.2,
+    "is_weekend": 0.0
   }
 }
