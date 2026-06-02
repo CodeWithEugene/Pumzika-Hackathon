@@ -152,6 +152,31 @@ def main():
     if os.path.exists(bt_path):
         w("backtest.json", json.load(open(bt_path)))
 
+    # ---- real-data (Inside Airbnb Cape Town) validation, if present ----
+    rm_path = os.path.join(REPORTS, "real_metrics.json")
+    rb_path = os.path.join(REPORTS, "real_backtest_web.json")
+    if os.path.exists(rm_path):
+        rm = json.load(open(rm_path))
+        s = rm["summary"]
+        order = ["LightGBM", "Seasonal-naive (mkt x month)", "Listing-average",
+                 "Market-average", "Global-average"]
+        real = {
+            "source": rm["source"], "n_listings": rm["n_listings"],
+            "n_markets": rm["n_markets"], "n_rows": rm["n_rows"],
+            "occupancy_rate": rm["occupancy_rate"], "n_folds": rm["n_folds"],
+            "headline": {k: round(v, 4) if isinstance(v, float) else v
+                         for k, v in rm["headline"].items()},
+            "baselines": [{
+                "model": k, "auc": round(s[k]["AUC"], 3),
+                "mae_mw": round(s[k]["market_week_MAE"], 4),
+                "mae_lm": round(s[k]["listing_month_MAE"], 4),
+                "is_model": k == "LightGBM",
+            } for k in order if k in s],
+        }
+        if os.path.exists(rb_path):
+            real["detail"] = json.load(open(rb_path))
+        w("real.json", real)
+
     # ---- learned seasonality by archetype x month ----
     hm = hist.merge(listings[["listing_id", "archetype"]], on="listing_id")
     hm["month"] = hm["date"].dt.month

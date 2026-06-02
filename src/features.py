@@ -46,7 +46,11 @@ CAL_NUM = [
 ]
 LEVEL_NUM = [
     "listing_baseline_occ", "market_baseline_occ",
-    "market_month_occ", "archetype_dow_occ", "market_lead_dummy",
+    "market_month_occ", "archetype_dow_occ",
+    # booking-curve / lead time (days ahead of the data origin). Meaningful for
+    # forward-availability data (real Airbnb calendars); defaults to 0 for the
+    # synthetic historical calendar, where LightGBM ignores the constant.
+    "lead_time",
 ]
 
 FEATURES = STATIC_NUM + STATIC_BOOL + STATIC_CAT + CAL_NUM + LEVEL_NUM
@@ -113,8 +117,6 @@ def apply_levels(df, levels):
     ad = levels["archetype_dow"].rename("archetype_dow_occ").reset_index()
     df = df.merge(ad, on=["archetype", "dayofweek"], how="left")
     df["archetype_dow_occ"] = df["archetype_dow_occ"].fillna(df["market_baseline_occ"])
-    # placeholder kept for schema stability across versions
-    df["market_lead_dummy"] = 0.0
     return df
 
 
@@ -146,6 +148,8 @@ def build_design(calendar, listings_static, levels):
     df = calendar.drop(columns=dup).merge(static, on="listing_id", how="left")
     df = add_calendar_features(df)
     df = apply_levels(df, levels)
+    if "lead_time" not in df.columns:   # forward-availability signal; 0 if N/A
+        df["lead_time"] = 0.0
     for c in CATEGORICAL:
         df[c] = df[c].astype("category")
     return df

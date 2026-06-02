@@ -1,0 +1,62 @@
+{
+  "source": "Inside Airbnb \u2014 Cape Town (CC BY 4.0)",
+  "n_listings": 5000,
+  "n_markets": 76,
+  "n_rows": 1825000,
+  "occupancy_rate": 0.435,
+  "horizon_days": 90,
+  "n_folds": 3,
+  "summary": {
+    "LightGBM": {
+      "AUC": 0.8665181450752946,
+      "LogLoss": 0.5412301751139462,
+      "Brier": 0.1717858633737445,
+      "market_week_MAE": 0.10992646378964192,
+      "market_week_RMSE": 0.17666145038930778,
+      "listing_month_MAE": 0.28370775723648867,
+      "listing_month_RMSE": 0.39135807614371765
+    },
+    "Seasonal-naive (mkt x month)": {
+      "AUC": 0.5567033509503011,
+      "LogLoss": 0.704355330125685,
+      "Brier": 0.2532889330591732,
+      "market_week_MAE": 0.11123570173267587,
+      "market_week_RMSE": 0.18805232833299815,
+      "listing_month_MAE": 0.4611924110340678,
+      "listing_month_RMSE": 0.48343097064668944
+    },
+    "Listing-average": {
+      "AUC": 0.8294300314034174,
+      "LogLoss": 0.6099486248724741,
+      "Brier": 0.17211246906590727,
+      "market_week_MAE": 0.10310570380472883,
+      "market_week_RMSE": 0.17475214179860024,
+      "listing_month_MAE": 0.28202823846221875,
+      "listing_month_RMSE": 0.39503460653223654
+    },
+    "Market-average": {
+      "AUC": 0.5598559535763741,
+      "LogLoss": 0.6784323018783565,
+      "Brier": 0.24305401354369485,
+      "market_week_MAE": 0.10817952266639926,
+      "market_week_RMSE": 0.1814749782088866,
+      "listing_month_MAE": 0.45871371708288006,
+      "listing_month_RMSE": 0.47357509538692266
+    },
+    "Global-average": {
+      "AUC": 0.5,
+      "LogLoss": 0.6862989045168972,
+      "Brier": 0.2465781654097504,
+      "market_week_MAE": 0.22509451504094766,
+      "market_week_RMSE": 0.29343168495214506,
+      "listing_month_MAE": 0.4670247605461218,
+      "listing_month_RMSE": 0.4770754061233346
+    }
+  },
+  "headline": {
+    "model_market_week_MAE": 0.10992646378964192,
+    "seasonal_naive_market_week_MAE": 0.11123570173267587,
+    "improvement_pct": 1.1769943665931442,
+    "model_AUC": 0.8665181450752946
+  }
+}

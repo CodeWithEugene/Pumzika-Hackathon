@@ -104,10 +104,10 @@ export default function Page() {
     Promise.all([
       getJSON("meta.json"), getJSON("markets.json"), getJSON("listings.json"),
       getJSON("listing_series.json"), getJSON("importance.json"),
-      getJSON("season.json"), getJSON("backtest.json"),
-    ]).then(([meta, markets, listings, series, importance, season, backtest]) =>
-      setD({ meta, markets, listings, series, importance, season, backtest })
-    );
+      getJSON("season.json"), getJSON("backtest.json"), getJSON("real.json"),
+    ]).then(([meta, markets, listings, series, importance, season, backtest, real]) =>
+      setD({ meta, markets, listings, series, importance, season, backtest, real })
+    ).catch(() => setD({ error: true }));
   }, []);
 
   if (!d) return (
@@ -134,7 +134,7 @@ export default function Page() {
         {tab === 0 && <MarketOutlook markets={d.markets} T={T} />}
         {tab === 1 && <ListingPlanner data={d} T={T} />}
         {tab === 2 && <DemandDrivers importance={d.importance} season={d.season} T={T} />}
-        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} T={T} />}
+        {tab === 3 && <ModelTrust meta={d.meta} backtest={d.backtest} real={d.real} T={T} />}
       </div>
 
       <Footer />
@@ -510,7 +510,78 @@ function DemandDrivers({ importance, season, T }) {
 }
 
 /* ===== TAB 4: model & trust ============================================ */
-function ModelTrust({ meta, backtest, T }) {
+function RealValidation({ real, T }) {
+  if (!real || real.error) return null;
+  const bestAuc = Math.max(...real.baselines.map((b) => b.auc));
+  const bestMw = Math.min(...real.baselines.map((b) => b.mae_mw));
+  const calib = (real.detail?.calibration || []).map((r) => ({ p: r.p, o: r.o }));
+  const facts = [
+    [real.n_rows.toLocaleString(), "real listing-nights"],
+    [real.n_listings.toLocaleString(), "listings"],
+    [real.n_markets, "neighbourhoods"],
+    [fmtPct(real.occupancy_rate), "occupancy"],
+    [real.headline.model_AUC.toFixed(3), "model AUC"],
+  ];
+  return (
+    <section className="panel">
+      <div className="panel-head">
+        <h2>Validated on real Airbnb data</h2>
+        <p>The exact same model and leakage-safe pipeline, re-run on real
+          short-term-rental data from <strong>{real.source}</strong> — the only
+          African market Inside Airbnb publishes. It reaches <strong>AUC
+          {" "}{real.headline.model_AUC.toFixed(2)}</strong> on genuine market
+          data (strong night-level discrimination) and edges the seasonal
+          baseline on occupancy rate. This is a forward-availability calendar, so
+          a night counted as taken may be booked or host-blocked — the standard
+          occupancy proxy in STR research.</p>
+      </div>
+      <div className="facts">
+        {facts.map(([v, l]) => (
+          <div className="fact" key={l}><b>{v}</b><span>{l}</span></div>
+        ))}
+      </div>
+      <div className="cols two" style={{ marginTop: 16 }}>
+        <table className="data" style={{ alignSelf: "start" }}>
+          <thead>
+            <tr><th>Model</th><th className="num">AUC</th>
+              <th className="num">MAE · market-week</th></tr>
+          </thead>
+          <tbody>
+            {real.baselines.map((b) => (
+              <tr key={b.model} className={b.is_model ? "model" : ""}>
+                <td>{b.model}{b.is_model ? "  ★" : ""}</td>
+                <td className={`num ${b.auc === bestAuc ? "best" : ""}`}>{b.auc.toFixed(3)}</td>
+                <td className={`num ${b.mae_mw === bestMw ? "best" : ""}`}>{b.mae_mw.toFixed(4)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div>
+          <p className="note" style={{ marginTop: 0, marginBottom: 10 }}>
+            Calibration on real data — predicted booking probability vs observed
+            frequency. Close to the diagonal means the probabilities are trustworthy.</p>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={calib} margin={{ top: 6, right: 14, left: -6, bottom: 0 }}>
+              <CartesianGrid stroke={T.grid} />
+              <XAxis dataKey="p" type="number" domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} {...axisProps(T)} />
+              <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
+              <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
+              <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
+              <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      <p className="note">Data: <a href="https://insideairbnb.com" target="_blank"
+        rel="noopener noreferrer" style={{ color: "var(--accent)", fontWeight: 600 }}>Inside
+        Airbnb</a>, Cape Town snapshot, licensed CC BY 4.0. The pipeline is
+        dataset-agnostic — the same code runs the East-African demo and this real
+        market with no changes.</p>
+    </section>
+  );
+}
+
+function ModelTrust({ meta, backtest, real, T }) {
   const bestMw = Math.min(...meta.baselines.map((b) => b.mae_mw));
   const bestLm = Math.min(...meta.baselines.map((b) => b.mae_lm));
   const bestAuc = Math.max(...meta.baselines.map((b) => b.auc));
@@ -547,11 +618,11 @@ function ModelTrust({ meta, backtest, T }) {
             ))}
           </tbody>
         </table>
-        <p className="note">The model wins every column — it fuses each listing's
-          track record <em>and</em> seasonality <em>and</em> quality, which no
-          single baseline does. Whether a specific night books is genuinely noisy,
-          so the business question is the occupancy <em>rate</em>, where the
-          forecast is tight and well-calibrated.</p>
+        <p className="note" style={{ textAlign: "center", maxWidth: "76ch", margin: "16px auto 0" }}>The model wins every column — it fuses each
+          listing's track record <em>and</em> seasonality <em>and</em> quality,
+          which no single baseline does. Whether a specific night books is
+          genuinely noisy, so the business question is the occupancy
+          <em>rate</em>, where the forecast is tight and well-calibrated.</p>
       </section>
 
       <div className="cols two">
@@ -594,6 +665,8 @@ function ModelTrust({ meta, backtest, T }) {
           </ResponsiveContainer>
         </section>
       </div>
+
+      <RealValidation real={real} T={T} />
     </div>
   );
 }
