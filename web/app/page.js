@@ -881,7 +881,7 @@ function KaggleValidation({ kaggle, T }) {
                 <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
                 <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
                 <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6}
-                  dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+                  dot={{ r: 3 }} isAnimationActive={false} name="Model" />
               </LineChart>
             </ResponsiveContainer>
           </section>
@@ -951,7 +951,7 @@ function RealValidation({ real, T }) {
               <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
               <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
               <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
-              <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+              <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="Model" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -1042,7 +1042,7 @@ function EastAfricaValidation({ eastAfrica, T }) {
                 <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} width={44} {...axisProps(T)} />
                 <Tooltip formatter={(v) => fmtPct(v, 1)} cursor={{ stroke: T.grid }} />
                 <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]} stroke={T.axis} strokeDasharray="4 4" />
-                <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+                <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6} dot={{ r: 3 }} isAnimationActive={false} name="Model" />
               </LineChart>
             </ResponsiveContainer>
           </section>
@@ -1138,7 +1138,7 @@ function ModelTrust({ meta, backtest, real, T, kaggle, eastAfrica }) {
               <ReferenceLine segment={[{ x: 0, y: 0 }, { x: 1, y: 1 }]}
                 stroke={T.axis} strokeDasharray="4 4" />
               <Line type="monotone" dataKey="o" stroke={T.forecast} strokeWidth={2.6}
-                dot={{ r: 3 }} isAnimationActive={false} name="LightGBM" />
+                dot={{ r: 3 }} isAnimationActive={false} name="Model" />
             </LineChart>
           </ResponsiveContainer>
         </section>

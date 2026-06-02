@@ -69,13 +69,14 @@ def export_kaggle():
 
     # ---- meta.json ----
     s = metrics["summary"]
-    order = ["LightGBM", "Seasonal-naive (hotel \u00d7 month)", "Hotel-average",
+    model_key = "Ensemble" if "Ensemble" in s else "LightGBM"
+    order = [model_key, "Seasonal-naive (hotel \u00d7 month)", "Hotel-average",
              "Global-average"]
     baselines = [{
         "model": k,
         "mae_mw": round(s[k]["hotel_week_MAE"], 4),
         "mae_lm": round(s[k]["MAE"], 4),
-        "is_model": k == "LightGBM",
+        "is_model": k == model_key,
     } for k in order if k in s]
     w("meta.json", {
         **meta,

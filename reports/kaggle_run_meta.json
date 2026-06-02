@@ -3,5 +3,6 @@
   "horizon_days": 214,
   "forecast_end": "2017-12-31",
   "n_hotels": 2,
-  "portfolio_avg_occ_90d": 0.886
+  "portfolio_avg_occ_90d": 0.935,
+  "model": "per-hotel ensemble (LGB+XGB+CB, logit, extended features)"
 }

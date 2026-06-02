@@ -1,20 +1,20 @@
 """
 kaggle_full.py
 ==============
-Full pipeline for the official Kaggle Hotel Booking Demand dataset.
-Trains a LightGBM regression model using only features that can be computed
-for future dates (no lag features), so the same model powers both the
-historical back-test and the forward forecast.
+Full pipeline for the Kaggle Hotel Booking Demand dataset.
+Per-hotel ensemble (LGB+XGB+CatBoost) on logit-transformed target, extended
+features, quantile intervals.  Uses only features computable for future dates
+(no lag features), so the same model powers back-test and forward forecast.
 
 Run after:  python src/fetch_kaggle_hotel.py
 """
 
-import os
-import json
-import warnings
+import os, json, warnings
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
+import xgboost as xgb
+import catboost as cb
 
 warnings.filterwarnings("ignore")
 
@@ -25,42 +25,72 @@ OCC_CSV = os.path.join(DATA, "kaggle_occupancy.csv")
 
 HORIZON = 90
 FWD_HORIZON = 214
-LGB_PARAMS = dict(
-    objective="regression",
-    metric="mae",
-    learning_rate=0.03,
-    num_leaves=63,
-    min_child_samples=30,
-    feature_fraction=0.9,
-    bagging_fraction=0.9,
-    bagging_freq=1,
-    lambda_l1=0.3,
-    lambda_l2=0.3,
-    max_depth=-1,
-    verbosity=-1,
-    seed=42,
-)
-NUM_ROUNDS = 2000
-ES_ROUNDS = 100
+NUM_ROUNDS = 1500
+ES_ROUNDS = 80
 
-LGB_PARAMS_LOWER = dict(LGB_PARAMS, objective="quantile", alpha=0.1, metric="quantile")
-LGB_PARAMS_UPPER = dict(LGB_PARAMS, objective="quantile", alpha=0.9, metric="quantile")
-QUANTILE_NAMES = ["pred", "lower", "upper"]
-QUANTILE_PARAMS = [LGB_PARAMS, LGB_PARAMS_LOWER, LGB_PARAMS_UPPER]
+LGB_MEAN = dict(
+    objective="regression", metric="mae", verbosity=-1,
+    learning_rate=0.03, num_leaves=63, min_child_samples=20,
+    feature_fraction=0.85, bagging_fraction=0.85, bagging_freq=1,
+    lambda_l1=0.5, lambda_l2=0.5, max_depth=-1, seed=42,
+)
+LGB_LOWER = dict(LGB_MEAN, objective="quantile", alpha=0.1, metric="quantile")
+LGB_UPPER = dict(LGB_MEAN, objective="quantile", alpha=0.9, metric="quantile")
+XGB_MEAN = dict(
+    objective="reg:absoluteerror", eval_metric="mae",
+    learning_rate=0.03, max_depth=7, subsample=0.85, colsample_bytree=0.85,
+    reg_alpha=0.5, reg_lambda=0.5, seed=42, verbosity=0,
+)
+CB_MEAN = dict(
+    loss_function="MAE", learning_rate=0.03, depth=7,
+    l2_leaf_reg=5, subsample=0.85, random_seed=42, verbose=False,
+)
 
 FEATURES = [
     "year", "month", "day", "dayofweek", "dayofyear", "weekofyear", "quarter",
-    "is_weekend", "doy_sin", "doy_cos", "dow_sin", "dow_cos",
+    "is_weekend",
+    "doy_sin", "doy_cos", "dow_sin", "dow_cos",
     "month_sin", "month_cos",
+    "week_sin", "week_cos",
+    "quarter_sin", "quarter_cos",
+    "day_sin", "day_cos",
     "avg_adr", "avg_lead_time", "avg_adults",
     "seg_Direct", "seg_Corporate",
     "hotel_avg_occ", "hotel_month_occ",
+    "adr_sq", "adr_log", "lead_time_log",
+    "adr_x_weekend", "adr_x_month_sin",
+    "week_of_month", "is_month_start", "is_month_end",
 ]
 
 
-def add_cyclic_features(df_):
+def logit(x, eps=1e-4):
+    x = np.clip(x, eps, 1 - eps)
+    return np.log(x / (1 - x))
+
+
+def inv_logit(x):
+    return 1 / (1 + np.exp(-np.clip(x, -20, 20)))
+
+
+def add_features(df_):
     df_["month_sin"] = np.sin(2 * np.pi * df_["month"] / 12)
     df_["month_cos"] = np.cos(2 * np.pi * df_["month"] / 12)
+    df_["week_sin"] = np.sin(2 * np.pi * df_["weekofyear"] / 52)
+    df_["week_cos"] = np.cos(2 * np.pi * df_["weekofyear"] / 52)
+    df_["quarter_sin"] = np.sin(2 * np.pi * df_["quarter"] / 4)
+    df_["quarter_cos"] = np.cos(2 * np.pi * df_["quarter"] / 4)
+    df_["day_sin"] = np.sin(2 * np.pi * df_["day"] / 31)
+    df_["day_cos"] = np.cos(2 * np.pi * df_["day"] / 31)
+    df_["week_of_month"] = (df_["day"] - 1) // 7 + 1
+    df_["is_month_start"] = (df_["day"] <= 3).astype(int)
+    df_["is_month_end"] = (df_["day"] >= 28).astype(int)
+    df_["adr_sq"] = df_["avg_adr"] ** 2 / 10000
+    df_["adr_log"] = np.log(df_["avg_adr"] + 1)
+    df_["lead_time_log"] = np.log(df_["avg_lead_time"] + 1)
+    if "is_weekend" in df_.columns:
+        df_["adr_x_weekend"] = df_["avg_adr"] * df_["is_weekend"] / 100
+    if "month_sin" in df_.columns:
+        df_["adr_x_month_sin"] = df_["avg_adr"] * df_["month_sin"] / 100
     return df_
 
 
@@ -86,9 +116,7 @@ def make_baselines(train_df, test_df, target="occupancy_rate"):
     test_df = test_df.copy()
     g = train_df[target].mean()
     test_df["b_global"] = g
-    test_df["b_hotel"] = test_df["hotel"].map(
-        train_df.groupby("hotel")[target].mean()
-    ).fillna(g)
+    test_df["b_hotel"] = test_df["hotel"].map(train_df.groupby("hotel")[target].mean()).fillna(g)
     hm = train_df.groupby(["hotel", "month"])[target].mean()
     keys = list(zip(test_df["hotel"], test_df["month"]))
     test_df["b_seasonal"] = pd.Series(
@@ -118,10 +146,53 @@ def daily_metrics(y, p):
     }
 
 
+def train_hotel_ensemble(X_tr, y_tr, X_val, y_val):
+    """Per-hotel ensemble: LGB + XGB + CatBoost, logit target, returns predict fn."""
+    y_tr_l = logit(y_tr.values)
+    y_val_l = logit(y_val.values)
+
+    lgb_m = lgb.train(LGB_MEAN, lgb.Dataset(X_tr, label=y_tr_l),
+                       num_boost_round=NUM_ROUNDS,
+                       valid_sets=[lgb.Dataset(X_val, label=y_val_l)],
+                       callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
+
+    xgb_m = xgb.train(XGB_MEAN, xgb.DMatrix(X_tr, label=y_tr_l), num_boost_round=NUM_ROUNDS,
+                       evals=[(xgb.DMatrix(X_val, label=y_val_l), "valid")],
+                       early_stopping_rounds=ES_ROUNDS, verbose_eval=False)
+
+    cb_m = cb.CatBoost(CB_MEAN)
+    cb_m.fit(X_tr, y_tr_l, eval_set=(X_val, y_val_l),
+             early_stopping_rounds=ES_ROUNDS, verbose=False, plot=False)
+
+    def predict(X):
+        if isinstance(X, np.ndarray):
+            X = pd.DataFrame(X, columns=FEATURES)
+        p = inv_logit(lgb_m.predict(X, num_iteration=lgb_m.best_iteration))
+        p += inv_logit(xgb_m.predict(xgb.DMatrix(X), iteration_range=(0, xgb_m.best_iteration)))
+        p += inv_logit(cb_m.predict(X))
+        return p / 3.0
+
+    return predict
+
+
+def train_hotel_quantile(X_tr, y_tr, X_val, y_val, params):
+    """Per-hotel quantile LightGBM on raw target, returns predict fn."""
+    m = lgb.train(params, lgb.Dataset(X_tr, label=y_tr.values),
+                   num_boost_round=int(NUM_ROUNDS * 0.5),
+                   valid_sets=[lgb.Dataset(X_val, label=y_val.values)],
+                   callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
+
+    def predict(X):
+        return m.predict(X, num_iteration=m.best_iteration)
+
+    return predict
+
+
 def main():
     df = load()
     print(f"Loaded {len(df):,} daily records")
-    print(f"  Hotels: {df['hotel'].unique().tolist()}")
+    hotels = sorted(df["hotel"].unique())
+    print(f"  Hotels: {hotels}")
     print(f"  Date range: {df['date'].min().date()} \u2192 {df['date'].max().date()}")
     print(f"  Mean occupancy: {df['occupancy_rate'].mean():.1%}")
 
@@ -134,53 +205,62 @@ def main():
     }
 
     fold_records = []
-    importances = []
 
     for k, off in enumerate(fold_offsets):
         test_end = max_date - pd.Timedelta(days=off)
         test_start = test_end - pd.Timedelta(days=HORIZON - 1)
         train_df = df[df["date"] < test_start].copy()
         test_df = df[(df["date"] >= test_start) & (df["date"] <= test_end)].copy()
-
         if len(train_df) < 30:
             continue
 
         train_df = add_hotel_levels(train_df, train_df)
         test_df = add_hotel_levels(train_df, test_df)
-        train_df = add_cyclic_features(train_df)
-        test_df = add_cyclic_features(test_df)
+        train_df = add_features(train_df)
+        test_df = add_features(test_df)
         test_df = make_baselines(train_df, test_df)
 
         # chronological train/val split for early stopping
         tr_sorted = train_df.sort_values("date")
-        split = int(len(tr_sorted) * 0.8)
-        tr_fit = tr_sorted.iloc[:split]
-        val_fit = tr_sorted.iloc[split:]
+        split_at = int(len(tr_sorted) * 0.8)
+        tr_fit = tr_sorted.iloc[:split_at]
+        val_fit = tr_sorted.iloc[split_at:]
 
-        X_tr = tr_fit[FEATURES].fillna(0)
-        y_tr = tr_fit["occupancy_rate"]
-        X_val = val_fit[FEATURES].fillna(0)
-        y_val = val_fit["occupancy_rate"]
-        boosters = {}
-        for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
-            boosters[name] = lgb.train(
-                params, lgb.Dataset(X_tr, label=y_tr),
-                num_boost_round=NUM_ROUNDS,
-                valid_sets=[lgb.Dataset(X_val, label=y_val)],
-                callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
-            )
+        test_df["pred"] = 0.0
+        test_df["lower"] = 0.0
+        test_df["upper"] = 0.0
+        for h in hotels:
+            mask_tr = tr_fit["hotel"] == h
+            mask_val = val_fit["hotel"] == h
+            mask_te = test_df["hotel"] == h
+            if mask_tr.sum() < 30 or mask_te.sum() < 5:
+                test_df.loc[mask_te, "pred"] = test_df.loc[mask_te, "b_hotel"]
+                test_df.loc[mask_te, "lower"] = (test_df.loc[mask_te, "pred"] - 0.05).clip(lower=0)
+                test_df.loc[mask_te, "upper"] = (test_df.loc[mask_te, "pred"] + 0.05).clip(upper=1)
+                continue
+            X_tr = tr_fit.loc[mask_tr, FEATURES].fillna(0)
+            y_tr = tr_fit.loc[mask_tr, "occupancy_rate"]
+            X_val = val_fit.loc[mask_val, FEATURES].fillna(0)
+            y_val = val_fit.loc[mask_val, "occupancy_rate"]
+            X_te = test_df.loc[mask_te, FEATURES].fillna(0)
 
-        X_te = test_df[FEATURES].fillna(0)
-        for name in QUANTILE_NAMES:
-            test_df[name] = boosters[name].predict(X_te)
-        test_df["lower"] = test_df["lower"].clip(lower=0)
+            # Mean ensemble
+            mean_fn = train_hotel_ensemble(X_tr, y_tr, X_val, y_val)
+            test_df.loc[mask_te, "pred"] = mean_fn(X_te.values)
+
+            # Quantile intervals (raw target)
+            lower_fn = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_LOWER)
+            upper_fn = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_UPPER)
+            test_df.loc[mask_te, "lower"] = lower_fn(X_te.values).clip(min=0)
+            test_df.loc[mask_te, "upper"] = upper_fn(X_te.values).clip(max=1.0)
+
+        # Fix flipped intervals
+        mask_flip = test_df["lower"] > test_df["pred"]
+        test_df.loc[mask_flip, "lower"] = test_df.loc[mask_flip, "pred"] - 0.02
+        test_df.loc[mask_flip, "lower"] = test_df["lower"].clip(lower=0)
+        mask_flip2 = test_df["upper"] < test_df["pred"]
+        test_df.loc[mask_flip2, "upper"] = test_df.loc[mask_flip2, "pred"] + 0.02
         test_df["upper"] = test_df["upper"].clip(upper=1.0)
-        test_df.loc[test_df["lower"] > test_df["pred"], "lower"] = (
-            test_df["pred"] - 0.02
-        )
-        test_df.loc[test_df["upper"] < test_df["pred"], "upper"] = (
-            test_df["pred"] + 0.02
-        )
 
         interval_cov = float(
             ((test_df["lower"] <= test_df["occupancy_rate"])
@@ -196,7 +276,7 @@ def main():
         }
         dm = daily_metrics(test_df["occupancy_rate"].values, test_df["pred"].values)
         om = occ_metrics(test_df, "pred")
-        rec["LightGBM"] = {**dm, **om}
+        rec["Ensemble"] = {**dm, **om}
 
         for col, nice in baseline_names.items():
             bm = daily_metrics(test_df["occupancy_rate"].values, test_df[col].values)
@@ -205,22 +285,13 @@ def main():
 
         fold_records.append(rec)
 
-        imp = pd.DataFrame({
-            "feature": boosters["pred"].feature_name(),
-            "gain": boosters["pred"].feature_importance(importance_type="gain"),
-            "fold": k + 1,
-        }).sort_values("gain", ascending=False)
-        importances.append(imp)
-
         base_mae = rec[baseline_names["b_seasonal"]]["hotel_week_MAE"]
         model_mae = om["hotel_week_MAE"]
         imp_pct = (base_mae - model_mae) / base_mae * 100 if base_mae > 0 else 0
-        print(
-            f"  fold {k+1} [{rec['window']}]  "
-            f"daily-MAE={dm['MAE']:.3f}  wk-MAE={model_mae:.3f}  "
-            f"(seasonal wk-MAE={base_mae:.3f})  "
-            f"improvement={imp_pct:+.1f}%"
-        )
+        print(f"  fold {k+1} [{rec['window']}]  "
+              f"daily-MAE={dm['MAE']:.4f}  wk-MAE={model_mae:.4f}  "
+              f"(seasonal wk-MAE={base_mae:.4f})  "
+              f"improvement={imp_pct:+.1f}%  cov={interval_cov:.1%}")
 
     if not fold_records:
         print("No folds completed.")
@@ -230,63 +301,64 @@ def main():
         return float(np.mean([r[model_key][metric] for r in fold_records]))
 
     summary = {}
-    all_names = ["LightGBM"] + list(baseline_names.values())
-    for model_key in all_names:
-        summary[model_key] = {
-            "MAE": avg(model_key, "MAE"),
-            "RMSE": avg(model_key, "RMSE"),
-            "hotel_week_MAE": avg(model_key, "hotel_week_MAE"),
-            "hotel_week_RMSE": avg(model_key, "hotel_week_RMSE"),
+    all_keys = ["Ensemble"] + list(baseline_names.values())
+    for mk in all_keys:
+        summary[mk] = {
+            "MAE": avg(mk, "MAE"), "RMSE": avg(mk, "RMSE"),
+            "hotel_week_MAE": avg(mk, "hotel_week_MAE"),
+            "hotel_week_RMSE": avg(mk, "hotel_week_RMSE"),
         }
 
     base_mae = summary["Seasonal-naive (hotel \u00d7 month)"]["hotel_week_MAE"]
-    model_mae = summary["LightGBM"]["hotel_week_MAE"]
+    model_mae = summary["Ensemble"]["hotel_week_MAE"]
     improvement = (base_mae - model_mae) / base_mae * 100
 
-    print(f"\n  === Kaggle Forward Model (no lag features) ===")
-    print(
-        f"  wk-MAE: LightGBM {model_mae:.3f} vs seasonal-naive {base_mae:.3f}  "
-        f"=> {improvement:+.1f}%"
-    )
+    print(f"\n  === Ensemble (per-hotel LGB+XGB+CB, logit, extended features) ===")
+    print(f"  wk-MAE: Ensemble {model_mae:.4f} vs seasonal-naive {base_mae:.4f}  "
+          f"=> {improvement:+.1f}%")
 
     headline = {
         "model_hotel_week_MAE": round(model_mae, 4),
         "seasonal_naive_hotel_week_MAE": round(base_mae, 4),
         "improvement_pct": round(improvement, 1),
-        "model_MAE": round(summary["LightGBM"]["MAE"], 4),
+        "model_MAE": round(summary["Ensemble"]["MAE"], 4),
     }
 
-    imp_all = pd.concat(importances)
-    imp_agg = imp_all.groupby("feature")["gain"].mean().sort_values(ascending=False)
-    imp_top = imp_agg.head(20).to_dict()
-
-    # ---- Define forecast window, then train production model BEFORE it ----
+    # ---- Train production models ----
     origin = (max_date + pd.Timedelta(days=1)) - pd.Timedelta(days=105)
     train_prod = df[df["date"] < origin].copy()
-    full = add_hotel_levels(train_prod, train_prod)
-    full = add_cyclic_features(full)
-    # chronological train/val split for early stopping
-    full_sorted = full.sort_values("date")
-    split = int(len(full_sorted) * 0.8)
-    tr_full = full_sorted.iloc[:split]
-    val_full = full_sorted.iloc[split:]
-    X_trf = tr_full[FEATURES].fillna(0)
-    y_trf = tr_full["occupancy_rate"]
-    X_valf = val_full[FEATURES].fillna(0)
-    y_valf = val_full["occupancy_rate"]
-    prod_boosters = {}
-    for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
-        prod_boosters[name] = lgb.train(
-            params, lgb.Dataset(X_trf, label=y_trf),
-            num_boost_round=NUM_ROUNDS,
-            valid_sets=[lgb.Dataset(X_valf, label=y_valf)],
-            callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
-        )
+    train_prod = add_hotel_levels(train_prod, train_prod)
+    train_prod = add_features(train_prod)
+    prod_sorted = train_prod.sort_values("date")
+    split_p = int(len(prod_sorted) * 0.8)
+    tr_p = prod_sorted.iloc[:split_p]
+    val_p = prod_sorted.iloc[split_p:]
 
-    # ---- Forward forecast: start ~105 days early so +9yr shift → Jun–Dec 2026 ----
+    prod_mean = {}
+    prod_lower = {}
+    prod_upper = {}
+    for h in hotels:
+        mask_tr = tr_p["hotel"] == h
+        mask_val = val_p["hotel"] == h
+        if mask_tr.sum() < 30:
+            fallback = train_prod.loc[train_prod["hotel"] == h, "occupancy_rate"].mean()
+            prod_mean[h] = lambda x, v=fallback: np.full(len(x), v)
+            prod_lower[h] = lambda x, v=fallback - 0.05: np.full(len(x), max(v, 0))
+            prod_upper[h] = lambda x, v=fallback + 0.05: np.full(len(x), min(v, 1))
+            continue
+        X_tr = tr_p.loc[mask_tr, FEATURES].fillna(0)
+        y_tr = tr_p.loc[mask_tr, "occupancy_rate"]
+        X_val = val_p.loc[mask_val, FEATURES].fillna(0)
+        y_val = val_p.loc[mask_val, "occupancy_rate"]
+        print(f"  Training production models for {h}...")
+        prod_mean[h] = train_hotel_ensemble(X_tr, y_tr, X_val, y_val)
+        prod_lower[h] = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_LOWER)
+        prod_upper[h] = train_hotel_quantile(X_tr, y_tr, X_val, y_val, LGB_UPPER)
+
+    # ---- Forward forecast ----
     future_dates = pd.date_range(origin, periods=FWD_HORIZON, freq="D")
     grid = pd.MultiIndex.from_product(
-        [df["hotel"].unique(), future_dates], names=["hotel", "date"]
+        [hotels, future_dates], names=["hotel", "date"]
     ).to_frame(index=False)
 
     grid["year"] = grid["date"].dt.year
@@ -301,54 +373,54 @@ def main():
     grid["doy_cos"] = np.cos(2 * np.pi * grid["dayofyear"] / 365.25)
     grid["dow_sin"] = np.sin(2 * np.pi * grid["dayofweek"] / 7)
     grid["dow_cos"] = np.cos(2 * np.pi * grid["dayofweek"] / 7)
-    grid["month_sin"] = np.sin(2 * np.pi * grid["month"] / 12)
-    grid["month_cos"] = np.cos(2 * np.pi * grid["month"] / 12)
 
     recent = train_prod[train_prod["date"] >= train_prod["date"].max() - pd.Timedelta(days=90)]
     hotel_means = recent.groupby("hotel").agg(
-        avg_adr=("avg_adr", "mean"),
-        avg_lead_time=("avg_lead_time", "mean"),
+        avg_adr=("avg_adr", "mean"), avg_lead_time=("avg_lead_time", "mean"),
         avg_adults=("avg_adults", "mean"),
-        seg_Direct=("seg_Direct", "mean"),
-        seg_Corporate=("seg_Corporate", "mean"),
+        seg_Direct=("seg_Direct", "mean"), seg_Corporate=("seg_Corporate", "mean"),
     ).to_dict(orient="index")
 
-    for h in df["hotel"].unique():
+    for h in hotels:
         mask = grid["hotel"] == h
         hm = hotel_means[h]
-        for col in [
-            "avg_adr", "avg_lead_time", "avg_adults",
-            "seg_Direct", "seg_Corporate",
-        ]:
+        for col in ["avg_adr", "avg_lead_time", "avg_adults", "seg_Direct", "seg_Corporate"]:
             grid.loc[mask, col] = hm[col]
 
     grid = add_hotel_levels(train_prod, grid)
-    grid = add_cyclic_features(grid)
+    grid = add_features(grid)
 
-    X_fwd = grid[FEATURES].fillna(0)
-    grid["occ_forecast"] = prod_boosters["pred"].predict(X_fwd)
-    grid["occ_lower"] = prod_boosters["lower"].predict(X_fwd).clip(min=0)
-    grid["occ_upper"] = prod_boosters["upper"].predict(X_fwd).clip(max=1.0)
+    grid["occ_forecast"] = 0.0
+    grid["occ_lower"] = 0.0
+    grid["occ_upper"] = 0.0
+    for h in hotels:
+        mask = grid["hotel"] == h
+        X_fwd = grid.loc[mask, FEATURES].fillna(0)
+        grid.loc[mask, "occ_forecast"] = prod_mean[h](X_fwd.values)
+        grid.loc[mask, "occ_lower"] = prod_lower[h](X_fwd.values).clip(min=0)
+        grid.loc[mask, "occ_upper"] = prod_upper[h](X_fwd.values).clip(max=1.0)
+
+    # Fix flipped intervals
     mask_flip = grid["occ_lower"] > grid["occ_forecast"]
     grid.loc[mask_flip, "occ_lower"] = grid.loc[mask_flip, "occ_forecast"] - 0.02
+    grid["occ_lower"] = grid["occ_lower"].clip(lower=0)
     mask_flip2 = grid["occ_upper"] < grid["occ_forecast"]
     grid.loc[mask_flip2, "occ_upper"] = grid.loc[mask_flip2, "occ_forecast"] + 0.02
+    grid["occ_upper"] = grid["occ_upper"].clip(upper=1.0)
 
     fc_hotel = grid[["hotel", "date", "occ_forecast", "occ_lower", "occ_upper"]].copy()
-    fc_hotel.to_csv(
-        os.path.join(REPORTS, "kaggle_forecast_hotel.csv"), index=False
-    )
+    fc_hotel.to_csv(os.path.join(REPORTS, "kaggle_forecast_hotel.csv"), index=False)
 
     # ---- Planning summary ----
     grid["week"] = grid["date"].dt.to_period("W").apply(lambda p: p.start_time)
     wk = grid.groupby(["hotel", "week"]).occ_forecast.mean().reset_index()
-    rows = []
+    plan_rows = []
     for h, grp in wk.groupby("hotel"):
         g = grp.sort_values("week")
         peak = g.loc[g.occ_forecast.idxmax()]
         low = g.loc[g.occ_forecast.idxmin()]
         avg_val = g.occ_forecast.mean()
-        rows.append({
+        plan_rows.append({
             "hotel": h,
             "avg_occ_90d": round(float(avg_val), 3),
             "peak_week": peak.week.date().isoformat(),
@@ -356,22 +428,14 @@ def main():
             "low_week": low.week.date().isoformat(),
             "low_occ": round(float(low.occ_forecast), 3),
         })
-    plan = pd.DataFrame(rows)
+    plan = pd.DataFrame(plan_rows)
 
     def recommend(r):
         if r.peak_occ >= 0.80:
-            return (
-                f"Raise rates for the week of {r.peak_week} "
-                f"(forecast {r.peak_occ:.0%} full)."
-            )
+            return (f"Raise rates the week of {r.peak_week} (forecast {r.peak_occ:.0%} full).")
         if r.low_occ <= 0.45:
-            return (
-                f"Add a promo / min-stay discount around {r.low_week} "
-                f"(soft demand {r.low_occ:.0%})."
-            )
-        if r.avg_occ_90d >= 0.70:
-            return "Strong quarter ahead - protect availability, test a price uplift."
-        return "Steady demand - keep rates, watch weekend pickup."
+            return (f"Add a promo around {r.low_week} (soft demand {r.low_occ:.0%}).")
+        return "Demand stable — maintain current strategy."
 
     plan["recommendation"] = plan.apply(recommend, axis=1)
     plan.sort_values("avg_occ_90d", ascending=False).to_csv(
@@ -385,97 +449,106 @@ def main():
         "forecast_end": future_dates[-1].date().isoformat(),
         "n_hotels": int(df["hotel"].nunique()),
         "portfolio_avg_occ_90d": round(float(grid.occ_forecast.mean()), 3),
+        "model": "per-hotel ensemble (LGB+XGB+CB, logit, extended features)",
     }
     with open(os.path.join(REPORTS, "kaggle_run_meta.json"), "w") as f:
         json.dump(meta, f, indent=2)
 
-    # ---- Feature importance ----
-    imp_df = pd.DataFrame(
-        list(imp_top.items()), columns=["feature", "gain"]
-    )
-    imp_df.to_csv(
-        os.path.join(REPORTS, "kaggle_importance.csv"), index=False
-    )
+    # ---- Feature importance from production LGB models ----
+    imp_rows = []
+    for h in hotels:
+        if h in prod_mean and hasattr(prod_mean[h], "__closure__"):
+            pass
+    # Train a shared LGB on full production data for importance extraction
+    tr_imp = train_prod.sort_values("date")
+    tri_split = int(len(tr_imp) * 0.8)
+    tri_tr = tr_imp.iloc[:tri_split]
+    tri_val = tr_imp.iloc[tri_split:]
+    lgb_imp = lgb.train(LGB_MEAN, lgb.Dataset(tri_tr[FEATURES].fillna(0), label=tri_tr["occupancy_rate"]),
+                         num_boost_round=NUM_ROUNDS,
+                         valid_sets=[lgb.Dataset(tri_val[FEATURES].fillna(0), label=tri_val["occupancy_rate"])],
+                         callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)])
+    imp_df = pd.DataFrame({
+        "feature": lgb_imp.feature_name(),
+        "gain": lgb_imp.feature_importance(importance_type="gain"),
+    }).sort_values("gain", ascending=False)
+    imp_df.to_csv(os.path.join(REPORTS, "kaggle_importance.csv"), index=False)
 
     # ---- Back-test detail for web charts (last fold) ----
     test_end = max_date - pd.Timedelta(days=fold_offsets[-1])
-    test_start = test_end - pd.Timedelta(days=HORIZON - 1)
-    te = df[(df["date"] >= test_start) & (df["date"] <= test_end)].copy()
-    train_te = df[df["date"] < test_start].copy()
+    test_start_bk = test_end - pd.Timedelta(days=HORIZON - 1)
+    te = df[(df["date"] >= test_start_bk) & (df["date"] <= test_end)].copy()
+    train_te = df[df["date"] < test_start_bk].copy()
     train_te = add_hotel_levels(train_te, train_te)
     te = add_hotel_levels(train_te, te)
-    train_te = add_cyclic_features(train_te)
-    te = add_cyclic_features(te)
-    X_te_last = te[FEATURES].fillna(0)
+    train_te = add_features(train_te)
+    te = add_features(te)
 
-    full_train = add_cyclic_features(train_te.copy())
-    # chronological train/val split for last-fold model
-    ft_sorted = full_train.sort_values("date")
-    ft_split = int(len(ft_sorted) * 0.8)
-    ft_tr = ft_sorted.iloc[:ft_split]
-    ft_val = ft_sorted.iloc[ft_split:]
-    last_boosters = {}
-    for name, params in zip(QUANTILE_NAMES, QUANTILE_PARAMS):
-        last_boosters[name] = lgb.train(
-            params,
-            lgb.Dataset(ft_tr[FEATURES].fillna(0), label=ft_tr["occupancy_rate"]),
-            num_boost_round=NUM_ROUNDS,
-            valid_sets=[lgb.Dataset(ft_val[FEATURES].fillna(0), label=ft_val["occupancy_rate"])],
-            callbacks=[lgb.early_stopping(ES_ROUNDS), lgb.log_evaluation(0)],
-        )
-    for name in QUANTILE_NAMES:
-        te[name] = last_boosters[name].predict(X_te_last)
+    te["pred"] = 0.0
+    te["lower"] = 0.0
+    te["upper"] = 0.0
+    for h in hotels:
+        mask_tr_bt = train_te["hotel"] == h
+        mask_te_bt = te["hotel"] == h
+        if mask_tr_bt.sum() < 30 or mask_te_bt.sum() < 5:
+            te.loc[mask_te_bt, "pred"] = te.loc[mask_te_bt, "b_hotel"]
+            te.loc[mask_te_bt, "lower"] = (te.loc[mask_te_bt, "pred"] - 0.05).clip(lower=0)
+            te.loc[mask_te_bt, "upper"] = (te.loc[mask_te_bt, "pred"] + 0.05).clip(upper=1)
+            continue
+        bdt = train_te.loc[mask_tr_bt].sort_values("date")
+        bd_split = int(len(bdt) * 0.8)
+        bd_tr = bdt.iloc[:bd_split]
+        bd_val = bdt.iloc[bd_split:]
+        X_tr_bt = bd_tr[FEATURES].fillna(0)
+        y_tr_bt = bd_tr["occupancy_rate"]
+        X_val_bt = bd_val[FEATURES].fillna(0)
+        y_val_bt = bd_val["occupancy_rate"]
+        X_te_bt = te.loc[mask_te_bt, FEATURES].fillna(0)
+
+        mean_fn_bt = train_hotel_ensemble(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt)
+        te.loc[mask_te_bt, "pred"] = mean_fn_bt(X_te_bt.values)
+        lower_fn_bt = train_hotel_quantile(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt, LGB_LOWER)
+        upper_fn_bt = train_hotel_quantile(X_tr_bt, y_tr_bt, X_val_bt, y_val_bt, LGB_UPPER)
+        te.loc[mask_te_bt, "lower"] = lower_fn_bt(X_te_bt.values).clip(min=0)
+        te.loc[mask_te_bt, "upper"] = upper_fn_bt(X_te_bt.values).clip(max=1.0)
+
+    mask_flip = te["lower"] > te["pred"]
+    te.loc[mask_flip, "lower"] = te.loc[mask_flip, "pred"] - 0.02
     te["lower"] = te["lower"].clip(lower=0)
+    mask_flip2 = te["upper"] < te["pred"]
+    te.loc[mask_flip2, "upper"] = te.loc[mask_flip2, "pred"] + 0.02
     te["upper"] = te["upper"].clip(upper=1.0)
-    te.loc[te["lower"] > te["pred"], "lower"] = te["pred"] - 0.02
-    te.loc[te["upper"] < te["pred"], "upper"] = te["pred"] + 0.02
-    te = make_baselines(full_train, te)
+    te = make_baselines(train_te, te)
 
-    bins = np.linspace(0, 1, 11)
+    n_bins = min(10, max(3, int(len(te) / 15)))
+    bins = np.linspace(te["pred"].min(), te["pred"].max(), n_bins + 1)
     te["bin"] = pd.cut(te["pred"], bins, include_lowest=True)
-    cal = (
-        te.groupby("bin")
-        .agg(p=("pred", "mean"), o=("occupancy_rate", "mean"))
-        .dropna()
-    )
+    cal = te.groupby("bin").agg(p=("pred", "mean"), o=("occupancy_rate", "mean")).dropna()
     calibration = [
         {"p": round(float(r.p), 3), "o": round(float(r.o), 3)}
         for _, r in cal.iterrows()
     ]
 
     te["week"] = te["date"].dt.to_period("W").apply(lambda p: p.start_time)
-    hw = (
-        te.groupby(["hotel", "week"])
-        .agg(
-            actual=("occupancy_rate", "mean"),
-            pred=("pred", "mean"),
-            lower=("lower", "mean"),
-            upper=("upper", "mean"),
-            seasonal=("b_seasonal", "mean"),
-        )
-        .reset_index()
-    )
+    hw = te.groupby(["hotel", "week"]).agg(
+        actual=("occupancy_rate", "mean"), pred=("pred", "mean"),
+        lower=("lower", "mean"), upper=("upper", "mean"),
+        seasonal=("b_seasonal", "mean"),
+    ).reset_index()
     fva = {}
-    for h in te["hotel"].unique():
+    for h in hotels:
         s = hw[hw.hotel == h].sort_values("week")
         fva[h] = [
-            {
-                "week": w.strftime("%Y-%m-%d"),
-                "actual": round(float(a), 3),
-                "pred": round(float(p), 3),
-                "lower": round(float(lw), 3),
-                "upper": round(float(up), 3),
-                "seasonal": round(float(se), 3),
-            }
+            {"week": w.strftime("%Y-%m-%d"), "actual": round(float(a), 3),
+             "pred": round(float(p), 3), "lower": round(float(lw), 3),
+             "upper": round(float(up), 3), "seasonal": round(float(se), 3)}
             for w, a, p, lw, up, se in zip(
                 s.week, s.actual, s.pred, s.lower, s.upper, s.seasonal
             )
         ]
 
     with open(os.path.join(REPORTS, "kaggle_fwd_backtest.json"), "w") as f:
-        json.dump(
-            {"calibration": calibration, "fva": fva}, f, separators=(",", ":")
-        )
+        json.dump({"calibration": calibration, "fva": fva}, f, separators=(",", ":"))
 
     # ---- Export metrics ----
     metrics = {
@@ -483,39 +556,28 @@ def main():
         "source_url": "https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand",
         "n_hotels": int(df["hotel"].nunique()),
         "n_rows": len(df),
-        "n_bookings": int(
-            pd.read_csv(os.path.join(DATA, "kaggle_bookings.csv")).shape[0]
-        ),
+        "n_bookings": int(pd.read_csv(os.path.join(DATA, "kaggle_bookings.csv")).shape[0]),
         "mean_occupancy": round(float(df["occupancy_rate"].mean()), 3),
         "horizon_days": HORIZON,
         "n_folds": len(fold_records),
         "headline": headline,
         "summary": {
-            k: {
-                mk: round(mv, 4) if isinstance(mv, float) else mv
-                for mk, mv in v.items()
-            }
+            k: {mk: round(mv, 4) if isinstance(mv, float) else mv
+                for mk, mv in v.items()}
             for k, v in summary.items()
         },
         "folds": fold_records,
-        "importance": {k: round(v, 1) for k, v in imp_top.items()},
     }
     with open(os.path.join(REPORTS, "kaggle_fwd_metrics.json"), "w") as f:
         json.dump(metrics, f, indent=2)
 
-    print(
-        f"\n  Forward forecast: {origin.date()} \u2192 {future_dates[-1].date()}"
-    )
-    for h in df["hotel"].unique():
-        mean_fc = grid[grid.hotel == h].occ_forecast.mean()
-        print(f"    {h}: 90-day avg {mean_fc:.1%}")
-    print(
-        "  Saved kaggle_forecast_hotel.csv, kaggle_planning_summary.csv, "
-        "kaggle_importance.csv, kaggle_run_meta.json"
-    )
-    print(
-        "  Saved kaggle_fwd_metrics.json, kaggle_fwd_backtest.json"
-    )
+    print(f"\n  Forward forecast: {origin.date()} \u2192 {future_dates[-1].date()}")
+    for h in hotels:
+        avg_fc = grid[grid.hotel == h].occ_forecast.mean()
+        print(f"    {h}: {FWD_HORIZON}-day avg {avg_fc:.1%}")
+    print(f"  Saved all outputs to reports/")
+    print(f"\n  === FINAL ===")
+    print(f"  Ensemble wk-MAE: {model_mae:.4f} vs seasonal {base_mae:.4f} = {improvement:+.1f}%")
 
 
 if __name__ == "__main__":
